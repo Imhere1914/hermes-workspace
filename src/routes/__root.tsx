@@ -58,6 +58,14 @@ const VALID_THEMES = [
   'claude-classic-light',
   'claude-slate',
   'claude-slate-light',
+  'sc',
+  'sc-deep-canopy',
+  'sc-sage-medium',
+  'sc-slate-moss',
+  'hfm',
+  'hfm-forest-grove',
+  'hfm-desert-sand',
+  'hfm-terracotta',
 ]
 
 const themeScript = `
@@ -68,7 +76,7 @@ const themeScript = `
     const root = document.documentElement
     const storedTheme = localStorage.getItem('${THEME_STORAGE_KEY}')
     const theme = ${JSON.stringify(VALID_THEMES)}.includes(storedTheme) ? storedTheme : '${DEFAULT_THEME}'
-    const lightThemes = ['claude-nous-light', 'claude-official-light', 'claude-classic-light', 'claude-slate-light']
+    const lightThemes = ['claude-nous-light', 'claude-official-light', 'claude-classic-light', 'claude-slate-light', 'hfm', 'hfm-forest-grove', 'hfm-desert-sand', 'hfm-terracotta']
     const isDark = !lightThemes.includes(theme)
     root.classList.remove('light', 'dark', 'system')
     root.classList.add(isDark ? 'dark' : 'light')
@@ -99,9 +107,17 @@ const themeColorScript = `
       'claude-classic-light': '#F5F2ED',
       'claude-slate': '#0d1117',
       'claude-slate-light': '#F6F8FA',
+      'sc': '#131816',
+      'sc-deep-canopy': '#0C1310',
+      'sc-sage-medium': '#1C2420',
+      'sc-slate-moss': '#161C19',
+      'hfm': '#F2EBE0',
+      'hfm-forest-grove': '#E8E4D8',
+      'hfm-desert-sand': '#F0E8D5',
+      'hfm-terracotta': '#EDE6DB',
     }
     const nextColor = colors[theme] || colors['${DEFAULT_THEME}']
-    const isDark = !['claude-nous-light', 'claude-official-light', 'claude-classic-light', 'claude-slate-light'].includes(String(theme))
+    const isDark = !['claude-nous-light', 'claude-official-light', 'claude-classic-light', 'claude-slate-light', 'hfm', 'hfm-forest-grove', 'hfm-desert-sand', 'hfm-terracotta'].includes(String(theme))
 
     let meta = document.querySelector('meta[name="theme-color"]')
     if (!meta) {
@@ -468,10 +484,20 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                 txt = '#24292f';
                 muted = '#57606A';
                 accent = '#3b82f6';
+              } else if (theme === 'sc' || theme === 'sc-deep-canopy' || theme === 'sc-sage-medium' || theme === 'sc-slate-moss') {
+                bg = '#131816';
+                txt = '#E8F0EA';
+                muted = '#7A9E88';
+                accent = '#5A9B72';
+              } else if (theme === 'hfm' || theme === 'hfm-forest-grove' || theme === 'hfm-desert-sand' || theme === 'hfm-terracotta') {
+                bg = '#F2EBE0';
+                txt = '#2C2820';
+                muted = '#7B7060';
+                accent = '#7C8A3F';
               }
             } catch(e){}
 
-            var isDark = !['claude-nous-light','claude-official-light','claude-classic-light','claude-slate-light'].includes(theme);
+            var isDark = !['claude-nous-light','claude-official-light','claude-classic-light','claude-slate-light','hfm','hfm-forest-grove','hfm-desert-sand','hfm-terracotta'].includes(theme);
             var quips = ["Consulting the oracle...","Loading ancient knowledge...","Warming up the messenger...","Calibrating tool chain...","Summoning your agent...","Preparing the workspace...","Bridging realms...","Initializing agent runtime..."];
             var quip = quips[Math.floor(Math.random() * quips.length)];
 
