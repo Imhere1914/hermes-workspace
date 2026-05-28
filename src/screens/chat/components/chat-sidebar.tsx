@@ -144,6 +144,7 @@ type ChatSidebarProps = {
 type NavItemDef = {
   kind: 'link' | 'button'
   to?: string
+  externalUrl?: string
   search?: Record<string, unknown>
   hash?: string
   icon: unknown
@@ -249,6 +250,46 @@ function NavItem({
   }
 
   if (item.kind === 'link') {
+    // External URL — open in new tab, no router involvement
+    if (item.externalUrl) {
+      if (isCollapsed) {
+        return (
+          <TooltipProvider>
+            <TooltipRoot>
+              <TooltipTrigger
+                render={
+                  <a
+                    href={item.externalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={handleSelect}
+                    className={cls}
+                    data-tour={item.dataTour}
+                  >
+                    {iconEl}
+                  </a>
+                }
+              />
+              <TooltipContent side="right">{item.label}</TooltipContent>
+            </TooltipRoot>
+          </TooltipProvider>
+        )
+      }
+      return (
+        <a
+          href={item.externalUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={handleSelect}
+          className={cls}
+          data-tour={item.dataTour}
+        >
+          {iconEl}
+          {labelEl}
+        </a>
+      )
+    }
+
     if (isCollapsed) {
       return (
         <TooltipProvider>
@@ -888,6 +929,49 @@ function ChatSidebarComponent({
 
   const systemItems: Array<NavItemDef> = []
 
+  // ── Brand-driven nav (SC / HFM) ─────────────────────────────────────────
+  // When a brand is active we show a curated subset with business-appropriate
+  // labels. Default Hermes nav is untouched for unbranded instances.
+
+  const BRANDED_MAIN_ROUTES_SC  = ['/chat', '/jobs', '/files', '/terminal']
+  const BRANDED_MAIN_ROUTES_HFM = ['/chat', '/files', '/terminal']
+
+  const displayMainItems = isBranded
+    ? mainItems
+        .filter(item =>
+          brand.id === 'sc'
+            ? BRANDED_MAIN_ROUTES_SC.includes(item.to ?? '')
+            : BRANDED_MAIN_ROUTES_HFM.includes(item.to ?? ''),
+        )
+        .map(item => ({
+          ...item,
+          // HFM: rename Files → Documents
+          label:
+            brand.id === 'hfm' && item.to === '/files'
+              ? 'Documents'
+              : item.label,
+        }))
+    : mainItems
+
+  const displayKnowledgeItems = isBranded
+    ? knowledgeItems.map(item => ({
+        ...item,
+        label:
+          item.to === '/skills'
+            ? brand.id === 'hfm' ? 'Protocols' : item.label
+            : item.to === '/profiles'
+              ? 'Avatars'
+              : item.to === '/mcp' && brand.id === 'hfm'
+                ? 'Integrations'
+                : item.label,
+      }))
+    : knowledgeItems
+
+  const mainSectionLabel    = isBranded
+    ? brand.id === 'hfm' ? 'Practice' : 'Workspace'
+    : 'Main'
+  const intelligenceSectionLabel = isBranded ? 'Intelligence' : 'Knowledge'
+
   return (
     <motion.aside
       ref={(node) => {
@@ -1083,7 +1167,7 @@ function ChatSidebarComponent({
         {/* Navigation sections */}
         <div className={cn('shrink-0 space-y-0.5 px-2', isMobile && 'order-2')}>
           <SectionLabel
-            label="Main"
+            label={mainSectionLabel}
             isCollapsed={isVisuallyCollapsed}
             transition={transition}
             collapsible
@@ -1093,14 +1177,14 @@ function ChatSidebarComponent({
           />
           <CollapsibleSection
             expanded={mainExpanded || isCollapsed}
-            items={mainItems}
+            items={displayMainItems}
             isCollapsed={isVisuallyCollapsed}
             transition={transition}
             onSelectSession={onSelectSession}
           />
 
           <SectionLabel
-            label="Knowledge"
+            label={intelligenceSectionLabel}
             isCollapsed={isVisuallyCollapsed}
             transition={transition}
             collapsible
@@ -1110,7 +1194,7 @@ function ChatSidebarComponent({
           />
           <CollapsibleSection
             expanded={knowledgeExpanded || isCollapsed}
-            items={knowledgeItems}
+            items={displayKnowledgeItems}
             isCollapsed={isVisuallyCollapsed}
             transition={transition}
             onSelectSession={onSelectSession}
