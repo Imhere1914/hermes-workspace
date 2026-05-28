@@ -18,6 +18,7 @@ import {
   useCallback,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react'
@@ -25,6 +26,7 @@ import type { TouchEvent } from 'react'
 import { cn } from '@/lib/utils'
 import { hapticTap } from '@/lib/haptics'
 import { useSettings } from '@/hooks/use-settings'
+import { useBrand } from '@/contexts/BrandContext'
 
 /** Height constant for consistent bottom insets on mobile routes with tab bar */
 export const MOBILE_TAB_BAR_OFFSET = 'var(--tabbar-h, 80px)'
@@ -133,6 +135,10 @@ export const MOBILE_NAV_TABS: Array<TabItem> = [
   },
 ]
 
+/** Tab IDs to show per brand (order preserved from MOBILE_NAV_TABS) */
+const SC_MOBILE_TAB_IDS  = ['dashboard', 'chat', 'jobs', 'files', 'terminal', 'memory', 'skills', 'mcp', 'profiles']
+const HFM_MOBILE_TAB_IDS = ['dashboard', 'chat', 'files', 'terminal', 'memory', 'skills', 'mcp', 'profiles']
+
 export function MobileTabBar() {
   const navigate = useNavigate()
   const pathname = useRouterState({ select: (s) => s.location.pathname })
@@ -144,6 +150,26 @@ export function MobileTabBar() {
   const [isDragging, setIsDragging] = useState(false)
 
   const { settings } = useSettings()
+
+  // Brand-aware tab list — filters and renames tabs for SC / HFM instances
+  const brand = useBrand()
+  const isBranded = brand.id === 'sc' || brand.id === 'hfm'
+
+  const displayTabs = useMemo(() => {
+    if (!isBranded) return MOBILE_NAV_TABS
+    const allowed = brand.id === 'sc' ? SC_MOBILE_TAB_IDS : HFM_MOBILE_TAB_IDS
+    return MOBILE_NAV_TABS
+      .filter((tab) => allowed.includes(tab.id))
+      .map((tab) => {
+        if (brand.id === 'hfm') {
+          if (tab.id === 'files')    return { ...tab, label: 'Documents' }
+          if (tab.id === 'skills')   return { ...tab, label: 'Protocols' }
+          if (tab.id === 'mcp')      return { ...tab, label: 'Integrations' }
+          if (tab.id === 'profiles') return { ...tab, label: 'Avatars' }
+        }
+        return tab
+      })
+  }, [isBranded, brand.id])
   void settings.mobileChatNavMode // reserved for future use
   const isOnChat =
     pathname.startsWith('/chat') || pathname === '/new' || pathname === '/'
@@ -180,22 +206,22 @@ export function MobileTabBar() {
 
       if (Math.abs(delta) < threshold) return
 
-      const currentIdx = MOBILE_NAV_TABS.findIndex((tab) => tab.match(pathname))
+      const currentIdx = displayTabs.findIndex((tab) => tab.match(pathname))
       const nextIdx =
         delta < 0
-          ? Math.min(currentIdx + 1, MOBILE_NAV_TABS.length - 1) // swipe left → next tab
+          ? Math.min(currentIdx + 1, displayTabs.length - 1) // swipe left → next tab
           : Math.max(currentIdx - 1, 0) // swipe right → prev tab
 
       if (
         nextIdx !== currentIdx &&
         nextIdx >= 0 &&
-        nextIdx < MOBILE_NAV_TABS.length
+        nextIdx < displayTabs.length
       ) {
         hapticTap()
-        void navigate({ to: MOBILE_NAV_TABS[nextIdx].to })
+        void navigate({ to: displayTabs[nextIdx].to })
       }
     },
-    [navigate, pathname],
+    [navigate, pathname, displayTabs],
   )
 
   // Measure pill for --tabbar-h (~80px total = pill + bottom offset)
@@ -276,7 +302,7 @@ export function MobileTabBar() {
         onTouchEnd={handlePillTouchEnd}
       >
         <div className="flex items-center gap-1">
-          {MOBILE_NAV_TABS.map((tab, idx) => {
+          {displayTabs.map((tab, idx) => {
             const isActive = tab.match(pathname)
             const isCenter = tab.id === 'chat'
             const circleSize =

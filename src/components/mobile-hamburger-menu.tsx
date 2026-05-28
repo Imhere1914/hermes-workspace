@@ -18,9 +18,10 @@ import {
   UserGroupIcon,
   UserMultipleIcon,
 } from '@hugeicons/core-free-icons'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { hapticTap } from '@/lib/haptics'
+import { useBrand } from '@/contexts/BrandContext'
 import { getTheme, getThemeVariant, isDarkTheme, setTheme } from '@/lib/theme'
 import {
   selectChatProfileDisplayName,
@@ -115,6 +116,10 @@ export const MOBILE_HAMBURGER_NAV_ITEMS = [
   },
 ]
 
+/** Nav item IDs to expose per brand — playground/swarm/conductor/ops are internal tools */
+const SC_HAMBURGER_IDS  = ['chat', 'dashboard', 'terminal', 'jobs', 'memory', 'skills', 'mcp', 'profiles']
+const HFM_HAMBURGER_IDS = ['chat', 'dashboard', 'terminal', 'memory', 'skills', 'mcp', 'profiles']
+
 /** Shared drawer state — used by both the trigger button and the drawer itself */
 let _setOpen: ((v: boolean) => void) | null = null
 
@@ -161,6 +166,30 @@ export function MobileHamburgerMenu() {
   const profileDisplayName = useChatSettingsStore(selectChatProfileDisplayName)
   const isChatRoute =
     pathname.startsWith('/chat') || pathname === '/new' || pathname === '/'
+
+  // Brand-aware nav items — filter internal tools and rename for each instance
+  const brand = useBrand()
+  const isBranded = brand.id === 'sc' || brand.id === 'hfm'
+
+  const displayItems = useMemo(() => {
+    if (!isBranded) return MOBILE_HAMBURGER_NAV_ITEMS
+    const allowed = brand.id === 'sc' ? SC_HAMBURGER_IDS : HFM_HAMBURGER_IDS
+    return MOBILE_HAMBURGER_NAV_ITEMS
+      .filter((item) => allowed.includes(item.id))
+      .map((item) => {
+        if (brand.id === 'hfm') {
+          if (item.id === 'skills')   return { ...item, label: 'Protocols' }
+          if (item.id === 'mcp')      return { ...item, label: 'Integrations' }
+          if (item.id === 'profiles') return { ...item, label: 'Avatars' }
+        }
+        return item
+      })
+  }, [isBranded, brand.id])
+
+  const drawerTitle    = isBranded ? brand.name : 'Hermes Agent'
+  const drawerSubtitle = isBranded
+    ? brand.id === 'hfm' ? 'Practice' : 'Workspace'
+    : 'Workspace'
 
   function handleNav(to: string) {
     hapticTap()
@@ -215,7 +244,7 @@ export function MobileHamburgerMenu() {
           <div className="flex items-center gap-2.5">
             <img
               src="/claude-avatar.webp"
-              alt="Hermes Agent"
+              alt={drawerTitle}
               className="size-8 rounded-xl shrink-0"
             />
             <div className="flex flex-col leading-tight">
@@ -223,13 +252,13 @@ export function MobileHamburgerMenu() {
                 className="font-bold text-[15px] tracking-tight"
                 style={{ color: 'var(--color-ink, #111)' }}
               >
-                Hermes Agent
+                {drawerTitle}
               </span>
               <span
                 className="text-[11px]"
                 style={{ color: 'var(--color-muted, #888)' }}
               >
-                Workspace
+                {drawerSubtitle}
               </span>
             </div>
           </div>
@@ -246,7 +275,7 @@ export function MobileHamburgerMenu() {
 
         {/* Nav items */}
         <nav className="flex flex-col gap-1 px-3 pt-4 flex-1">
-          {MOBILE_HAMBURGER_NAV_ITEMS.map((item) => {
+          {displayItems.map((item) => {
             const isActive = item.match(pathname)
             return (
               <button
