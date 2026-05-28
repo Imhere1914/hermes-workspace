@@ -38,6 +38,8 @@ import { MobilePageHeader } from '@/components/mobile-page-header'
 
 import { MobileTerminalInput } from '@/components/terminal/mobile-terminal-input'
 import { ClaudeReconnectBanner } from '@/components/claude-reconnect-banner'
+import { BrandStatusBadge } from '@/components/brand-status-badge'
+import { BrandColorPanel } from '@/components/brand-color-panel'
 import { useMobileKeyboard } from '@/hooks/use-mobile-keyboard'
 import { SystemMetricsFooter } from '@/components/system-metrics-footer'
 import { CommandPalette } from '@/components/command-palette'
@@ -82,6 +84,7 @@ export function WorkspaceShell({ children }: WorkspaceShellProps) {
   useMobileKeyboard()
 
   const [creatingSession, setCreatingSession] = useState(false)
+  const [brandColorPanelOpen, setBrandColorPanelOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(() => {
     if (typeof window === 'undefined') return false
     return window.matchMedia('(max-width: 767px)').matches
@@ -313,6 +316,12 @@ export function WorkspaceShell({ children }: WorkspaceShellProps) {
         style={shellStyle}
       >
         <ClaudeReconnectBanner enabled={authState.checked} />
+        {/* Brand + connection status — fixed top-right chip (non-Electron only) */}
+        {!isElectron && (
+          <div className="fixed top-2 right-3 z-50 pointer-events-none">
+            <BrandStatusBadge />
+          </div>
+        )}
         {/* Electron: native-style title bar (absolute over the padding) */}
         {isElectron && (
           <div
@@ -335,8 +344,10 @@ export function WorkspaceShell({ children }: WorkspaceShellProps) {
                 Hermes
               </span>
             </div>
-            {/* Right spacer to balance */}
-            <div className="w-[78px] shrink-0" />
+            {/* Brand + connection status (right side of title bar) */}
+            <div className="w-[78px] shrink-0 flex items-center justify-end pr-3">
+              <BrandStatusBadge />
+            </div>
           </div>
         )}
         <div
@@ -362,6 +373,7 @@ export function WorkspaceShell({ children }: WorkspaceShellProps) {
                 sessionsFetching={sessionsFetching}
                 sessionsError={sessionsError}
                 onRetrySessions={refetchSessions}
+                onOpenBrandColors={() => setBrandColorPanelOpen(true)}
               />
             </div>
           )}
@@ -459,6 +471,10 @@ export function WorkspaceShell({ children }: WorkspaceShellProps) {
         <SystemMetricsFooter leftOffsetPx={sidebarCollapsed ? 48 : 300} />
       ) : null}
       {!isChromeFreeSurface ? <CommandPalette pathname={pathname} sessions={sessions} /> : null}
+      <BrandColorPanel
+        open={brandColorPanelOpen}
+        onClose={() => setBrandColorPanelOpen(false)}
+      />
     </>
   )
 }

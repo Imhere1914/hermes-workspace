@@ -29,6 +29,7 @@ import { ErrorBoundary } from '@/components/error-boundary'
 import { LoginScreen } from '@/components/auth/login-screen'
 import { fetchClaudeAuthStatus, type AuthStatus } from '@/lib/claude-auth'
 import { getRootSurfaceState } from './-root-layout-state'
+import { BrandProvider } from '@/contexts/BrandContext'
 
 const APP_CSP = [
   "default-src 'self'",
@@ -126,12 +127,15 @@ export const Route = createRootRoute({
           'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-visual',
       },
       {
-        title: 'Hermes Workspace',
+        title: process.env.BRAND_NAME || 'Hermes Workspace',
       },
       {
         name: 'description',
-        content:
-          'Hermes Agent workspace for chat, tools, files, memory, and jobs.',
+        content: process.env.BRAND_DESCRIPTION || 'Hermes Agent workspace for chat, tools, files, memory, and jobs.',
+      },
+      {
+        name: 'application-name',
+        content: process.env.BRAND_NAME || 'Hermes Workspace',
       },
       {
         property: 'og:image',
@@ -352,6 +356,7 @@ function RootLayout() {
   const rootSurfaceState = getRootSurfaceState(onboardingComplete, authStatus)
 
   return (
+    <BrandProvider>
     <QueryClientProvider client={queryClient}>
       <Toaster />
       {mounted && rootSurfaceState.showLogin ? <LoginScreen /> : null}
@@ -383,6 +388,7 @@ function RootLayout() {
         </>
       ) : null}
     </QueryClientProvider>
+    </BrandProvider>
   )
 }
 

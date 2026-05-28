@@ -1531,3 +1531,519 @@ code {
    Tailwind oklch values and .system dark mode overrides.
    ═══════════════════════════════════════════════════════════════════ */
 @import './scifi-theme.css';
+
+/* ════════════════════════════════════════════════════════════════════
+   BRAND THEMES
+   SC Intelligence  — charcoal dark + soft green (4 schemes)
+   HFM Intelligence — cream light + olive/brown (4 schemes)
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── SC: Charcoal Forest (default) ─────────────────────────────────── */
+[data-theme='sc'] {
+  --theme-bg:              #131816;
+  --theme-sidebar:         #111512;
+  --theme-panel:           #1A1F1C;
+  --theme-card:            #1D2420;
+  --theme-card2:           #222924;
+  --theme-border:          #2D3630;
+  --theme-border-subtle:   #222820;
+  --theme-text:            #C5D1CC;
+  --theme-muted:           #7A9690;
+  --theme-shadow-1:        0 1px 2px rgba(0,0,0,0.65);
+  --theme-shadow-2:        0 6px 16px rgba(0,0,0,0.55);
+  --theme-shadow-3:        0 16px 36px rgba(0,0,0,0.65);
+  --theme-glass:           rgba(19,24,22,0.90);
+  --theme-focus:           #88C4A4;
+  --theme-accent:          #5A9B72;
+  --theme-accent-secondary:#88C4A4;
+  --theme-accent-subtle:   rgba(90,155,114,0.14);
+  --theme-accent-border:   rgba(90,155,114,0.28);
+  --theme-active:          #88C4A4;
+  --theme-link:            #88C4A4;
+  --theme-success:         #6BBF8E;
+  --theme-warning:         #D4A843;
+  --theme-danger:          #C0544E;
+  --theme-stripe:          rgba(45,54,48,0.48);
+  --theme-header-bg:       #1A1F1C;
+  --theme-header-border:   #2D3630;
+  --chat-user-bg:          #1A2420;
+  --chat-user-border:      rgba(90,155,114,0.28);
+  --chat-user-foreground:  #C5D1CC;
+  --chat-assistant-bg:     #1A1F1C;
+  --chat-assistant-border: #222820;
+  --chat-assistant-foreground: #C5D1CC;
+  --composer-bg:           #1A1F1C;
+  --composer-border:       #2D3630;
+  --composer-placeholder:  rgba(197,209,204,0.42);
+  --tool-card-bg:          #1A1F1C;
+  --tool-card-border:      #2D3630;
+  --tool-card-title:       #C5D1CC;
+  --tool-card-muted:       #7A9690;
+  --code-bg:               #111512;
+  --code-border:           #2D3630;
+  --code-foreground:       #88C4A4;
+  --theme-input:           #1A1F1C;
+}
+
+/* ── SC: Deep Canopy ─────────────────────────────────────────────── */
+[data-theme='sc-deep-canopy'] {
+  --theme-bg:              #0C1310;
+  --theme-sidebar:         #090F0C;
+  --theme-panel:           #131A15;
+  --theme-card:            #172018;
+  --theme-card2:           #1B261C;
+  --theme-border:          #263028;
+  --theme-border-subtle:   #1A2018;
+  --theme-text:            #BECCC6;
+  --theme-muted:           #729088;
+  --theme-shadow-1:        0 1px 2px rgba(0,0,0,0.72);
+  --theme-shadow-2:        0 6px 16px rgba(0,0,0,0.60);
+  --theme-shadow-3:        0 16px 36px rgba(0,0,0,0.70);
+  --theme-glass:           rgba(12,19,16,0.92);
+  --theme-focus:           #6BB095;
+  --theme-accent:          #3F7A56;
+  --theme-accent-secondary:#6BB095;
+  --theme-accent-subtle:   rgba(63,122,86,0.14);
+  --theme-accent-border:   rgba(63,122,86,0.28);
+  --theme-active:          #6BB095;
+  --theme-link:            #6BB095;
+  --theme-success:         #5AAF7C;
+  --theme-warning:         #C49A30;
+  --theme-danger:          #B04848;
+  --theme-stripe:          rgba(38,48,40,0.50);
+  --theme-header-bg:       #131A15;
+  --theme-header-border:   #263028;
+  --chat-user-bg:          #141E16;
+  --chat-user-border:      rgba(63,122,86,0.28);
+  --chat-user-foreground:  #BECCC6;
+  --chat-assistant-bg:     #131A15;
+  --chat-assistant-border: #1A2018;
+  --chat-assistant-foreground: #BECCC6;
+  --composer-bg:           #131A15;
+  --composer-border:       #263028;
+  --composer-placeholder:  rgba(190,204,198,0.40);
+  --tool-card-bg:          #131A15;
+  --tool-card-border:      #263028;
+  --tool-card-title:       #BECCC6;
+  --tool-card-muted:       #729088;
+  --code-bg:               #090F0C;
+  --code-border:           #263028;
+  --code-foreground:       #6BB095;
+  --theme-input:           #131A15;
+}
+
+/* ── SC: Sage Medium ─────────────────────────────────────────────── */
+[data-theme='sc-sage-medium'] {
+  --theme-bg:              #1C2420;
+  --theme-sidebar:         #181F1B;
+  --theme-panel:           #242D28;
+  --theme-card:            #2A3530;
+  --theme-card2:           #303E38;
+  --theme-border:          #3A4842;
+  --theme-border-subtle:   #2C3630;
+  --theme-text:            #D0DDD9;
+  --theme-muted:           #96AEA6;
+  --theme-shadow-1:        0 1px 2px rgba(0,0,0,0.55);
+  --theme-shadow-2:        0 6px 16px rgba(0,0,0,0.48);
+  --theme-shadow-3:        0 16px 36px rgba(0,0,0,0.58);
+  --theme-glass:           rgba(28,36,32,0.90);
+  --theme-focus:           #9ED4B8;
+  --theme-accent:          #6DBF8E;
+  --theme-accent-secondary:#9ED4B8;
+  --theme-accent-subtle:   rgba(109,191,142,0.14);
+  --theme-accent-border:   rgba(109,191,142,0.28);
+  --theme-active:          #9ED4B8;
+  --theme-link:            #9ED4B8;
+  --theme-success:         #7ACC9A;
+  --theme-warning:         #D8AE52;
+  --theme-danger:          #C05A52;
+  --theme-stripe:          rgba(58,72,66,0.48);
+  --theme-header-bg:       #242D28;
+  --theme-header-border:   #3A4842;
+  --chat-user-bg:          #243028;
+  --chat-user-border:      rgba(109,191,142,0.28);
+  --chat-user-foreground:  #D0DDD9;
+  --chat-assistant-bg:     #242D28;
+  --chat-assistant-border: #2C3630;
+  --chat-assistant-foreground: #D0DDD9;
+  --composer-bg:           #242D28;
+  --composer-border:       #3A4842;
+  --composer-placeholder:  rgba(208,221,217,0.42);
+  --tool-card-bg:          #242D28;
+  --tool-card-border:      #3A4842;
+  --tool-card-title:       #D0DDD9;
+  --tool-card-muted:       #96AEA6;
+  --code-bg:               #181F1B;
+  --code-border:           #3A4842;
+  --code-foreground:       #9ED4B8;
+  --theme-input:           #242D28;
+}
+
+/* ── SC: Slate Moss ──────────────────────────────────────────────── */
+[data-theme='sc-slate-moss'] {
+  --theme-bg:              #161C19;
+  --theme-sidebar:         #121814;
+  --theme-panel:           #1D2420;
+  --theme-card:            #222B26;
+  --theme-card2:           #27322C;
+  --theme-border:          #303C36;
+  --theme-border-subtle:   #252D29;
+  --theme-text:            #C4D0CB;
+  --theme-muted:           #869A93;
+  --theme-shadow-1:        0 1px 2px rgba(0,0,0,0.65);
+  --theme-shadow-2:        0 6px 16px rgba(0,0,0,0.55);
+  --theme-shadow-3:        0 16px 36px rgba(0,0,0,0.65);
+  --theme-glass:           rgba(22,28,25,0.90);
+  --theme-focus:           #7FC4A2;
+  --theme-accent:          #4E8B6A;
+  --theme-accent-secondary:#7FC4A2;
+  --theme-accent-subtle:   rgba(78,139,106,0.14);
+  --theme-accent-border:   rgba(78,139,106,0.28);
+  --theme-active:          #7FC4A2;
+  --theme-link:            #7FC4A2;
+  --theme-success:         #65B087;
+  --theme-warning:         #CCA240;
+  --theme-danger:          #B85050;
+  --theme-stripe:          rgba(48,60,54,0.48);
+  --theme-header-bg:       #1D2420;
+  --theme-header-border:   #303C36;
+  --chat-user-bg:          #1C2822;
+  --chat-user-border:      rgba(78,139,106,0.28);
+  --chat-user-foreground:  #C4D0CB;
+  --chat-assistant-bg:     #1D2420;
+  --chat-assistant-border: #252D29;
+  --chat-assistant-foreground: #C4D0CB;
+  --composer-bg:           #1D2420;
+  --composer-border:       #303C36;
+  --composer-placeholder:  rgba(196,208,203,0.42);
+  --tool-card-bg:          #1D2420;
+  --tool-card-border:      #303C36;
+  --tool-card-title:       #C4D0CB;
+  --tool-card-muted:       #869A93;
+  --code-bg:               #121814;
+  --code-border:           #303C36;
+  --code-foreground:       #7FC4A2;
+  --theme-input:           #1D2420;
+}
+
+/* ── HFM: Warm Harvest (default) ─────────────────────────────────── */
+[data-theme='hfm'] {
+  --theme-bg:              #F2EBE0;
+  --theme-sidebar:         #F6F0E8;
+  --theme-panel:           #FAF6F0;
+  --theme-card:            #FFFFFF;
+  --theme-card2:           #F5EFE6;
+  --theme-border:          #DDD6C8;
+  --theme-border-subtle:   #EBE5DA;
+  --theme-text:            #2E2018;
+  --theme-muted:           #8A7868;
+  --theme-shadow-1:        0 1px 3px rgba(46,32,24,0.06);
+  --theme-shadow-2:        0 4px 12px rgba(46,32,24,0.08);
+  --theme-shadow-3:        0 12px 32px rgba(46,32,24,0.12);
+  --theme-glass:           rgba(242,235,224,0.92);
+  --theme-focus:           #7C8A3F;
+  --theme-accent:          #7C8A3F;
+  --theme-accent-secondary:#9B6B42;
+  --theme-accent-subtle:   rgba(124,138,63,0.12);
+  --theme-accent-border:   rgba(124,138,63,0.28);
+  --theme-active:          #7C8A3F;
+  --theme-link:            #9B6B42;
+  --theme-success:         #5E7A30;
+  --theme-warning:         #C07830;
+  --theme-danger:          #B84040;
+  --theme-stripe:          rgba(221,214,200,0.50);
+  --theme-header-bg:       #FAF6F0;
+  --theme-header-border:   #DDD6C8;
+  --chat-user-bg:          #EDE7DA;
+  --chat-user-border:      #C8B898;
+  --chat-user-foreground:  #2E2018;
+  --chat-assistant-bg:     #FAF7F2;
+  --chat-assistant-border: #DDD6C8;
+  --chat-assistant-foreground: #2E2018;
+  --composer-bg:           #FFFFFF;
+  --composer-border:       #DDD6C8;
+  --composer-placeholder:  rgba(46,32,24,0.40);
+  --tool-card-bg:          #FAF6F0;
+  --tool-card-border:      #DDD6C8;
+  --tool-card-title:       #2E2018;
+  --tool-card-muted:       #8A7868;
+  --code-bg:               #F5EFE6;
+  --code-border:           #D8CFC0;
+  --code-foreground:       #9B6B42;
+  --theme-input:           #FFFFFF;
+}
+
+/* ── HFM: Forest Grove ───────────────────────────────────────────── */
+[data-theme='hfm-forest-grove'] {
+  --theme-bg:              #E8E4D8;
+  --theme-sidebar:         #ECE8DC;
+  --theme-panel:           #F4F0E8;
+  --theme-card:            #FDFAF4;
+  --theme-card2:           #EEEAE0;
+  --theme-border:          #CCC5B4;
+  --theme-border-subtle:   #DAD4C8;
+  --theme-text:            #261A10;
+  --theme-muted:           #7A6A58;
+  --theme-shadow-1:        0 1px 3px rgba(38,26,16,0.07);
+  --theme-shadow-2:        0 4px 12px rgba(38,26,16,0.09);
+  --theme-shadow-3:        0 12px 32px rgba(38,26,16,0.13);
+  --theme-glass:           rgba(232,228,216,0.92);
+  --theme-focus:           #5E6B2F;
+  --theme-accent:          #5E6B2F;
+  --theme-accent-secondary:#7A4F2E;
+  --theme-accent-subtle:   rgba(94,107,47,0.12);
+  --theme-accent-border:   rgba(94,107,47,0.28);
+  --theme-active:          #5E6B2F;
+  --theme-link:            #7A4F2E;
+  --theme-success:         #4E6A24;
+  --theme-warning:         #A86A20;
+  --theme-danger:          #A03030;
+  --theme-stripe:          rgba(204,197,180,0.50);
+  --theme-header-bg:       #F4F0E8;
+  --theme-header-border:   #CCC5B4;
+  --chat-user-bg:          #DED9CC;
+  --chat-user-border:      #B8AC94;
+  --chat-user-foreground:  #261A10;
+  --chat-assistant-bg:     #F4F1EB;
+  --chat-assistant-border: #CCC5B4;
+  --chat-assistant-foreground: #261A10;
+  --composer-bg:           #FDFAF4;
+  --composer-border:       #CCC5B4;
+  --composer-placeholder:  rgba(38,26,16,0.40);
+  --tool-card-bg:          #F4F0E8;
+  --tool-card-border:      #CCC5B4;
+  --tool-card-title:       #261A10;
+  --tool-card-muted:       #7A6A58;
+  --code-bg:               #EEEAE0;
+  --code-border:           #C8BFB0;
+  --code-foreground:       #7A4F2E;
+  --theme-input:           #FDFAF4;
+}
+
+/* ── HFM: Desert Sand ────────────────────────────────────────────── */
+[data-theme='hfm-desert-sand'] {
+  --theme-bg:              #F0E8D5;
+  --theme-sidebar:         #F4ECD9;
+  --theme-panel:           #FAF4E8;
+  --theme-card:            #FFFDF5;
+  --theme-card2:           #F5EDD8;
+  --theme-border:          #D8CEBC;
+  --theme-border-subtle:   #E8E0D0;
+  --theme-text:            #2A1E10;
+  --theme-muted:           #8C7C64;
+  --theme-shadow-1:        0 1px 3px rgba(42,30,16,0.07);
+  --theme-shadow-2:        0 4px 12px rgba(42,30,16,0.09);
+  --theme-shadow-3:        0 12px 32px rgba(42,30,16,0.13);
+  --theme-glass:           rgba(240,232,213,0.92);
+  --theme-focus:           #9B8A5A;
+  --theme-accent:          #9B8A5A;
+  --theme-accent-secondary:#8B5E35;
+  --theme-accent-subtle:   rgba(155,138,90,0.12);
+  --theme-accent-border:   rgba(155,138,90,0.28);
+  --theme-active:          #9B8A5A;
+  --theme-link:            #8B5E35;
+  --theme-success:         #5C7030;
+  --theme-warning:         #B47228;
+  --theme-danger:          #AA3030;
+  --theme-stripe:          rgba(216,206,188,0.50);
+  --theme-header-bg:       #FAF4E8;
+  --theme-header-border:   #D8CEBC;
+  --chat-user-bg:          #E8E0CA;
+  --chat-user-border:      #C4B890;
+  --chat-user-foreground:  #2A1E10;
+  --chat-assistant-bg:     #FAF5EC;
+  --chat-assistant-border: #D8CEBC;
+  --chat-assistant-foreground: #2A1E10;
+  --composer-bg:           #FFFDF5;
+  --composer-border:       #D8CEBC;
+  --composer-placeholder:  rgba(42,30,16,0.40);
+  --tool-card-bg:          #FAF4E8;
+  --tool-card-border:      #D8CEBC;
+  --tool-card-title:       #2A1E10;
+  --tool-card-muted:       #8C7C64;
+  --code-bg:               #F5EDD8;
+  --code-border:           #D4C8B0;
+  --code-foreground:       #8B5E35;
+  --theme-input:           #FFFDF5;
+}
+
+/* ── HFM: Terracotta ─────────────────────────────────────────────── */
+[data-theme='hfm-terracotta'] {
+  --theme-bg:              #EDE6DB;
+  --theme-sidebar:         #F0E9DE;
+  --theme-panel:           #F8F3EC;
+  --theme-card:            #FEFCF8;
+  --theme-card2:           #F2ECE2;
+  --theme-border:          #D8D0C0;
+  --theme-border-subtle:   #E5DED0;
+  --theme-text:            #2C1E16;
+  --theme-muted:           #8A7662;
+  --theme-shadow-1:        0 1px 3px rgba(44,30,22,0.07);
+  --theme-shadow-2:        0 4px 12px rgba(44,30,22,0.09);
+  --theme-shadow-3:        0 12px 32px rgba(44,30,22,0.13);
+  --theme-glass:           rgba(237,230,219,0.92);
+  --theme-focus:           #6B7A3A;
+  --theme-accent:          #6B7A3A;
+  --theme-accent-secondary:#B8644A;
+  --theme-accent-subtle:   rgba(107,122,58,0.12);
+  --theme-accent-border:   rgba(107,122,58,0.28);
+  --theme-active:          #6B7A3A;
+  --theme-link:            #B8644A;
+  --theme-success:         #527828;
+  --theme-warning:         #B87030;
+  --theme-danger:          #B03838;
+  --theme-stripe:          rgba(216,208,192,0.50);
+  --theme-header-bg:       #F8F3EC;
+  --theme-header-border:   #D8D0C0;
+  --chat-user-bg:          #E4DCCE;
+  --chat-user-border:      #C4B898;
+  --chat-user-foreground:  #2C1E16;
+  --chat-assistant-bg:     #F8F4EE;
+  --chat-assistant-border: #D8D0C0;
+  --chat-assistant-foreground: #2C1E16;
+  --composer-bg:           #FEFCF8;
+  --composer-border:       #D8D0C0;
+  --composer-placeholder:  rgba(44,30,22,0.40);
+  --tool-card-bg:          #F8F3EC;
+  --tool-card-border:      #D8D0C0;
+  --tool-card-title:       #2C1E16;
+  --tool-card-muted:       #8A7662;
+  --code-bg:               #F2ECE2;
+  --code-border:           #D4CAB8;
+  --code-foreground:       #B8644A;
+  --theme-input:           #FEFCF8;
+}
+
+/* ── SC brand: html/body/root background ────────────────────────── */
+[data-theme='sc'] html,
+[data-theme='sc'] body,
+[data-theme='sc'] #root,
+[data-theme='sc'] .dark,
+[data-theme='sc-deep-canopy'] html,
+[data-theme='sc-deep-canopy'] body,
+[data-theme='sc-deep-canopy'] #root,
+[data-theme='sc-deep-canopy'] .dark,
+[data-theme='sc-sage-medium'] html,
+[data-theme='sc-sage-medium'] body,
+[data-theme='sc-sage-medium'] #root,
+[data-theme='sc-sage-medium'] .dark,
+[data-theme='sc-slate-moss'] html,
+[data-theme='sc-slate-moss'] body,
+[data-theme='sc-slate-moss'] #root,
+[data-theme='sc-slate-moss'] .dark {
+  background-color: var(--theme-bg);
+  color: var(--theme-text);
+}
+
+/* ── HFM brand: html/body/root background ───────────────────────── */
+[data-theme='hfm'] html,
+[data-theme='hfm'] body,
+[data-theme='hfm'] #root,
+[data-theme='hfm'] .light,
+[data-theme='hfm-forest-grove'] html,
+[data-theme='hfm-forest-grove'] body,
+[data-theme='hfm-forest-grove'] #root,
+[data-theme='hfm-forest-grove'] .light,
+[data-theme='hfm-desert-sand'] html,
+[data-theme='hfm-desert-sand'] body,
+[data-theme='hfm-desert-sand'] #root,
+[data-theme='hfm-desert-sand'] .light,
+[data-theme='hfm-terracotta'] html,
+[data-theme='hfm-terracotta'] body,
+[data-theme='hfm-terracotta'] #root,
+[data-theme='hfm-terracotta'] .light {
+  background-color: var(--theme-bg);
+  color: var(--theme-text);
+}
+
+/* ── SC: Tailwind primary token remaps (dark) ───────────────────── */
+[data-theme='sc'],
+[data-theme='sc-deep-canopy'],
+[data-theme='sc-sage-medium'],
+[data-theme='sc-slate-moss'] {
+  --color-primary-50:  var(--theme-panel);
+  --color-primary-100: var(--theme-card);
+  --color-primary-200: var(--theme-border);
+  --color-primary-300: var(--theme-border-subtle);
+  --color-primary-400: var(--theme-muted);
+  --color-primary-500: var(--theme-muted);
+  --color-primary-600: var(--theme-muted);
+  --color-primary-700: var(--theme-text);
+  --color-primary-800: var(--theme-text);
+  --color-primary-900: var(--theme-text);
+  --color-primary-950: var(--theme-text);
+  --color-surface:     var(--theme-bg);
+  --color-surface-deep:var(--theme-bg);
+  --color-ink:         var(--theme-text);
+  --color-accent-400:  var(--theme-accent-secondary);
+  --color-accent-500:  var(--theme-accent);
+  --color-accent-600:  var(--theme-accent);
+}
+
+/* ── HFM: Tailwind primary token remaps (light) ─────────────────── */
+[data-theme='hfm'],
+[data-theme='hfm-forest-grove'],
+[data-theme='hfm-desert-sand'],
+[data-theme='hfm-terracotta'] {
+  color-scheme: light !important;
+  --color-primary-50:  var(--theme-card) !important;
+  --color-primary-100: var(--theme-card2) !important;
+  --color-primary-200: var(--theme-border) !important;
+  --color-primary-300: var(--theme-border-subtle) !important;
+  --color-primary-400: var(--theme-muted) !important;
+  --color-primary-500: var(--theme-muted) !important;
+  --color-primary-600: var(--theme-muted) !important;
+  --color-primary-700: var(--theme-text) !important;
+  --color-primary-800: var(--theme-text) !important;
+  --color-primary-900: var(--theme-text) !important;
+  --color-primary-950: var(--theme-text) !important;
+  --color-surface:     var(--theme-bg) !important;
+  --color-surface-deep:var(--theme-bg) !important;
+  --color-ink:         var(--theme-text) !important;
+  --color-accent-400:  var(--theme-accent-secondary) !important;
+  --color-accent-500:  var(--theme-accent) !important;
+  --color-accent-600:  var(--theme-accent) !important;
+}
+
+/* ── Brand font overrides ────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap');
+
+[data-theme='sc'] body,
+[data-theme='sc-deep-canopy'] body,
+[data-theme='sc-sage-medium'] body,
+[data-theme='sc-slate-moss'] body {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+[data-theme='hfm'] body,
+[data-theme='hfm-forest-grove'] body,
+[data-theme='hfm-desert-sand'] body,
+[data-theme='hfm-terracotta'] body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+/* HFM display text uses Playfair Display serif */
+[data-theme^='hfm'] .editorial-display,
+[data-theme^='hfm'] h1,
+[data-theme^='hfm'] h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* HFM: apply warm light-theme shadow suppression */
+[data-theme^='hfm'] .shadow-lg,
+[data-theme^='hfm'] .shadow-xl,
+[data-theme^='hfm'] .shadow-2xl {
+  box-shadow:
+    0 1px 0 rgba(46,32,24,0.04),
+    inset 0 1px 0 rgba(255,255,255,0.7) !important;
+}
+[data-theme^='hfm'] .shadow-md {
+  box-shadow: 0 1px 0 rgba(46,32,24,0.04) !important;
+}
+[data-theme^='hfm'] .shadow-sm,
+[data-theme^='hfm'] .shadow-xs {
+  box-shadow: none !important;
+}

@@ -11,12 +11,22 @@ export type ThemeId =
   | 'claude-slate-light'
   | 'scifi'
   | 'scifi-light'
+  // ── Brand themes ───────────────────────────────────────────────────
+  | 'sc'
+  | 'sc-deep-canopy'
+  | 'sc-sage-medium'
+  | 'sc-slate-moss'
+  | 'hfm'
+  | 'hfm-forest-grove'
+  | 'hfm-desert-sand'
+  | 'hfm-terracotta'
 
 export const THEMES: Array<{
   id: ThemeId
   label: string
   description: string
   icon: string
+  brand?: 'sc' | 'hfm'
 }> = [
   {
     id: 'claude-nous',
@@ -90,26 +100,81 @@ export const THEMES: Array<{
     description: 'Cold steel and teal — cyberpunk interface in daylight',
     icon: '🌌',
   },
+  // ── SC brand themes (dark) ──────────────────────────────────────────
+  {
+    id: 'sc',
+    label: 'Charcoal Forest',
+    description: 'SC Intelligence — charcoal base with soft green',
+    icon: '◼',
+    brand: 'sc',
+  },
+  {
+    id: 'sc-deep-canopy',
+    label: 'Deep Canopy',
+    description: 'SC Intelligence — deeper, richer green',
+    icon: '◼',
+    brand: 'sc',
+  },
+  {
+    id: 'sc-sage-medium',
+    label: 'Sage Medium',
+    description: 'SC Intelligence — lighter green, medium dark base',
+    icon: '◼',
+    brand: 'sc',
+  },
+  {
+    id: 'sc-slate-moss',
+    label: 'Slate Moss',
+    description: 'SC Intelligence — muted, balanced moss tones',
+    icon: '◼',
+    brand: 'sc',
+  },
+  // ── HFM brand themes (light) ────────────────────────────────────────
+  {
+    id: 'hfm',
+    label: 'Warm Harvest',
+    description: 'HFM Intelligence — cream base with olive and brown',
+    icon: '◻',
+    brand: 'hfm',
+  },
+  {
+    id: 'hfm-forest-grove',
+    label: 'Forest Grove',
+    description: 'HFM Intelligence — deep olive, earthy tones',
+    icon: '◻',
+    brand: 'hfm',
+  },
+  {
+    id: 'hfm-desert-sand',
+    label: 'Desert Sand',
+    description: 'HFM Intelligence — sandy, warm neutral',
+    icon: '◻',
+    brand: 'hfm',
+  },
+  {
+    id: 'hfm-terracotta',
+    label: 'Terracotta',
+    description: 'HFM Intelligence — fired clay and russet accent',
+    icon: '◻',
+    brand: 'hfm',
+  },
 ]
 
 const STORAGE_KEY = 'claude-theme'
 const DEFAULT_THEME: ThemeId = 'claude-nous'
 const THEME_SET = new Set<ThemeId>(THEMES.map((theme) => theme.id))
-const LIGHT_THEME_MAP: Record<
-  Exclude<ThemeId, `${string}-light`>,
-  Extract<ThemeId, `${string}-light`>
-> = {
+
+// Brand themes intentionally absent from light/dark toggle maps —
+// they return themselves when getThemeVariant is called.
+const LIGHT_THEME_MAP: Partial<Record<ThemeId, ThemeId>> = {
   'claude-nous': 'claude-nous-light',
   matrix: 'matrix-light',
   'claude-official': 'claude-official-light',
   'claude-classic': 'claude-classic-light',
   'claude-slate': 'claude-slate-light',
-  'scifi': 'scifi-light',
+  scifi: 'scifi-light',
 }
-const DARK_THEME_MAP: Record<
-  Extract<ThemeId, `${string}-light`>,
-  Exclude<ThemeId, `${string}-light`>
-> = {
+const DARK_THEME_MAP: Partial<Record<ThemeId, ThemeId>> = {
   'claude-nous-light': 'claude-nous',
   'matrix-light': 'matrix',
   'claude-official-light': 'claude-official',
@@ -125,6 +190,17 @@ const LIGHT_THEMES = new Set<ThemeId>([
   'claude-classic-light',
   'claude-slate-light',
   'scifi-light',
+  // HFM themes are light
+  'hfm',
+  'hfm-forest-grove',
+  'hfm-desert-sand',
+  'hfm-terracotta',
+])
+
+/** Set of brand theme IDs — used to gate brand-specific UI */
+export const BRAND_THEME_IDS = new Set<ThemeId>([
+  'sc', 'sc-deep-canopy', 'sc-sage-medium', 'sc-slate-moss',
+  'hfm', 'hfm-forest-grove', 'hfm-desert-sand', 'hfm-terracotta',
 ])
 
 export function isValidTheme(
@@ -141,15 +217,18 @@ export function getThemeVariant(
   theme: ThemeId,
   mode: 'light' | 'dark',
 ): ThemeId {
+  // Brand themes don't have light/dark counterparts — return as-is
+  if (BRAND_THEME_IDS.has(theme)) return theme
+
   if (mode === 'light') {
     return isDarkTheme(theme)
-      ? LIGHT_THEME_MAP[theme as keyof typeof LIGHT_THEME_MAP]
+      ? (LIGHT_THEME_MAP[theme] ?? theme)
       : theme
   }
 
   return isDarkTheme(theme)
     ? theme
-    : DARK_THEME_MAP[theme as keyof typeof DARK_THEME_MAP]
+    : (DARK_THEME_MAP[theme] ?? theme)
 }
 
 export function getTheme(): ThemeId {

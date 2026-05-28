@@ -15,6 +15,7 @@ import {
   McpServerIcon,
   MessageMultiple01Icon,
   Moon02Icon,
+  PaintBoardIcon,
   PencilEdit02Icon,
   PuzzleIcon,
   Rocket01Icon,
@@ -63,6 +64,7 @@ import {
   MenuTrigger,
 } from '@/components/ui/menu'
 import { applyTheme, useSettingsStore } from '@/hooks/use-settings'
+import { useBrand } from '@/contexts/BrandContext'
 
 type WorkspaceStats = Record<string, unknown>
 
@@ -134,6 +136,7 @@ type ChatSidebarProps = {
   sessionsFetching: boolean
   sessionsError: string | null
   onRetrySessions: () => void
+  onOpenBrandColors?: () => void
 }
 
 // ── Reusable nav item ───────────────────────────────────────────────────
@@ -527,9 +530,12 @@ function ChatSidebarComponent({
   sessionsFetching,
   sessionsError,
   onRetrySessions,
+  onOpenBrandColors,
 }: ChatSidebarProps) {
   const { settingsOpen, settingsSection, setSettingsOpen, handleOpenSettings } =
     useSidebarSettings()
+  const brand = useBrand()
+  const isBranded = brand.id === 'sc' || brand.id === 'hfm'
   const profileDisplayName = useChatSettingsStore(selectChatProfileDisplayName)
   const profileAvatarDataUrl = useChatSettingsStore(
     selectChatProfileAvatarDataUrl,
@@ -1211,7 +1217,7 @@ function ChatSidebarComponent({
             </MenuContent>
           </MenuRoot>
 
-          {/* Settings + Theme toggle */}
+          {/* Settings + Theme toggle + Brand palette */}
           {!isVisuallyCollapsed && (
             <div className="flex items-center gap-0.5">
               <button
@@ -1227,6 +1233,28 @@ function ChatSidebarComponent({
                 />
               </button>
               <ThemeToggleMini />
+              {isBranded && onOpenBrandColors && (
+                <TooltipProvider>
+                  <TooltipRoot>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        onClick={onOpenBrandColors}
+                        className="shrink-0 rounded-lg p-1.5 transition-colors hover:opacity-70"
+                        style={{ color: 'var(--theme-accent)' }}
+                        aria-label="Color scheme"
+                      >
+                        <HugeiconsIcon
+                          icon={PaintBoardIcon}
+                          size={16}
+                          strokeWidth={1.5}
+                        />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent side="top">Color scheme</TooltipContent>
+                  </TooltipRoot>
+                </TooltipProvider>
+              )}
             </div>
           )}
         </div>
