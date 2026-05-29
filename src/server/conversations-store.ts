@@ -105,11 +105,11 @@ function readFile(): ConvFile {
 
 function writeFile(data: ConvFile): void {
   ensureFile()
-  fs.writeFileSync(
-    CONV_FILE,
-    JSON.stringify(data, null, 2) + '\n',
-    'utf-8',
-  )
+  // Atomic write (temp + rename) — avoids corrupt/half-written JSON under
+  // concurrent writes from the public web-chat ingest endpoint.
+  const tmp = `${CONV_FILE}.${process.pid}.tmp`
+  fs.writeFileSync(tmp, JSON.stringify(data, null, 2) + '\n', 'utf-8')
+  fs.renameSync(tmp, CONV_FILE)
 }
 
 function preview(body: string): string {

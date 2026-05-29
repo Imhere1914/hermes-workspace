@@ -411,6 +411,18 @@ export function ContactsScreen() {
                         >
                           {STAGE_LABELS[c.stage]}
                         </span>
+                        {c.unverified && (
+                          <span
+                            className="rounded-full px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide"
+                            style={{
+                              background: 'var(--theme-bg)',
+                              color: 'var(--theme-warning)',
+                            }}
+                            title="Created via web chat — identity not verified"
+                          >
+                            Unverified
+                          </span>
+                        )}
                       </div>
                       <div className="flex flex-wrap items-center gap-3 text-[11px] text-[var(--theme-muted)]">
                         {c.company && (

@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { upsertContactByHandle } from '../../server/contacts-store'
+import { upsertWebContact } from '../../server/contacts-store'
 import {
   addMessage,
   createConversation,
@@ -7,6 +7,15 @@ import {
   getConversation,
 } from '../../server/conversations-store'
 import type { ConvMessage } from '../../server/conversations-store'
+import { getClientIp, rateLimit } from '../../server/rate-limit'
+
+// Input caps — bound payload size on this public, unauthenticated endpoint.
+const MAX_MESSAGE = 4000
+const MAX_NAME = 120
+const MAX_EMAIL = 200
+// Per-IP sliding window: 15 messages / minute.
+const RATE_MAX = 15
+const RATE_WINDOW_MS = 60_000
 
 /**
  * PUBLIC web-chat ingest endpoint.
@@ -45,6 +54,16 @@ export const Route = createFileRoute('/api/webchat')({
       OPTIONS: async () => new Response(null, { status: 204, headers: CORS }),
 
       POST: async ({ request }) => {
+        // Content-Type gate (rejects simple-form CSRF) + per-IP rate limit.
+        const ct = request.headers.get('content-type') ?? ''
+        if (!ct.includes('application/json')) {
+          return json({ error: 'Content-Type must be application/json' }, 415)
+        }
+        const ip = getClientIp(request)
+        if (!rateLimit(`webchat:${ip}`, RATE_MAX, RATE_WINDOW_MS)) {
+          return json({ error: 'Too many requests' }, 429)
+        }
+
         const requiredKey = process.env.WEBCHAT_WIDGET_KEY?.trim()
         try {
           const body = (await request.json()) as Record<string, unknown>
@@ -58,16 +77,18 @@ export const Route = createFileRoute('/api/webchat')({
           }
 
           const message =
-            typeof body.message === 'string' ? body.message.trim() : ''
+            typeof body.message === 'string'
+              ? body.message.trim().slice(0, MAX_MESSAGE)
+              : ''
           if (!message) return json({ error: 'message is required' }, 400)
 
           const name =
             typeof body.name === 'string' && body.name.trim()
-              ? body.name.trim()
+              ? body.name.trim().slice(0, MAX_NAME)
               : 'Web visitor'
           const email =
             typeof body.email === 'string' && body.email.trim()
-              ? body.email.trim()
+              ? body.email.trim().slice(0, MAX_EMAIL)
               : null
 
           // 1. Resume an existing conversation if the widget passed its id.
@@ -79,11 +100,7 @@ export const Route = createFileRoute('/api/webchat')({
 
           // 2. Otherwise tie to a contact and find/create their open thread.
           if (!conv) {
-            const contact = upsertContactByHandle({
-              name,
-              email,
-              source: 'webchat',
-            })
+            const contact = upsertWebContact({ name, email })
             conv =
               findOpenConversationByContact(contact.id, 'webchat') ??
               createConversation({

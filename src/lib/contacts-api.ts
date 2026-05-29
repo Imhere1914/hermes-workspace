@@ -35,6 +35,8 @@ export type Contact = {
   notes: string
   owner: string | null
   fields: Record<string, string>
+  /** Created via an unauthenticated public channel; identity not verified. */
+  unverified: boolean
   last_contacted_at: string | null
   created_at: string
   updated_at: string

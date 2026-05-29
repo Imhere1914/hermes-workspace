@@ -42,6 +42,13 @@ export type ContactRecord = {
   owner: string | null
   /** Free-form per-brand custom fields. */
   fields: Record<string, string>
+  /**
+   * True for contacts created via an unauthenticated public channel
+   * (e.g. web chat) whose claimed identity (name/email) has NOT been
+   * verified. Staff can review/merge these. Prevents an anonymous web
+   * visitor from impersonating or polluting a known/verified CRM contact.
+   */
+  unverified: boolean
   last_contacted_at: string | null
   created_at: string
   updated_at: string
@@ -118,11 +125,11 @@ function readFile(): ContactFile {
 
 function writeFile(data: ContactFile): void {
   ensureFile()
-  fs.writeFileSync(
-    CONTACTS_FILE,
-    JSON.stringify(data, null, 2) + '\n',
-    'utf-8',
-  )
+  // Atomic write: write to a temp file then rename, so a crash or a
+  // concurrent reader never sees a half-written/corrupt JSON file.
+  const tmp = `${CONTACTS_FILE}.${process.pid}.tmp`
+  fs.writeFileSync(tmp, JSON.stringify(data, null, 2) + '\n', 'utf-8')
+  fs.renameSync(tmp, CONTACTS_FILE)
 }
 
 function normalize(
@@ -150,6 +157,7 @@ function normalize(
             ) as Array<[string, string]>,
           )
         : {},
+    unverified: c.unverified === true,
     last_contacted_at: c.last_contacted_at ?? null,
     created_at: c.created_at,
     updated_at: c.updated_at,
@@ -217,6 +225,7 @@ export function createContact(input: CreateContactInput): ContactRecord {
     notes: input.notes,
     owner: input.owner,
     fields: input.fields,
+    unverified: input.unverified,
     last_contacted_at: input.last_contacted_at ?? null,
     created_at: now,
     updated_at: now,
@@ -279,6 +288,48 @@ export function upsertContactByHandle(
     )
   }
   return createContact({ ...input, last_contacted_at: new Date().toISOString() })
+}
+
+/**
+ * Web-safe contact resolution for UNAUTHENTICATED public channels (web chat).
+ *
+ * Security: only matches an existing *unverified* contact by handle — it will
+ * NEVER attach an anonymous visitor's message to a verified/known CRM contact,
+ * even if they supply a matching email. This blocks impersonation and contact
+ * poisoning from the open web-chat endpoint. Staff can merge duplicates after
+ * verifying identity.
+ */
+export function upsertWebContact(input: {
+  name: string
+  email?: string | null
+  phone?: string | null
+}): ContactRecord {
+  const email = input.email?.toLowerCase().trim() || null
+  const phone = input.phone?.replace(/[^\d+]/g, '') || null
+  const existing = readFile()
+    .contacts.map(normalize)
+    .find((c) => {
+      if (!c.unverified) return false // never match a verified contact
+      if (email && c.email && c.email.toLowerCase() === email) return true
+      if (phone && c.phone && c.phone.replace(/[^\d+]/g, '') === phone)
+        return true
+      return false
+    })
+  if (existing) {
+    return (
+      updateContact(existing.id, {
+        last_contacted_at: new Date().toISOString(),
+      }) ?? existing
+    )
+  }
+  return createContact({
+    name: input.name,
+    email: input.email ?? null,
+    phone: input.phone ?? null,
+    source: 'webchat',
+    unverified: true,
+    last_contacted_at: new Date().toISOString(),
+  })
 }
 
 export const CONTACT_STAGES = STAGES
