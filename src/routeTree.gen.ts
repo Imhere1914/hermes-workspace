@@ -163,6 +163,8 @@ import { Route as ApiContactsIdRouteImport } from './routes/api/contacts.$id'
 import { Route as ApiClaudeTasksTaskIdRouteImport } from './routes/api/claude-tasks.$taskId'
 import { Route as ApiClaudeProxySplatRouteImport } from './routes/api/claude-proxy/$'
 import { Route as ApiClaudeJobsJobIdRouteImport } from './routes/api/claude-jobs.$jobId'
+import { Route as ApiChannelsWhatsappRouteImport } from './routes/api/channels.whatsapp'
+import { Route as ApiChannelsSmsRouteImport } from './routes/api/channels.sms'
 import { Route as ApiArtifactsArtifactIdRouteImport } from './routes/api/artifacts.$artifactId'
 import { Route as ApiSessionsSessionKeyStatusRouteImport } from './routes/api/sessions/$sessionKey.status'
 import { Route as ApiSessionsSessionKeyActiveRunRouteImport } from './routes/api/sessions/$sessionKey.active-run'
@@ -942,6 +944,16 @@ const ApiClaudeJobsJobIdRoute = ApiClaudeJobsJobIdRouteImport.update({
   path: '/$jobId',
   getParentRoute: () => ApiClaudeJobsRoute,
 } as any)
+const ApiChannelsWhatsappRoute = ApiChannelsWhatsappRouteImport.update({
+  id: '/api/channels/whatsapp',
+  path: '/api/channels/whatsapp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiChannelsSmsRoute = ApiChannelsSmsRouteImport.update({
+  id: '/api/channels/sms',
+  path: '/api/channels/sms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiArtifactsArtifactIdRoute = ApiArtifactsArtifactIdRouteImport.update({
   id: '/$artifactId',
   path: '/$artifactId',
@@ -1086,6 +1098,8 @@ export interface FileRoutesByFullPath {
   '/chat/': typeof ChatIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/api/artifacts/$artifactId': typeof ApiArtifactsArtifactIdRoute
+  '/api/channels/sms': typeof ApiChannelsSmsRoute
+  '/api/channels/whatsapp': typeof ApiChannelsWhatsappRoute
   '/api/claude-jobs/$jobId': typeof ApiClaudeJobsJobIdRoute
   '/api/claude-proxy/$': typeof ApiClaudeProxySplatRoute
   '/api/claude-tasks/$taskId': typeof ApiClaudeTasksTaskIdRoute
@@ -1247,6 +1261,8 @@ export interface FileRoutesByTo {
   '/chat': typeof ChatIndexRoute
   '/settings': typeof SettingsIndexRoute
   '/api/artifacts/$artifactId': typeof ApiArtifactsArtifactIdRoute
+  '/api/channels/sms': typeof ApiChannelsSmsRoute
+  '/api/channels/whatsapp': typeof ApiChannelsWhatsappRoute
   '/api/claude-jobs/$jobId': typeof ApiClaudeJobsJobIdRoute
   '/api/claude-proxy/$': typeof ApiClaudeProxySplatRoute
   '/api/claude-tasks/$taskId': typeof ApiClaudeTasksTaskIdRoute
@@ -1410,6 +1426,8 @@ export interface FileRoutesById {
   '/chat/': typeof ChatIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/api/artifacts/$artifactId': typeof ApiArtifactsArtifactIdRoute
+  '/api/channels/sms': typeof ApiChannelsSmsRoute
+  '/api/channels/whatsapp': typeof ApiChannelsWhatsappRoute
   '/api/claude-jobs/$jobId': typeof ApiClaudeJobsJobIdRoute
   '/api/claude-proxy/$': typeof ApiClaudeProxySplatRoute
   '/api/claude-tasks/$taskId': typeof ApiClaudeTasksTaskIdRoute
@@ -1574,6 +1592,8 @@ export interface FileRouteTypes {
     | '/chat/'
     | '/settings/'
     | '/api/artifacts/$artifactId'
+    | '/api/channels/sms'
+    | '/api/channels/whatsapp'
     | '/api/claude-jobs/$jobId'
     | '/api/claude-proxy/$'
     | '/api/claude-tasks/$taskId'
@@ -1735,6 +1755,8 @@ export interface FileRouteTypes {
     | '/chat'
     | '/settings'
     | '/api/artifacts/$artifactId'
+    | '/api/channels/sms'
+    | '/api/channels/whatsapp'
     | '/api/claude-jobs/$jobId'
     | '/api/claude-proxy/$'
     | '/api/claude-tasks/$taskId'
@@ -1897,6 +1919,8 @@ export interface FileRouteTypes {
     | '/chat/'
     | '/settings/'
     | '/api/artifacts/$artifactId'
+    | '/api/channels/sms'
+    | '/api/channels/whatsapp'
     | '/api/claude-jobs/$jobId'
     | '/api/claude-proxy/$'
     | '/api/claude-tasks/$taskId'
@@ -2056,6 +2080,8 @@ export interface RootRouteChildren {
   ApiWorkspaceRoute: typeof ApiWorkspaceRoute
   ChatSessionKeyRoute: typeof ChatSessionKeyRoute
   ChatIndexRoute: typeof ChatIndexRoute
+  ApiChannelsSmsRoute: typeof ApiChannelsSmsRoute
+  ApiChannelsWhatsappRoute: typeof ApiChannelsWhatsappRoute
   ApiClaudeProxySplatRoute: typeof ApiClaudeProxySplatRoute
   ApiDashboardOverviewRoute: typeof ApiDashboardOverviewRoute
   ApiHermesworldReservationsRoute: typeof ApiHermesworldReservationsRouteWithChildren
@@ -3160,6 +3186,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiClaudeJobsJobIdRouteImport
       parentRoute: typeof ApiClaudeJobsRoute
     }
+    '/api/channels/whatsapp': {
+      id: '/api/channels/whatsapp'
+      path: '/api/channels/whatsapp'
+      fullPath: '/api/channels/whatsapp'
+      preLoaderRoute: typeof ApiChannelsWhatsappRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/channels/sms': {
+      id: '/api/channels/sms'
+      path: '/api/channels/sms'
+      fullPath: '/api/channels/sms'
+      preLoaderRoute: typeof ApiChannelsSmsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/artifacts/$artifactId': {
       id: '/api/artifacts/$artifactId'
       path: '/$artifactId'
@@ -3556,6 +3596,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorkspaceRoute: ApiWorkspaceRoute,
   ChatSessionKeyRoute: ChatSessionKeyRoute,
   ChatIndexRoute: ChatIndexRoute,
+  ApiChannelsSmsRoute: ApiChannelsSmsRoute,
+  ApiChannelsWhatsappRoute: ApiChannelsWhatsappRoute,
   ApiClaudeProxySplatRoute: ApiClaudeProxySplatRoute,
   ApiDashboardOverviewRoute: ApiDashboardOverviewRoute,
   ApiHermesworldReservationsRoute: ApiHermesworldReservationsRouteWithChildren,

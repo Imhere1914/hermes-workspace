@@ -8,6 +8,8 @@ import {
   isMessageRole,
   updateConversation,
 } from '../../server/conversations-store'
+import { getContact } from '../../server/contacts-store'
+import { sendReply } from '../../server/channel-adapters'
 
 function jsonResponse(data: unknown, status = 200) {
   return new Response(JSON.stringify(data), {
@@ -47,9 +49,42 @@ export const Route = createFileRoute('/api/conversations/$id')({
             if (typeof body.message_id !== 'string') {
               return jsonResponse({ error: 'message_id is required' }, 400)
             }
+            const preConv = getConversation(params.id)
+            if (!preConv) return jsonResponse({ error: 'Not found' }, 404)
+
+            const draftMsg = preConv.messages.find(
+              (m) => m.id === body.message_id && m.draft,
+            )
+            if (!draftMsg)
+              return jsonResponse({ error: 'Draft message not found' }, 404)
+
+            // Flip draft → sent in DB
             const conv = approveDraft(params.id, body.message_id)
-            if (!conv)
-              return jsonResponse({ error: 'Not found' }, 404)
+            if (!conv) return jsonResponse({ error: 'Not found' }, 404)
+
+            // Send the reply outbound through the originating channel
+            if (preConv.contact_id) {
+              const contact = getContact(preConv.contact_id)
+              const handle = contact?.phone ?? contact?.email ?? ''
+              if (handle) {
+                // Fire-and-forget: if outbound fails, the message is already
+                // stored in our DB; staff can action manually. We surface the
+                // error as a header so the client can show a warning.
+                const sendResult = await sendReply(
+                  preConv.channel,
+                  handle,
+                  draftMsg.body,
+                )
+                if (!sendResult.ok) {
+                  // Return the conversation but signal the send issue
+                  return new Response(JSON.stringify({ conversation: conv, send_warning: sendResult.error }), {
+                    status: 200,
+                    headers: { 'Content-Type': 'application/json' },
+                  })
+                }
+              }
+            }
+
             return jsonResponse({ conversation: conv })
           }
 

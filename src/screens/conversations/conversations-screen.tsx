@@ -93,9 +93,13 @@ export function ConversationsScreen() {
   const approveMutation = useMutation({
     mutationFn: (p: { id: string; messageId: string }) =>
       approveDraft(p.id, p.messageId),
-    onSuccess: () => {
+    onSuccess: (result) => {
       refreshAll()
-      toast('Reply approved & sent')
+      if (result.send_warning) {
+        toast(`Draft approved — delivery note: ${result.send_warning}`, { type: 'error' })
+      } else {
+        toast('Reply approved & sent')
+      }
     },
   })
 

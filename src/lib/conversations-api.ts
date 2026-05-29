@@ -94,15 +94,15 @@ export async function sendMessage(
 export async function approveDraft(
   id: string,
   messageId: string,
-): Promise<Conversation> {
+): Promise<{ conversation: Conversation; send_warning?: string }> {
   const res = await fetch(`${API}/${id}?action=approve-draft`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ message_id: messageId }),
   })
   if (!res.ok) throw new Error(`Failed to approve draft (${res.status})`)
-  const data = (await res.json()) as { conversation: Conversation }
-  return data.conversation
+  const data = (await res.json()) as { conversation: Conversation; send_warning?: string }
+  return data
 }
 
 export async function updateConversation(

@@ -279,6 +279,9 @@ function RootLayout() {
     pathname === '/world' ||
     pathname.startsWith('/world/')
   const isGameSurfaceRoute = isHermesWorldLandingRoute || pathname === '/playground' || pathname.startsWith('/playground/')
+  // Web-chat widget: a standalone, unauthenticated iframe page served by the
+  // workspace. Renders without the WorkspaceShell, login overlay, or onboarding.
+  const isWidgetRoute = pathname === '/widget'
   const [onboardingComplete, setOnboardingComplete] = useState<boolean | null>(
     null,
   )
@@ -370,6 +373,15 @@ function RootLayout() {
   }, [])
 
   const rootSurfaceState = getRootSurfaceState(onboardingComplete, authStatus)
+
+  // Widget route: standalone, unauthenticated, no shell/auth overlay.
+  if (isWidgetRoute) {
+    return (
+      <QueryClientProvider client={queryClient}>
+        <Outlet />
+      </QueryClientProvider>
+    )
+  }
 
   return (
     <BrandProvider>
