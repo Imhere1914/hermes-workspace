@@ -37,6 +37,20 @@ export const MOBILE_HAMBURGER_NAV_ITEMS = [
     match: (p: string) => p.startsWith('/chat') || p === '/new' || p === '/',
   },
   {
+    id: 'conversations',
+    label: 'Conversations',
+    icon: Chat01Icon,
+    to: '/conversations',
+    match: (p: string) => p.startsWith('/conversations'),
+  },
+  {
+    id: 'contacts',
+    label: 'Contacts',
+    icon: UserGroupIcon,
+    to: '/contacts',
+    match: (p: string) => p.startsWith('/contacts'),
+  },
+  {
     id: 'dashboard',
     label: 'Dashboard',
     icon: DashboardSquare01Icon,
@@ -117,8 +131,8 @@ export const MOBILE_HAMBURGER_NAV_ITEMS = [
 ]
 
 /** Nav item IDs to expose per brand — playground/swarm/conductor/ops are internal tools */
-const SC_HAMBURGER_IDS  = ['chat', 'dashboard', 'terminal', 'jobs', 'memory', 'skills', 'mcp', 'profiles']
-const HFM_HAMBURGER_IDS = ['chat', 'dashboard', 'terminal', 'memory', 'skills', 'mcp', 'profiles']
+const SC_HAMBURGER_IDS  = ['chat', 'conversations', 'contacts', 'dashboard', 'terminal', 'jobs', 'memory', 'skills', 'mcp', 'profiles']
+const HFM_HAMBURGER_IDS = ['chat', 'conversations', 'contacts', 'dashboard', 'terminal', 'memory', 'skills', 'mcp', 'profiles']
 
 /** Shared drawer state — used by both the trigger button and the drawer itself */
 let _setOpen: ((v: boolean) => void) | null = null
@@ -178,6 +192,7 @@ export function MobileHamburgerMenu() {
       .filter((item) => allowed.includes(item.id))
       .map((item) => {
         if (brand.id === 'hfm') {
+          if (item.id === 'contacts') return { ...item, label: 'Patients' }
           if (item.id === 'skills')   return { ...item, label: 'Protocols' }
           if (item.id === 'mcp')      return { ...item, label: 'Integrations' }
           if (item.id === 'profiles') return { ...item, label: 'Avatars' }

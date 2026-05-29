@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorldRouteImport } from './routes/world'
+import { Route as WidgetRouteImport } from './routes/widget'
 import { Route as VtCapitalRouteImport } from './routes/vt-capital'
 import { Route as TerminalRouteImport } from './routes/terminal'
 import { Route as TasksRouteImport } from './routes/tasks'
@@ -28,6 +29,8 @@ import { Route as HermesWorldRouteImport } from './routes/hermes-world'
 import { Route as FilesRouteImport } from './routes/files'
 import { Route as EarlyAccessRouteImport } from './routes/early-access'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ConversationsRouteImport } from './routes/conversations'
+import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as ConductorRouteImport } from './routes/conductor'
 import { Route as AgoraRouteImport } from './routes/agora'
 import { Route as SplatRouteImport } from './routes/$'
@@ -38,6 +41,7 @@ import { Route as SettingsProvidersRouteImport } from './routes/settings/provide
 import { Route as ReserveConfirmRouteImport } from './routes/reserve/confirm'
 import { Route as ChatSessionKeyRouteImport } from './routes/chat/$sessionKey'
 import { Route as ApiWorkspaceRouteImport } from './routes/api/workspace'
+import { Route as ApiWebchatRouteImport } from './routes/api/webchat'
 import { Route as ApiVtCapitalRouteImport } from './routes/api/vt-capital'
 import { Route as ApiTranscribeRouteImport } from './routes/api/transcribe'
 import { Route as ApiTerminalStreamRouteImport } from './routes/api/terminal-stream'
@@ -95,7 +99,9 @@ import { Route as ApiGatewayReprobeRouteImport } from './routes/api/gateway-repr
 import { Route as ApiFilesRouteImport } from './routes/api/files'
 import { Route as ApiEventsRouteImport } from './routes/api/events'
 import { Route as ApiCrewStatusRouteImport } from './routes/api/crew-status'
+import { Route as ApiConversationsRouteImport } from './routes/api/conversations'
 import { Route as ApiContextUsageRouteImport } from './routes/api/context-usage'
+import { Route as ApiContactsRouteImport } from './routes/api/contacts'
 import { Route as ApiConnectionStatusRouteImport } from './routes/api/connection-status'
 import { Route as ApiConnectionSettingsRouteImport } from './routes/api/connection-settings'
 import { Route as ApiConfigPatchRouteImport } from './routes/api/config-patch'
@@ -111,6 +117,7 @@ import { Route as ApiBrandRouteImport } from './routes/api/brand'
 import { Route as ApiAuthCheckRouteImport } from './routes/api/auth-check'
 import { Route as ApiAuthRouteImport } from './routes/api/auth'
 import { Route as ApiArtifactsRouteImport } from './routes/api/artifacts'
+import { Route as ApiWebchatAgentDraftRouteImport } from './routes/api/webchat.agent-draft'
 import { Route as ApiUpdateWorkspaceRouteImport } from './routes/api/update/workspace'
 import { Route as ApiUpdateStatusRouteImport } from './routes/api/update/status'
 import { Route as ApiUpdateAgentRouteImport } from './routes/api/update/agent'
@@ -151,6 +158,8 @@ import { Route as ApiKnowledgeConfigRouteImport } from './routes/api/knowledge/c
 import { Route as ApiHermesworldReservationsRouteImport } from './routes/api/hermesworld/reservations'
 import { Route as ApiHermesTasksTaskIdRouteImport } from './routes/api/hermes-tasks.$taskId'
 import { Route as ApiDashboardOverviewRouteImport } from './routes/api/dashboard/overview'
+import { Route as ApiConversationsIdRouteImport } from './routes/api/conversations.$id'
+import { Route as ApiContactsIdRouteImport } from './routes/api/contacts.$id'
 import { Route as ApiClaudeTasksTaskIdRouteImport } from './routes/api/claude-tasks.$taskId'
 import { Route as ApiClaudeProxySplatRouteImport } from './routes/api/claude-proxy/$'
 import { Route as ApiClaudeJobsJobIdRouteImport } from './routes/api/claude-jobs.$jobId'
@@ -164,6 +173,11 @@ import { Route as ApiHermesworldReservationsConfirmRouteImport } from './routes/
 const WorldRoute = WorldRouteImport.update({
   id: '/world',
   path: '/world',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WidgetRoute = WidgetRouteImport.update({
+  id: '/widget',
+  path: '/widget',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VtCapitalRoute = VtCapitalRouteImport.update({
@@ -256,6 +270,16 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConversationsRoute = ConversationsRouteImport.update({
+  id: '/conversations',
+  path: '/conversations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactsRoute = ContactsRouteImport.update({
+  id: '/contacts',
+  path: '/contacts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ConductorRoute = ConductorRouteImport.update({
   id: '/conductor',
   path: '/conductor',
@@ -304,6 +328,11 @@ const ChatSessionKeyRoute = ChatSessionKeyRouteImport.update({
 const ApiWorkspaceRoute = ApiWorkspaceRouteImport.update({
   id: '/api/workspace',
   path: '/api/workspace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiWebchatRoute = ApiWebchatRouteImport.update({
+  id: '/api/webchat',
+  path: '/api/webchat',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiVtCapitalRoute = ApiVtCapitalRouteImport.update({
@@ -592,9 +621,19 @@ const ApiCrewStatusRoute = ApiCrewStatusRouteImport.update({
   path: '/api/crew-status',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiConversationsRoute = ApiConversationsRouteImport.update({
+  id: '/api/conversations',
+  path: '/api/conversations',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiContextUsageRoute = ApiContextUsageRouteImport.update({
   id: '/api/context-usage',
   path: '/api/context-usage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiContactsRoute = ApiContactsRouteImport.update({
+  id: '/api/contacts',
+  path: '/api/contacts',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiConnectionStatusRoute = ApiConnectionStatusRouteImport.update({
@@ -671,6 +710,11 @@ const ApiArtifactsRoute = ApiArtifactsRouteImport.update({
   id: '/api/artifacts',
   path: '/api/artifacts',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ApiWebchatAgentDraftRoute = ApiWebchatAgentDraftRouteImport.update({
+  id: '/agent-draft',
+  path: '/agent-draft',
+  getParentRoute: () => ApiWebchatRoute,
 } as any)
 const ApiUpdateWorkspaceRoute = ApiUpdateWorkspaceRouteImport.update({
   id: '/api/update/workspace',
@@ -873,6 +917,16 @@ const ApiDashboardOverviewRoute = ApiDashboardOverviewRouteImport.update({
   path: '/api/dashboard/overview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiConversationsIdRoute = ApiConversationsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ApiConversationsRoute,
+} as any)
+const ApiContactsIdRoute = ApiContactsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ApiContactsRoute,
+} as any)
 const ApiClaudeTasksTaskIdRoute = ApiClaudeTasksTaskIdRouteImport.update({
   id: '/$taskId',
   path: '/$taskId',
@@ -927,6 +981,8 @@ export interface FileRoutesByFullPath {
   '/$': typeof SplatRoute
   '/agora': typeof AgoraRoute
   '/conductor': typeof ConductorRoute
+  '/contacts': typeof ContactsRoute
+  '/conversations': typeof ConversationsRoute
   '/dashboard': typeof DashboardRoute
   '/early-access': typeof EarlyAccessRoute
   '/files': typeof FilesRoute
@@ -945,6 +1001,7 @@ export interface FileRoutesByFullPath {
   '/tasks': typeof TasksRoute
   '/terminal': typeof TerminalRoute
   '/vt-capital': typeof VtCapitalRoute
+  '/widget': typeof WidgetRoute
   '/world': typeof WorldRoute
   '/api/artifacts': typeof ApiArtifactsRouteWithChildren
   '/api/auth': typeof ApiAuthRoute
@@ -961,7 +1018,9 @@ export interface FileRoutesByFullPath {
   '/api/config-patch': typeof ApiConfigPatchRoute
   '/api/connection-settings': typeof ApiConnectionSettingsRoute
   '/api/connection-status': typeof ApiConnectionStatusRoute
+  '/api/contacts': typeof ApiContactsRouteWithChildren
   '/api/context-usage': typeof ApiContextUsageRoute
+  '/api/conversations': typeof ApiConversationsRouteWithChildren
   '/api/crew-status': typeof ApiCrewStatusRoute
   '/api/events': typeof ApiEventsRoute
   '/api/files': typeof ApiFilesRoute
@@ -1019,6 +1078,7 @@ export interface FileRoutesByFullPath {
   '/api/terminal-stream': typeof ApiTerminalStreamRoute
   '/api/transcribe': typeof ApiTranscribeRoute
   '/api/vt-capital': typeof ApiVtCapitalRoute
+  '/api/webchat': typeof ApiWebchatRouteWithChildren
   '/api/workspace': typeof ApiWorkspaceRoute
   '/chat/$sessionKey': typeof ChatSessionKeyRoute
   '/reserve/confirm': typeof ReserveConfirmRoute
@@ -1029,6 +1089,8 @@ export interface FileRoutesByFullPath {
   '/api/claude-jobs/$jobId': typeof ApiClaudeJobsJobIdRoute
   '/api/claude-proxy/$': typeof ApiClaudeProxySplatRoute
   '/api/claude-tasks/$taskId': typeof ApiClaudeTasksTaskIdRoute
+  '/api/contacts/$id': typeof ApiContactsIdRoute
+  '/api/conversations/$id': typeof ApiConversationsIdRoute
   '/api/dashboard/overview': typeof ApiDashboardOverviewRoute
   '/api/hermes-tasks/$taskId': typeof ApiHermesTasksTaskIdRoute
   '/api/hermesworld/reservations': typeof ApiHermesworldReservationsRouteWithChildren
@@ -1069,6 +1131,7 @@ export interface FileRoutesByFullPath {
   '/api/update/agent': typeof ApiUpdateAgentRoute
   '/api/update/status': typeof ApiUpdateStatusRoute
   '/api/update/workspace': typeof ApiUpdateWorkspaceRoute
+  '/api/webchat/agent-draft': typeof ApiWebchatAgentDraftRoute
   '/api/hermesworld/reservations/confirm': typeof ApiHermesworldReservationsConfirmRoute
   '/api/mcp/$name/logs': typeof ApiMcpNameLogsRoute
   '/api/mcp/hub-sources/$id': typeof ApiMcpHubSourcesIdRoute
@@ -1080,6 +1143,8 @@ export interface FileRoutesByTo {
   '/$': typeof SplatRoute
   '/agora': typeof AgoraRoute
   '/conductor': typeof ConductorRoute
+  '/contacts': typeof ContactsRoute
+  '/conversations': typeof ConversationsRoute
   '/dashboard': typeof DashboardRoute
   '/early-access': typeof EarlyAccessRoute
   '/files': typeof FilesRoute
@@ -1097,6 +1162,7 @@ export interface FileRoutesByTo {
   '/tasks': typeof TasksRoute
   '/terminal': typeof TerminalRoute
   '/vt-capital': typeof VtCapitalRoute
+  '/widget': typeof WidgetRoute
   '/world': typeof WorldRoute
   '/api/artifacts': typeof ApiArtifactsRouteWithChildren
   '/api/auth': typeof ApiAuthRoute
@@ -1113,7 +1179,9 @@ export interface FileRoutesByTo {
   '/api/config-patch': typeof ApiConfigPatchRoute
   '/api/connection-settings': typeof ApiConnectionSettingsRoute
   '/api/connection-status': typeof ApiConnectionStatusRoute
+  '/api/contacts': typeof ApiContactsRouteWithChildren
   '/api/context-usage': typeof ApiContextUsageRoute
+  '/api/conversations': typeof ApiConversationsRouteWithChildren
   '/api/crew-status': typeof ApiCrewStatusRoute
   '/api/events': typeof ApiEventsRoute
   '/api/files': typeof ApiFilesRoute
@@ -1171,6 +1239,7 @@ export interface FileRoutesByTo {
   '/api/terminal-stream': typeof ApiTerminalStreamRoute
   '/api/transcribe': typeof ApiTranscribeRoute
   '/api/vt-capital': typeof ApiVtCapitalRoute
+  '/api/webchat': typeof ApiWebchatRouteWithChildren
   '/api/workspace': typeof ApiWorkspaceRoute
   '/chat/$sessionKey': typeof ChatSessionKeyRoute
   '/reserve/confirm': typeof ReserveConfirmRoute
@@ -1181,6 +1250,8 @@ export interface FileRoutesByTo {
   '/api/claude-jobs/$jobId': typeof ApiClaudeJobsJobIdRoute
   '/api/claude-proxy/$': typeof ApiClaudeProxySplatRoute
   '/api/claude-tasks/$taskId': typeof ApiClaudeTasksTaskIdRoute
+  '/api/contacts/$id': typeof ApiContactsIdRoute
+  '/api/conversations/$id': typeof ApiConversationsIdRoute
   '/api/dashboard/overview': typeof ApiDashboardOverviewRoute
   '/api/hermes-tasks/$taskId': typeof ApiHermesTasksTaskIdRoute
   '/api/hermesworld/reservations': typeof ApiHermesworldReservationsRouteWithChildren
@@ -1221,6 +1292,7 @@ export interface FileRoutesByTo {
   '/api/update/agent': typeof ApiUpdateAgentRoute
   '/api/update/status': typeof ApiUpdateStatusRoute
   '/api/update/workspace': typeof ApiUpdateWorkspaceRoute
+  '/api/webchat/agent-draft': typeof ApiWebchatAgentDraftRoute
   '/api/hermesworld/reservations/confirm': typeof ApiHermesworldReservationsConfirmRoute
   '/api/mcp/$name/logs': typeof ApiMcpNameLogsRoute
   '/api/mcp/hub-sources/$id': typeof ApiMcpHubSourcesIdRoute
@@ -1233,6 +1305,8 @@ export interface FileRoutesById {
   '/$': typeof SplatRoute
   '/agora': typeof AgoraRoute
   '/conductor': typeof ConductorRoute
+  '/contacts': typeof ContactsRoute
+  '/conversations': typeof ConversationsRoute
   '/dashboard': typeof DashboardRoute
   '/early-access': typeof EarlyAccessRoute
   '/files': typeof FilesRoute
@@ -1251,6 +1325,7 @@ export interface FileRoutesById {
   '/tasks': typeof TasksRoute
   '/terminal': typeof TerminalRoute
   '/vt-capital': typeof VtCapitalRoute
+  '/widget': typeof WidgetRoute
   '/world': typeof WorldRoute
   '/api/artifacts': typeof ApiArtifactsRouteWithChildren
   '/api/auth': typeof ApiAuthRoute
@@ -1267,7 +1342,9 @@ export interface FileRoutesById {
   '/api/config-patch': typeof ApiConfigPatchRoute
   '/api/connection-settings': typeof ApiConnectionSettingsRoute
   '/api/connection-status': typeof ApiConnectionStatusRoute
+  '/api/contacts': typeof ApiContactsRouteWithChildren
   '/api/context-usage': typeof ApiContextUsageRoute
+  '/api/conversations': typeof ApiConversationsRouteWithChildren
   '/api/crew-status': typeof ApiCrewStatusRoute
   '/api/events': typeof ApiEventsRoute
   '/api/files': typeof ApiFilesRoute
@@ -1325,6 +1402,7 @@ export interface FileRoutesById {
   '/api/terminal-stream': typeof ApiTerminalStreamRoute
   '/api/transcribe': typeof ApiTranscribeRoute
   '/api/vt-capital': typeof ApiVtCapitalRoute
+  '/api/webchat': typeof ApiWebchatRouteWithChildren
   '/api/workspace': typeof ApiWorkspaceRoute
   '/chat/$sessionKey': typeof ChatSessionKeyRoute
   '/reserve/confirm': typeof ReserveConfirmRoute
@@ -1335,6 +1413,8 @@ export interface FileRoutesById {
   '/api/claude-jobs/$jobId': typeof ApiClaudeJobsJobIdRoute
   '/api/claude-proxy/$': typeof ApiClaudeProxySplatRoute
   '/api/claude-tasks/$taskId': typeof ApiClaudeTasksTaskIdRoute
+  '/api/contacts/$id': typeof ApiContactsIdRoute
+  '/api/conversations/$id': typeof ApiConversationsIdRoute
   '/api/dashboard/overview': typeof ApiDashboardOverviewRoute
   '/api/hermes-tasks/$taskId': typeof ApiHermesTasksTaskIdRoute
   '/api/hermesworld/reservations': typeof ApiHermesworldReservationsRouteWithChildren
@@ -1375,6 +1455,7 @@ export interface FileRoutesById {
   '/api/update/agent': typeof ApiUpdateAgentRoute
   '/api/update/status': typeof ApiUpdateStatusRoute
   '/api/update/workspace': typeof ApiUpdateWorkspaceRoute
+  '/api/webchat/agent-draft': typeof ApiWebchatAgentDraftRoute
   '/api/hermesworld/reservations/confirm': typeof ApiHermesworldReservationsConfirmRoute
   '/api/mcp/$name/logs': typeof ApiMcpNameLogsRoute
   '/api/mcp/hub-sources/$id': typeof ApiMcpHubSourcesIdRoute
@@ -1388,6 +1469,8 @@ export interface FileRouteTypes {
     | '/$'
     | '/agora'
     | '/conductor'
+    | '/contacts'
+    | '/conversations'
     | '/dashboard'
     | '/early-access'
     | '/files'
@@ -1406,6 +1489,7 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/terminal'
     | '/vt-capital'
+    | '/widget'
     | '/world'
     | '/api/artifacts'
     | '/api/auth'
@@ -1422,7 +1506,9 @@ export interface FileRouteTypes {
     | '/api/config-patch'
     | '/api/connection-settings'
     | '/api/connection-status'
+    | '/api/contacts'
     | '/api/context-usage'
+    | '/api/conversations'
     | '/api/crew-status'
     | '/api/events'
     | '/api/files'
@@ -1480,6 +1566,7 @@ export interface FileRouteTypes {
     | '/api/terminal-stream'
     | '/api/transcribe'
     | '/api/vt-capital'
+    | '/api/webchat'
     | '/api/workspace'
     | '/chat/$sessionKey'
     | '/reserve/confirm'
@@ -1490,6 +1577,8 @@ export interface FileRouteTypes {
     | '/api/claude-jobs/$jobId'
     | '/api/claude-proxy/$'
     | '/api/claude-tasks/$taskId'
+    | '/api/contacts/$id'
+    | '/api/conversations/$id'
     | '/api/dashboard/overview'
     | '/api/hermes-tasks/$taskId'
     | '/api/hermesworld/reservations'
@@ -1530,6 +1619,7 @@ export interface FileRouteTypes {
     | '/api/update/agent'
     | '/api/update/status'
     | '/api/update/workspace'
+    | '/api/webchat/agent-draft'
     | '/api/hermesworld/reservations/confirm'
     | '/api/mcp/$name/logs'
     | '/api/mcp/hub-sources/$id'
@@ -1541,6 +1631,8 @@ export interface FileRouteTypes {
     | '/$'
     | '/agora'
     | '/conductor'
+    | '/contacts'
+    | '/conversations'
     | '/dashboard'
     | '/early-access'
     | '/files'
@@ -1558,6 +1650,7 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/terminal'
     | '/vt-capital'
+    | '/widget'
     | '/world'
     | '/api/artifacts'
     | '/api/auth'
@@ -1574,7 +1667,9 @@ export interface FileRouteTypes {
     | '/api/config-patch'
     | '/api/connection-settings'
     | '/api/connection-status'
+    | '/api/contacts'
     | '/api/context-usage'
+    | '/api/conversations'
     | '/api/crew-status'
     | '/api/events'
     | '/api/files'
@@ -1632,6 +1727,7 @@ export interface FileRouteTypes {
     | '/api/terminal-stream'
     | '/api/transcribe'
     | '/api/vt-capital'
+    | '/api/webchat'
     | '/api/workspace'
     | '/chat/$sessionKey'
     | '/reserve/confirm'
@@ -1642,6 +1738,8 @@ export interface FileRouteTypes {
     | '/api/claude-jobs/$jobId'
     | '/api/claude-proxy/$'
     | '/api/claude-tasks/$taskId'
+    | '/api/contacts/$id'
+    | '/api/conversations/$id'
     | '/api/dashboard/overview'
     | '/api/hermes-tasks/$taskId'
     | '/api/hermesworld/reservations'
@@ -1682,6 +1780,7 @@ export interface FileRouteTypes {
     | '/api/update/agent'
     | '/api/update/status'
     | '/api/update/workspace'
+    | '/api/webchat/agent-draft'
     | '/api/hermesworld/reservations/confirm'
     | '/api/mcp/$name/logs'
     | '/api/mcp/hub-sources/$id'
@@ -1693,6 +1792,8 @@ export interface FileRouteTypes {
     | '/$'
     | '/agora'
     | '/conductor'
+    | '/contacts'
+    | '/conversations'
     | '/dashboard'
     | '/early-access'
     | '/files'
@@ -1711,6 +1812,7 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/terminal'
     | '/vt-capital'
+    | '/widget'
     | '/world'
     | '/api/artifacts'
     | '/api/auth'
@@ -1727,7 +1829,9 @@ export interface FileRouteTypes {
     | '/api/config-patch'
     | '/api/connection-settings'
     | '/api/connection-status'
+    | '/api/contacts'
     | '/api/context-usage'
+    | '/api/conversations'
     | '/api/crew-status'
     | '/api/events'
     | '/api/files'
@@ -1785,6 +1889,7 @@ export interface FileRouteTypes {
     | '/api/terminal-stream'
     | '/api/transcribe'
     | '/api/vt-capital'
+    | '/api/webchat'
     | '/api/workspace'
     | '/chat/$sessionKey'
     | '/reserve/confirm'
@@ -1795,6 +1900,8 @@ export interface FileRouteTypes {
     | '/api/claude-jobs/$jobId'
     | '/api/claude-proxy/$'
     | '/api/claude-tasks/$taskId'
+    | '/api/contacts/$id'
+    | '/api/conversations/$id'
     | '/api/dashboard/overview'
     | '/api/hermes-tasks/$taskId'
     | '/api/hermesworld/reservations'
@@ -1835,6 +1942,7 @@ export interface FileRouteTypes {
     | '/api/update/agent'
     | '/api/update/status'
     | '/api/update/workspace'
+    | '/api/webchat/agent-draft'
     | '/api/hermesworld/reservations/confirm'
     | '/api/mcp/$name/logs'
     | '/api/mcp/hub-sources/$id'
@@ -1847,6 +1955,8 @@ export interface RootRouteChildren {
   SplatRoute: typeof SplatRoute
   AgoraRoute: typeof AgoraRoute
   ConductorRoute: typeof ConductorRoute
+  ContactsRoute: typeof ContactsRoute
+  ConversationsRoute: typeof ConversationsRoute
   DashboardRoute: typeof DashboardRoute
   EarlyAccessRoute: typeof EarlyAccessRoute
   FilesRoute: typeof FilesRoute
@@ -1865,6 +1975,7 @@ export interface RootRouteChildren {
   TasksRoute: typeof TasksRoute
   TerminalRoute: typeof TerminalRoute
   VtCapitalRoute: typeof VtCapitalRoute
+  WidgetRoute: typeof WidgetRoute
   WorldRoute: typeof WorldRoute
   ApiArtifactsRoute: typeof ApiArtifactsRouteWithChildren
   ApiAuthRoute: typeof ApiAuthRoute
@@ -1881,7 +1992,9 @@ export interface RootRouteChildren {
   ApiConfigPatchRoute: typeof ApiConfigPatchRoute
   ApiConnectionSettingsRoute: typeof ApiConnectionSettingsRoute
   ApiConnectionStatusRoute: typeof ApiConnectionStatusRoute
+  ApiContactsRoute: typeof ApiContactsRouteWithChildren
   ApiContextUsageRoute: typeof ApiContextUsageRoute
+  ApiConversationsRoute: typeof ApiConversationsRouteWithChildren
   ApiCrewStatusRoute: typeof ApiCrewStatusRoute
   ApiEventsRoute: typeof ApiEventsRoute
   ApiFilesRoute: typeof ApiFilesRoute
@@ -1939,6 +2052,7 @@ export interface RootRouteChildren {
   ApiTerminalStreamRoute: typeof ApiTerminalStreamRoute
   ApiTranscribeRoute: typeof ApiTranscribeRoute
   ApiVtCapitalRoute: typeof ApiVtCapitalRoute
+  ApiWebchatRoute: typeof ApiWebchatRouteWithChildren
   ApiWorkspaceRoute: typeof ApiWorkspaceRoute
   ChatSessionKeyRoute: typeof ChatSessionKeyRoute
   ChatIndexRoute: typeof ChatIndexRoute
@@ -1973,6 +2087,13 @@ declare module '@tanstack/react-router' {
       path: '/world'
       fullPath: '/world'
       preLoaderRoute: typeof WorldRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/widget': {
+      id: '/widget'
+      path: '/widget'
+      fullPath: '/widget'
+      preLoaderRoute: typeof WidgetRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/vt-capital': {
@@ -2101,6 +2222,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/conversations': {
+      id: '/conversations'
+      path: '/conversations'
+      fullPath: '/conversations'
+      preLoaderRoute: typeof ConversationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contacts': {
+      id: '/contacts'
+      path: '/contacts'
+      fullPath: '/contacts'
+      preLoaderRoute: typeof ContactsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/conductor': {
       id: '/conductor'
       path: '/conductor'
@@ -2169,6 +2304,13 @@ declare module '@tanstack/react-router' {
       path: '/api/workspace'
       fullPath: '/api/workspace'
       preLoaderRoute: typeof ApiWorkspaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/webchat': {
+      id: '/api/webchat'
+      path: '/api/webchat'
+      fullPath: '/api/webchat'
+      preLoaderRoute: typeof ApiWebchatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/vt-capital': {
@@ -2570,11 +2712,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiCrewStatusRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/conversations': {
+      id: '/api/conversations'
+      path: '/api/conversations'
+      fullPath: '/api/conversations'
+      preLoaderRoute: typeof ApiConversationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/context-usage': {
       id: '/api/context-usage'
       path: '/api/context-usage'
       fullPath: '/api/context-usage'
       preLoaderRoute: typeof ApiContextUsageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/contacts': {
+      id: '/api/contacts'
+      path: '/api/contacts'
+      fullPath: '/api/contacts'
+      preLoaderRoute: typeof ApiContactsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/connection-status': {
@@ -2681,6 +2837,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/artifacts'
       preLoaderRoute: typeof ApiArtifactsRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/api/webchat/agent-draft': {
+      id: '/api/webchat/agent-draft'
+      path: '/agent-draft'
+      fullPath: '/api/webchat/agent-draft'
+      preLoaderRoute: typeof ApiWebchatAgentDraftRouteImport
+      parentRoute: typeof ApiWebchatRoute
     }
     '/api/update/workspace': {
       id: '/api/update/workspace'
@@ -2962,6 +3125,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiDashboardOverviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/conversations/$id': {
+      id: '/api/conversations/$id'
+      path: '/$id'
+      fullPath: '/api/conversations/$id'
+      preLoaderRoute: typeof ApiConversationsIdRouteImport
+      parentRoute: typeof ApiConversationsRoute
+    }
+    '/api/contacts/$id': {
+      id: '/api/contacts/$id'
+      path: '/$id'
+      fullPath: '/api/contacts/$id'
+      preLoaderRoute: typeof ApiContactsIdRouteImport
+      parentRoute: typeof ApiContactsRoute
+    }
     '/api/claude-tasks/$taskId': {
       id: '/api/claude-tasks/$taskId'
       path: '/$taskId'
@@ -3088,6 +3265,29 @@ const ApiClaudeTasksRouteChildren: ApiClaudeTasksRouteChildren = {
 const ApiClaudeTasksRouteWithChildren = ApiClaudeTasksRoute._addFileChildren(
   ApiClaudeTasksRouteChildren,
 )
+
+interface ApiContactsRouteChildren {
+  ApiContactsIdRoute: typeof ApiContactsIdRoute
+}
+
+const ApiContactsRouteChildren: ApiContactsRouteChildren = {
+  ApiContactsIdRoute: ApiContactsIdRoute,
+}
+
+const ApiContactsRouteWithChildren = ApiContactsRoute._addFileChildren(
+  ApiContactsRouteChildren,
+)
+
+interface ApiConversationsRouteChildren {
+  ApiConversationsIdRoute: typeof ApiConversationsIdRoute
+}
+
+const ApiConversationsRouteChildren: ApiConversationsRouteChildren = {
+  ApiConversationsIdRoute: ApiConversationsIdRoute,
+}
+
+const ApiConversationsRouteWithChildren =
+  ApiConversationsRoute._addFileChildren(ApiConversationsRouteChildren)
 
 interface ApiHermesTasksRouteChildren {
   ApiHermesTasksTaskIdRoute: typeof ApiHermesTasksTaskIdRoute
@@ -3223,6 +3423,18 @@ const ApiSwarmRuntimeRouteWithChildren = ApiSwarmRuntimeRoute._addFileChildren(
   ApiSwarmRuntimeRouteChildren,
 )
 
+interface ApiWebchatRouteChildren {
+  ApiWebchatAgentDraftRoute: typeof ApiWebchatAgentDraftRoute
+}
+
+const ApiWebchatRouteChildren: ApiWebchatRouteChildren = {
+  ApiWebchatAgentDraftRoute: ApiWebchatAgentDraftRoute,
+}
+
+const ApiWebchatRouteWithChildren = ApiWebchatRoute._addFileChildren(
+  ApiWebchatRouteChildren,
+)
+
 interface ApiHermesworldReservationsRouteChildren {
   ApiHermesworldReservationsConfirmRoute: typeof ApiHermesworldReservationsConfirmRoute
 }
@@ -3243,6 +3455,8 @@ const rootRouteChildren: RootRouteChildren = {
   SplatRoute: SplatRoute,
   AgoraRoute: AgoraRoute,
   ConductorRoute: ConductorRoute,
+  ContactsRoute: ContactsRoute,
+  ConversationsRoute: ConversationsRoute,
   DashboardRoute: DashboardRoute,
   EarlyAccessRoute: EarlyAccessRoute,
   FilesRoute: FilesRoute,
@@ -3261,6 +3475,7 @@ const rootRouteChildren: RootRouteChildren = {
   TasksRoute: TasksRoute,
   TerminalRoute: TerminalRoute,
   VtCapitalRoute: VtCapitalRoute,
+  WidgetRoute: WidgetRoute,
   WorldRoute: WorldRoute,
   ApiArtifactsRoute: ApiArtifactsRouteWithChildren,
   ApiAuthRoute: ApiAuthRoute,
@@ -3277,7 +3492,9 @@ const rootRouteChildren: RootRouteChildren = {
   ApiConfigPatchRoute: ApiConfigPatchRoute,
   ApiConnectionSettingsRoute: ApiConnectionSettingsRoute,
   ApiConnectionStatusRoute: ApiConnectionStatusRoute,
+  ApiContactsRoute: ApiContactsRouteWithChildren,
   ApiContextUsageRoute: ApiContextUsageRoute,
+  ApiConversationsRoute: ApiConversationsRouteWithChildren,
   ApiCrewStatusRoute: ApiCrewStatusRoute,
   ApiEventsRoute: ApiEventsRoute,
   ApiFilesRoute: ApiFilesRoute,
@@ -3335,6 +3552,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiTerminalStreamRoute: ApiTerminalStreamRoute,
   ApiTranscribeRoute: ApiTranscribeRoute,
   ApiVtCapitalRoute: ApiVtCapitalRoute,
+  ApiWebchatRoute: ApiWebchatRouteWithChildren,
   ApiWorkspaceRoute: ApiWorkspaceRoute,
   ChatSessionKeyRoute: ChatSessionKeyRoute,
   ChatIndexRoute: ChatIndexRoute,

@@ -936,21 +936,43 @@ function ChatSidebarComponent({
   const BRANDED_MAIN_ROUTES_SC  = ['/chat', '/jobs', '/files', '/terminal']
   const BRANDED_MAIN_ROUTES_HFM = ['/chat', '/files', '/terminal']
 
+  // Phase 4 platform modules (CRM + omnichannel inbox) — shown for branded
+  // instances as the top of the Practice/Workspace section.
+  const platformNavItems: Array<NavItemDef> = [
+    {
+      kind: 'link',
+      to: '/conversations',
+      icon: Chat01Icon,
+      label: 'Conversations',
+      active: pathname.startsWith('/conversations'),
+    },
+    {
+      kind: 'link',
+      to: '/contacts',
+      icon: UserGroupIcon,
+      label: brand.id === 'hfm' ? 'Patients' : 'Contacts',
+      active: pathname.startsWith('/contacts'),
+    },
+  ]
+
   const displayMainItems = isBranded
-    ? mainItems
-        .filter(item =>
-          brand.id === 'sc'
-            ? BRANDED_MAIN_ROUTES_SC.includes(item.to ?? '')
-            : BRANDED_MAIN_ROUTES_HFM.includes(item.to ?? ''),
-        )
-        .map(item => ({
-          ...item,
-          // HFM: rename Files → Documents
-          label:
-            brand.id === 'hfm' && item.to === '/files'
-              ? 'Documents'
-              : item.label,
-        }))
+    ? [
+        ...platformNavItems,
+        ...mainItems
+          .filter(item =>
+            brand.id === 'sc'
+              ? BRANDED_MAIN_ROUTES_SC.includes(item.to ?? '')
+              : BRANDED_MAIN_ROUTES_HFM.includes(item.to ?? ''),
+          )
+          .map(item => ({
+            ...item,
+            // HFM: rename Files → Documents
+            label:
+              brand.id === 'hfm' && item.to === '/files'
+                ? 'Documents'
+                : item.label,
+          })),
+      ]
     : mainItems
 
   const displayKnowledgeItems = isBranded
