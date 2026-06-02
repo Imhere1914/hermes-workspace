@@ -90,6 +90,7 @@ import { Route as ApiPreviewFileRouteImport } from './routes/api/preview-file'
 import { Route as ApiPluginsRouteImport } from './routes/api/plugins'
 import { Route as ApiPlaygroundNpcRouteImport } from './routes/api/playground-npc'
 import { Route as ApiPlaygroundAdminRouteImport } from './routes/api/playground-admin'
+import { Route as ApiPlatformOverviewRouteImport } from './routes/api/platform-overview'
 import { Route as ApiPingRouteImport } from './routes/api/ping'
 import { Route as ApiPathsRouteImport } from './routes/api/paths'
 import { Route as ApiPagesRouteImport } from './routes/api/pages'
@@ -590,6 +591,11 @@ const ApiPlaygroundNpcRoute = ApiPlaygroundNpcRouteImport.update({
 const ApiPlaygroundAdminRoute = ApiPlaygroundAdminRouteImport.update({
   id: '/api/playground-admin',
   path: '/api/playground-admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPlatformOverviewRoute = ApiPlatformOverviewRouteImport.update({
+  id: '/api/platform-overview',
+  path: '/api/platform-overview',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPingRoute = ApiPingRouteImport.update({
@@ -1139,6 +1145,7 @@ export interface FileRoutesByFullPath {
   '/api/pages': typeof ApiPagesRouteWithChildren
   '/api/paths': typeof ApiPathsRoute
   '/api/ping': typeof ApiPingRoute
+  '/api/platform-overview': typeof ApiPlatformOverviewRoute
   '/api/playground-admin': typeof ApiPlaygroundAdminRoute
   '/api/playground-npc': typeof ApiPlaygroundNpcRoute
   '/api/plugins': typeof ApiPluginsRoute
@@ -1316,6 +1323,7 @@ export interface FileRoutesByTo {
   '/api/pages': typeof ApiPagesRouteWithChildren
   '/api/paths': typeof ApiPathsRoute
   '/api/ping': typeof ApiPingRoute
+  '/api/platform-overview': typeof ApiPlatformOverviewRoute
   '/api/playground-admin': typeof ApiPlaygroundAdminRoute
   '/api/playground-npc': typeof ApiPlaygroundNpcRoute
   '/api/plugins': typeof ApiPluginsRoute
@@ -1495,6 +1503,7 @@ export interface FileRoutesById {
   '/api/pages': typeof ApiPagesRouteWithChildren
   '/api/paths': typeof ApiPathsRoute
   '/api/ping': typeof ApiPingRoute
+  '/api/platform-overview': typeof ApiPlatformOverviewRoute
   '/api/playground-admin': typeof ApiPlaygroundAdminRoute
   '/api/playground-npc': typeof ApiPlaygroundNpcRoute
   '/api/plugins': typeof ApiPluginsRoute
@@ -1675,6 +1684,7 @@ export interface FileRouteTypes {
     | '/api/pages'
     | '/api/paths'
     | '/api/ping'
+    | '/api/platform-overview'
     | '/api/playground-admin'
     | '/api/playground-npc'
     | '/api/plugins'
@@ -1852,6 +1862,7 @@ export interface FileRouteTypes {
     | '/api/pages'
     | '/api/paths'
     | '/api/ping'
+    | '/api/platform-overview'
     | '/api/playground-admin'
     | '/api/playground-npc'
     | '/api/plugins'
@@ -2030,6 +2041,7 @@ export interface FileRouteTypes {
     | '/api/pages'
     | '/api/paths'
     | '/api/ping'
+    | '/api/platform-overview'
     | '/api/playground-admin'
     | '/api/playground-npc'
     | '/api/plugins'
@@ -2209,6 +2221,7 @@ export interface RootRouteChildren {
   ApiPagesRoute: typeof ApiPagesRouteWithChildren
   ApiPathsRoute: typeof ApiPathsRoute
   ApiPingRoute: typeof ApiPingRoute
+  ApiPlatformOverviewRoute: typeof ApiPlatformOverviewRoute
   ApiPlaygroundAdminRoute: typeof ApiPlaygroundAdminRoute
   ApiPlaygroundNpcRoute: typeof ApiPlaygroundNpcRoute
   ApiPluginsRoute: typeof ApiPluginsRoute
@@ -2850,6 +2863,13 @@ declare module '@tanstack/react-router' {
       path: '/api/playground-admin'
       fullPath: '/api/playground-admin'
       preLoaderRoute: typeof ApiPlaygroundAdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/platform-overview': {
+      id: '/api/platform-overview'
+      path: '/api/platform-overview'
+      fullPath: '/api/platform-overview'
+      preLoaderRoute: typeof ApiPlatformOverviewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/ping': {
@@ -3882,6 +3902,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPagesRoute: ApiPagesRouteWithChildren,
   ApiPathsRoute: ApiPathsRoute,
   ApiPingRoute: ApiPingRoute,
+  ApiPlatformOverviewRoute: ApiPlatformOverviewRoute,
   ApiPlaygroundAdminRoute: ApiPlaygroundAdminRoute,
   ApiPlaygroundNpcRoute: ApiPlaygroundNpcRoute,
   ApiPluginsRoute: ApiPluginsRoute,
