@@ -12,6 +12,7 @@ import {
   ComputerTerminal01Icon,
   DashboardSquare01Icon,
   File01Icon,
+  Layout01Icon,
   McpServerIcon,
   MessageMultiple01Icon,
   Moon02Icon,
@@ -974,6 +975,13 @@ function ChatSidebarComponent({
       icon: CheckListIcon,
       label: brand.id === 'hfm' ? 'Programs' : 'Projects',
       active: pathname.startsWith('/projects'),
+    },
+    {
+      kind: 'link',
+      to: '/pages',
+      icon: Layout01Icon,
+      label: 'Pages',
+      active: pathname.startsWith('/pages'),
     },
   ]
 

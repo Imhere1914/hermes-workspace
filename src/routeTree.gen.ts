@@ -23,6 +23,7 @@ import { Route as ReserveRouteImport } from './routes/reserve'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as ProfilesRouteImport } from './routes/profiles'
 import { Route as PlaygroundRouteImport } from './routes/playground'
+import { Route as PagesRouteImport } from './routes/pages'
 import { Route as OperationsRouteImport } from './routes/operations'
 import { Route as MemoryRouteImport } from './routes/memory'
 import { Route as McpRouteImport } from './routes/mcp'
@@ -42,6 +43,7 @@ import { Route as SettingsIndexRouteImport } from './routes/settings/index'
 import { Route as ChatIndexRouteImport } from './routes/chat/index'
 import { Route as SettingsProvidersRouteImport } from './routes/settings/providers'
 import { Route as ReserveConfirmRouteImport } from './routes/reserve/confirm'
+import { Route as PSlugRouteImport } from './routes/p.$slug'
 import { Route as ChatSessionKeyRouteImport } from './routes/chat/$sessionKey'
 import { Route as ApiWorkspaceRouteImport } from './routes/api/workspace'
 import { Route as ApiWebchatRouteImport } from './routes/api/webchat'
@@ -90,6 +92,7 @@ import { Route as ApiPlaygroundNpcRouteImport } from './routes/api/playground-np
 import { Route as ApiPlaygroundAdminRouteImport } from './routes/api/playground-admin'
 import { Route as ApiPingRouteImport } from './routes/api/ping'
 import { Route as ApiPathsRouteImport } from './routes/api/paths'
+import { Route as ApiPagesRouteImport } from './routes/api/pages'
 import { Route as ApiModelsRouteImport } from './routes/api/models'
 import { Route as ApiMemoryRouteImport } from './routes/api/memory'
 import { Route as ApiMediaRouteImport } from './routes/api/media'
@@ -143,6 +146,7 @@ import { Route as ApiProfilesListRouteImport } from './routes/api/profiles/list'
 import { Route as ApiProfilesDeleteRouteImport } from './routes/api/profiles/delete'
 import { Route as ApiProfilesCreateRouteImport } from './routes/api/profiles/create'
 import { Route as ApiProfilesActivateRouteImport } from './routes/api/profiles/activate'
+import { Route as ApiPagesIdRouteImport } from './routes/api/pages.$id'
 import { Route as ApiOauthPollTokenRouteImport } from './routes/api/oauth.poll-token'
 import { Route as ApiOauthDeviceCodeRouteImport } from './routes/api/oauth.device-code'
 import { Route as ApiModelInfoRouteImport } from './routes/api/model/info'
@@ -177,6 +181,7 @@ import { Route as ApiCampaignsIdRouteImport } from './routes/api/campaigns.$id'
 import { Route as ApiArtifactsArtifactIdRouteImport } from './routes/api/artifacts.$artifactId'
 import { Route as ApiSessionsSessionKeyStatusRouteImport } from './routes/api/sessions/$sessionKey.status'
 import { Route as ApiSessionsSessionKeyActiveRunRouteImport } from './routes/api/sessions/$sessionKey.active-run'
+import { Route as ApiPagesPublicSlugRouteImport } from './routes/api/pages.public.$slug'
 import { Route as ApiMcpHubSourcesIdRouteImport } from './routes/api/mcp/hub-sources.$id'
 import { Route as ApiMcpNameLogsRouteImport } from './routes/api/mcp/$name.logs'
 import { Route as ApiHermesworldReservationsConfirmRouteImport } from './routes/api/hermesworld/reservations/confirm'
@@ -249,6 +254,11 @@ const ProfilesRoute = ProfilesRouteImport.update({
 const PlaygroundRoute = PlaygroundRouteImport.update({
   id: '/playground',
   path: '/playground',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagesRoute = PagesRouteImport.update({
+  id: '/pages',
+  path: '/pages',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OperationsRoute = OperationsRouteImport.update({
@@ -345,6 +355,11 @@ const ReserveConfirmRoute = ReserveConfirmRouteImport.update({
   id: '/confirm',
   path: '/confirm',
   getParentRoute: () => ReserveRoute,
+} as any)
+const PSlugRoute = PSlugRouteImport.update({
+  id: '/p/$slug',
+  path: '/p/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ChatSessionKeyRoute = ChatSessionKeyRouteImport.update({
   id: '/chat/$sessionKey',
@@ -585,6 +600,11 @@ const ApiPingRoute = ApiPingRouteImport.update({
 const ApiPathsRoute = ApiPathsRouteImport.update({
   id: '/api/paths',
   path: '/api/paths',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPagesRoute = ApiPagesRouteImport.update({
+  id: '/api/pages',
+  path: '/api/pages',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiModelsRoute = ApiModelsRouteImport.update({
@@ -852,6 +872,11 @@ const ApiProfilesActivateRoute = ApiProfilesActivateRouteImport.update({
   path: '/api/profiles/activate',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPagesIdRoute = ApiPagesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ApiPagesRoute,
+} as any)
 const ApiOauthPollTokenRoute = ApiOauthPollTokenRouteImport.update({
   id: '/api/oauth/poll-token',
   path: '/api/oauth/poll-token',
@@ -1025,6 +1050,11 @@ const ApiSessionsSessionKeyActiveRunRoute =
     path: '/$sessionKey/active-run',
     getParentRoute: () => ApiSessionsRoute,
   } as any)
+const ApiPagesPublicSlugRoute = ApiPagesPublicSlugRouteImport.update({
+  id: '/public/$slug',
+  path: '/public/$slug',
+  getParentRoute: () => ApiPagesRoute,
+} as any)
 const ApiMcpHubSourcesIdRoute = ApiMcpHubSourcesIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -1058,6 +1088,7 @@ export interface FileRoutesByFullPath {
   '/mcp': typeof McpRoute
   '/memory': typeof MemoryRoute
   '/operations': typeof OperationsRoute
+  '/pages': typeof PagesRoute
   '/playground': typeof PlaygroundRoute
   '/profiles': typeof ProfilesRoute
   '/projects': typeof ProjectsRoute
@@ -1105,6 +1136,7 @@ export interface FileRoutesByFullPath {
   '/api/media': typeof ApiMediaRoute
   '/api/memory': typeof ApiMemoryRouteWithChildren
   '/api/models': typeof ApiModelsRoute
+  '/api/pages': typeof ApiPagesRouteWithChildren
   '/api/paths': typeof ApiPathsRoute
   '/api/ping': typeof ApiPingRoute
   '/api/playground-admin': typeof ApiPlaygroundAdminRoute
@@ -1153,6 +1185,7 @@ export interface FileRoutesByFullPath {
   '/api/webchat': typeof ApiWebchatRouteWithChildren
   '/api/workspace': typeof ApiWorkspaceRoute
   '/chat/$sessionKey': typeof ChatSessionKeyRoute
+  '/p/$slug': typeof PSlugRoute
   '/reserve/confirm': typeof ReserveConfirmRoute
   '/settings/providers': typeof SettingsProvidersRoute
   '/chat/': typeof ChatIndexRoute
@@ -1189,6 +1222,7 @@ export interface FileRoutesByFullPath {
   '/api/model/info': typeof ApiModelInfoRoute
   '/api/oauth/device-code': typeof ApiOauthDeviceCodeRoute
   '/api/oauth/poll-token': typeof ApiOauthPollTokenRoute
+  '/api/pages/$id': typeof ApiPagesIdRoute
   '/api/profiles/activate': typeof ApiProfilesActivateRoute
   '/api/profiles/create': typeof ApiProfilesCreateRoute
   '/api/profiles/delete': typeof ApiProfilesDeleteRoute
@@ -1212,6 +1246,7 @@ export interface FileRoutesByFullPath {
   '/api/hermesworld/reservations/confirm': typeof ApiHermesworldReservationsConfirmRoute
   '/api/mcp/$name/logs': typeof ApiMcpNameLogsRoute
   '/api/mcp/hub-sources/$id': typeof ApiMcpHubSourcesIdRoute
+  '/api/pages/public/$slug': typeof ApiPagesPublicSlugRoute
   '/api/sessions/$sessionKey/active-run': typeof ApiSessionsSessionKeyActiveRunRoute
   '/api/sessions/$sessionKey/status': typeof ApiSessionsSessionKeyStatusRoute
 }
@@ -1231,6 +1266,7 @@ export interface FileRoutesByTo {
   '/mcp': typeof McpRoute
   '/memory': typeof MemoryRoute
   '/operations': typeof OperationsRoute
+  '/pages': typeof PagesRoute
   '/playground': typeof PlaygroundRoute
   '/profiles': typeof ProfilesRoute
   '/projects': typeof ProjectsRoute
@@ -1277,6 +1313,7 @@ export interface FileRoutesByTo {
   '/api/media': typeof ApiMediaRoute
   '/api/memory': typeof ApiMemoryRouteWithChildren
   '/api/models': typeof ApiModelsRoute
+  '/api/pages': typeof ApiPagesRouteWithChildren
   '/api/paths': typeof ApiPathsRoute
   '/api/ping': typeof ApiPingRoute
   '/api/playground-admin': typeof ApiPlaygroundAdminRoute
@@ -1325,6 +1362,7 @@ export interface FileRoutesByTo {
   '/api/webchat': typeof ApiWebchatRouteWithChildren
   '/api/workspace': typeof ApiWorkspaceRoute
   '/chat/$sessionKey': typeof ChatSessionKeyRoute
+  '/p/$slug': typeof PSlugRoute
   '/reserve/confirm': typeof ReserveConfirmRoute
   '/settings/providers': typeof SettingsProvidersRoute
   '/chat': typeof ChatIndexRoute
@@ -1361,6 +1399,7 @@ export interface FileRoutesByTo {
   '/api/model/info': typeof ApiModelInfoRoute
   '/api/oauth/device-code': typeof ApiOauthDeviceCodeRoute
   '/api/oauth/poll-token': typeof ApiOauthPollTokenRoute
+  '/api/pages/$id': typeof ApiPagesIdRoute
   '/api/profiles/activate': typeof ApiProfilesActivateRoute
   '/api/profiles/create': typeof ApiProfilesCreateRoute
   '/api/profiles/delete': typeof ApiProfilesDeleteRoute
@@ -1384,6 +1423,7 @@ export interface FileRoutesByTo {
   '/api/hermesworld/reservations/confirm': typeof ApiHermesworldReservationsConfirmRoute
   '/api/mcp/$name/logs': typeof ApiMcpNameLogsRoute
   '/api/mcp/hub-sources/$id': typeof ApiMcpHubSourcesIdRoute
+  '/api/pages/public/$slug': typeof ApiPagesPublicSlugRoute
   '/api/sessions/$sessionKey/active-run': typeof ApiSessionsSessionKeyActiveRunRoute
   '/api/sessions/$sessionKey/status': typeof ApiSessionsSessionKeyStatusRoute
 }
@@ -1404,6 +1444,7 @@ export interface FileRoutesById {
   '/mcp': typeof McpRoute
   '/memory': typeof MemoryRoute
   '/operations': typeof OperationsRoute
+  '/pages': typeof PagesRoute
   '/playground': typeof PlaygroundRoute
   '/profiles': typeof ProfilesRoute
   '/projects': typeof ProjectsRoute
@@ -1451,6 +1492,7 @@ export interface FileRoutesById {
   '/api/media': typeof ApiMediaRoute
   '/api/memory': typeof ApiMemoryRouteWithChildren
   '/api/models': typeof ApiModelsRoute
+  '/api/pages': typeof ApiPagesRouteWithChildren
   '/api/paths': typeof ApiPathsRoute
   '/api/ping': typeof ApiPingRoute
   '/api/playground-admin': typeof ApiPlaygroundAdminRoute
@@ -1499,6 +1541,7 @@ export interface FileRoutesById {
   '/api/webchat': typeof ApiWebchatRouteWithChildren
   '/api/workspace': typeof ApiWorkspaceRoute
   '/chat/$sessionKey': typeof ChatSessionKeyRoute
+  '/p/$slug': typeof PSlugRoute
   '/reserve/confirm': typeof ReserveConfirmRoute
   '/settings/providers': typeof SettingsProvidersRoute
   '/chat/': typeof ChatIndexRoute
@@ -1535,6 +1578,7 @@ export interface FileRoutesById {
   '/api/model/info': typeof ApiModelInfoRoute
   '/api/oauth/device-code': typeof ApiOauthDeviceCodeRoute
   '/api/oauth/poll-token': typeof ApiOauthPollTokenRoute
+  '/api/pages/$id': typeof ApiPagesIdRoute
   '/api/profiles/activate': typeof ApiProfilesActivateRoute
   '/api/profiles/create': typeof ApiProfilesCreateRoute
   '/api/profiles/delete': typeof ApiProfilesDeleteRoute
@@ -1558,6 +1602,7 @@ export interface FileRoutesById {
   '/api/hermesworld/reservations/confirm': typeof ApiHermesworldReservationsConfirmRoute
   '/api/mcp/$name/logs': typeof ApiMcpNameLogsRoute
   '/api/mcp/hub-sources/$id': typeof ApiMcpHubSourcesIdRoute
+  '/api/pages/public/$slug': typeof ApiPagesPublicSlugRoute
   '/api/sessions/$sessionKey/active-run': typeof ApiSessionsSessionKeyActiveRunRoute
   '/api/sessions/$sessionKey/status': typeof ApiSessionsSessionKeyStatusRoute
 }
@@ -1579,6 +1624,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/memory'
     | '/operations'
+    | '/pages'
     | '/playground'
     | '/profiles'
     | '/projects'
@@ -1626,6 +1672,7 @@ export interface FileRouteTypes {
     | '/api/media'
     | '/api/memory'
     | '/api/models'
+    | '/api/pages'
     | '/api/paths'
     | '/api/ping'
     | '/api/playground-admin'
@@ -1674,6 +1721,7 @@ export interface FileRouteTypes {
     | '/api/webchat'
     | '/api/workspace'
     | '/chat/$sessionKey'
+    | '/p/$slug'
     | '/reserve/confirm'
     | '/settings/providers'
     | '/chat/'
@@ -1710,6 +1758,7 @@ export interface FileRouteTypes {
     | '/api/model/info'
     | '/api/oauth/device-code'
     | '/api/oauth/poll-token'
+    | '/api/pages/$id'
     | '/api/profiles/activate'
     | '/api/profiles/create'
     | '/api/profiles/delete'
@@ -1733,6 +1782,7 @@ export interface FileRouteTypes {
     | '/api/hermesworld/reservations/confirm'
     | '/api/mcp/$name/logs'
     | '/api/mcp/hub-sources/$id'
+    | '/api/pages/public/$slug'
     | '/api/sessions/$sessionKey/active-run'
     | '/api/sessions/$sessionKey/status'
   fileRoutesByTo: FileRoutesByTo
@@ -1752,6 +1802,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/memory'
     | '/operations'
+    | '/pages'
     | '/playground'
     | '/profiles'
     | '/projects'
@@ -1798,6 +1849,7 @@ export interface FileRouteTypes {
     | '/api/media'
     | '/api/memory'
     | '/api/models'
+    | '/api/pages'
     | '/api/paths'
     | '/api/ping'
     | '/api/playground-admin'
@@ -1846,6 +1898,7 @@ export interface FileRouteTypes {
     | '/api/webchat'
     | '/api/workspace'
     | '/chat/$sessionKey'
+    | '/p/$slug'
     | '/reserve/confirm'
     | '/settings/providers'
     | '/chat'
@@ -1882,6 +1935,7 @@ export interface FileRouteTypes {
     | '/api/model/info'
     | '/api/oauth/device-code'
     | '/api/oauth/poll-token'
+    | '/api/pages/$id'
     | '/api/profiles/activate'
     | '/api/profiles/create'
     | '/api/profiles/delete'
@@ -1905,6 +1959,7 @@ export interface FileRouteTypes {
     | '/api/hermesworld/reservations/confirm'
     | '/api/mcp/$name/logs'
     | '/api/mcp/hub-sources/$id'
+    | '/api/pages/public/$slug'
     | '/api/sessions/$sessionKey/active-run'
     | '/api/sessions/$sessionKey/status'
   id:
@@ -1924,6 +1979,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/memory'
     | '/operations'
+    | '/pages'
     | '/playground'
     | '/profiles'
     | '/projects'
@@ -1971,6 +2027,7 @@ export interface FileRouteTypes {
     | '/api/media'
     | '/api/memory'
     | '/api/models'
+    | '/api/pages'
     | '/api/paths'
     | '/api/ping'
     | '/api/playground-admin'
@@ -2019,6 +2076,7 @@ export interface FileRouteTypes {
     | '/api/webchat'
     | '/api/workspace'
     | '/chat/$sessionKey'
+    | '/p/$slug'
     | '/reserve/confirm'
     | '/settings/providers'
     | '/chat/'
@@ -2055,6 +2113,7 @@ export interface FileRouteTypes {
     | '/api/model/info'
     | '/api/oauth/device-code'
     | '/api/oauth/poll-token'
+    | '/api/pages/$id'
     | '/api/profiles/activate'
     | '/api/profiles/create'
     | '/api/profiles/delete'
@@ -2078,6 +2137,7 @@ export interface FileRouteTypes {
     | '/api/hermesworld/reservations/confirm'
     | '/api/mcp/$name/logs'
     | '/api/mcp/hub-sources/$id'
+    | '/api/pages/public/$slug'
     | '/api/sessions/$sessionKey/active-run'
     | '/api/sessions/$sessionKey/status'
   fileRoutesById: FileRoutesById
@@ -2098,6 +2158,7 @@ export interface RootRouteChildren {
   McpRoute: typeof McpRoute
   MemoryRoute: typeof MemoryRoute
   OperationsRoute: typeof OperationsRoute
+  PagesRoute: typeof PagesRoute
   PlaygroundRoute: typeof PlaygroundRoute
   ProfilesRoute: typeof ProfilesRoute
   ProjectsRoute: typeof ProjectsRoute
@@ -2145,6 +2206,7 @@ export interface RootRouteChildren {
   ApiMediaRoute: typeof ApiMediaRoute
   ApiMemoryRoute: typeof ApiMemoryRouteWithChildren
   ApiModelsRoute: typeof ApiModelsRoute
+  ApiPagesRoute: typeof ApiPagesRouteWithChildren
   ApiPathsRoute: typeof ApiPathsRoute
   ApiPingRoute: typeof ApiPingRoute
   ApiPlaygroundAdminRoute: typeof ApiPlaygroundAdminRoute
@@ -2193,6 +2255,7 @@ export interface RootRouteChildren {
   ApiWebchatRoute: typeof ApiWebchatRouteWithChildren
   ApiWorkspaceRoute: typeof ApiWorkspaceRoute
   ChatSessionKeyRoute: typeof ChatSessionKeyRoute
+  PSlugRoute: typeof PSlugRoute
   ChatIndexRoute: typeof ChatIndexRoute
   ApiChannelsSmsRoute: typeof ApiChannelsSmsRoute
   ApiChannelsWhatsappRoute: typeof ApiChannelsWhatsappRoute
@@ -2318,6 +2381,13 @@ declare module '@tanstack/react-router' {
       path: '/playground'
       fullPath: '/playground'
       preLoaderRoute: typeof PlaygroundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pages': {
+      id: '/pages'
+      path: '/pages'
+      fullPath: '/pages'
+      preLoaderRoute: typeof PagesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/operations': {
@@ -2452,6 +2522,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/reserve/confirm'
       preLoaderRoute: typeof ReserveConfirmRouteImport
       parentRoute: typeof ReserveRoute
+    }
+    '/p/$slug': {
+      id: '/p/$slug'
+      path: '/p/$slug'
+      fullPath: '/p/$slug'
+      preLoaderRoute: typeof PSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/chat/$sessionKey': {
       id: '/chat/$sessionKey'
@@ -2787,6 +2864,13 @@ declare module '@tanstack/react-router' {
       path: '/api/paths'
       fullPath: '/api/paths'
       preLoaderRoute: typeof ApiPathsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/pages': {
+      id: '/api/pages'
+      path: '/api/pages'
+      fullPath: '/api/pages'
+      preLoaderRoute: typeof ApiPagesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/models': {
@@ -3160,6 +3244,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiProfilesActivateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/pages/$id': {
+      id: '/api/pages/$id'
+      path: '/$id'
+      fullPath: '/api/pages/$id'
+      preLoaderRoute: typeof ApiPagesIdRouteImport
+      parentRoute: typeof ApiPagesRoute
+    }
     '/api/oauth/poll-token': {
       id: '/api/oauth/poll-token'
       path: '/api/oauth/poll-token'
@@ -3398,6 +3489,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSessionsSessionKeyActiveRunRouteImport
       parentRoute: typeof ApiSessionsRoute
     }
+    '/api/pages/public/$slug': {
+      id: '/api/pages/public/$slug'
+      path: '/public/$slug'
+      fullPath: '/api/pages/public/$slug'
+      preLoaderRoute: typeof ApiPagesPublicSlugRouteImport
+      parentRoute: typeof ApiPagesRoute
+    }
     '/api/mcp/hub-sources/$id': {
       id: '/api/mcp/hub-sources/$id'
       path: '/$id'
@@ -3594,6 +3692,20 @@ const ApiMemoryRouteWithChildren = ApiMemoryRoute._addFileChildren(
   ApiMemoryRouteChildren,
 )
 
+interface ApiPagesRouteChildren {
+  ApiPagesIdRoute: typeof ApiPagesIdRoute
+  ApiPagesPublicSlugRoute: typeof ApiPagesPublicSlugRoute
+}
+
+const ApiPagesRouteChildren: ApiPagesRouteChildren = {
+  ApiPagesIdRoute: ApiPagesIdRoute,
+  ApiPagesPublicSlugRoute: ApiPagesPublicSlugRoute,
+}
+
+const ApiPagesRouteWithChildren = ApiPagesRoute._addFileChildren(
+  ApiPagesRouteChildren,
+)
+
 interface ApiProjectsRouteChildren {
   ApiProjectsIdRoute: typeof ApiProjectsIdRoute
 }
@@ -3719,6 +3831,7 @@ const rootRouteChildren: RootRouteChildren = {
   McpRoute: McpRoute,
   MemoryRoute: MemoryRoute,
   OperationsRoute: OperationsRoute,
+  PagesRoute: PagesRoute,
   PlaygroundRoute: PlaygroundRoute,
   ProfilesRoute: ProfilesRoute,
   ProjectsRoute: ProjectsRoute,
@@ -3766,6 +3879,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiMediaRoute: ApiMediaRoute,
   ApiMemoryRoute: ApiMemoryRouteWithChildren,
   ApiModelsRoute: ApiModelsRoute,
+  ApiPagesRoute: ApiPagesRouteWithChildren,
   ApiPathsRoute: ApiPathsRoute,
   ApiPingRoute: ApiPingRoute,
   ApiPlaygroundAdminRoute: ApiPlaygroundAdminRoute,
@@ -3814,6 +3928,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWebchatRoute: ApiWebchatRouteWithChildren,
   ApiWorkspaceRoute: ApiWorkspaceRoute,
   ChatSessionKeyRoute: ChatSessionKeyRoute,
+  PSlugRoute: PSlugRoute,
   ChatIndexRoute: ChatIndexRoute,
   ApiChannelsSmsRoute: ApiChannelsSmsRoute,
   ApiChannelsWhatsappRoute: ApiChannelsWhatsappRoute,
