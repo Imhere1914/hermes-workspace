@@ -26,6 +26,7 @@ import {
   Settings01Icon,
   Share04Icon,
   Sun02Icon,
+  UserCircleIcon,
   UserGroupIcon,
   UserMultipleIcon,
 } from '@hugeicons/core-free-icons'
@@ -999,6 +1000,13 @@ function ChatSidebarComponent({
       label: 'Appointments',
       active: pathname.startsWith('/appointments'),
     },
+    {
+      kind: 'link',
+      to: '/avatars',
+      icon: UserCircleIcon,
+      label: 'Avatars',
+      active: pathname.startsWith('/avatars'),
+    },
   ]
 
   const displayMainItems = isBranded
@@ -1028,7 +1036,7 @@ function ChatSidebarComponent({
           item.to === '/skills'
             ? brand.id === 'hfm' ? 'Protocols' : item.label
             : item.to === '/profiles'
-              ? 'Avatars'
+              ? 'Agents'
               : item.to === '/mcp' && brand.id === 'hfm'
                 ? 'Integrations'
                 : item.label,

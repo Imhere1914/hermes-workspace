@@ -21,6 +21,7 @@ import {
   Rocket01Icon,
   Settings01Icon,
   Share04Icon,
+  UserCircleIcon,
   UserGroupIcon,
   UserMultipleIcon,
 } from '@hugeicons/core-free-icons'
@@ -97,6 +98,13 @@ export const MOBILE_HAMBURGER_NAV_ITEMS = [
     icon: Calendar01Icon,
     to: '/appointments',
     match: (p: string) => p.startsWith('/appointments'),
+  },
+  {
+    id: 'avatars',
+    label: 'Avatars',
+    icon: UserCircleIcon,
+    to: '/avatars',
+    match: (p: string) => p.startsWith('/avatars'),
   },
   {
     id: 'dashboard',
@@ -179,8 +187,8 @@ export const MOBILE_HAMBURGER_NAV_ITEMS = [
 ]
 
 /** Nav item IDs to expose per brand — playground/swarm/conductor/ops are internal tools */
-const SC_HAMBURGER_IDS  = ['chat', 'conversations', 'contacts', 'appointments', 'social', 'campaigns', 'projects', 'pages', 'templates', 'dashboard', 'terminal', 'jobs', 'memory', 'skills', 'mcp', 'profiles']
-const HFM_HAMBURGER_IDS = ['chat', 'conversations', 'contacts', 'appointments', 'social', 'campaigns', 'projects', 'pages', 'templates', 'dashboard', 'terminal', 'memory', 'skills', 'mcp', 'profiles']
+const SC_HAMBURGER_IDS  = ['chat', 'conversations', 'contacts', 'appointments', 'social', 'campaigns', 'projects', 'pages', 'templates', 'avatars', 'dashboard', 'terminal', 'jobs', 'memory', 'skills', 'mcp', 'profiles']
+const HFM_HAMBURGER_IDS = ['chat', 'conversations', 'contacts', 'appointments', 'social', 'campaigns', 'projects', 'pages', 'templates', 'avatars', 'dashboard', 'terminal', 'memory', 'skills', 'mcp', 'profiles']
 
 /** Shared drawer state — used by both the trigger button and the drawer itself */
 let _setOpen: ((v: boolean) => void) | null = null
