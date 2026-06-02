@@ -33,6 +33,7 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ConversationsRouteImport } from './routes/conversations'
 import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as ConductorRouteImport } from './routes/conductor'
+import { Route as CampaignsRouteImport } from './routes/campaigns'
 import { Route as AgoraRouteImport } from './routes/agora'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
@@ -115,6 +116,7 @@ import { Route as ApiClaudeTasksRouteImport } from './routes/api/claude-tasks'
 import { Route as ApiClaudeJobsRouteImport } from './routes/api/claude-jobs'
 import { Route as ApiClaudeConfigRouteImport } from './routes/api/claude-config'
 import { Route as ApiChatEventsRouteImport } from './routes/api/chat-events'
+import { Route as ApiCampaignsRouteImport } from './routes/api/campaigns'
 import { Route as ApiBrandRouteImport } from './routes/api/brand'
 import { Route as ApiAuthCheckRouteImport } from './routes/api/auth-check'
 import { Route as ApiAuthRouteImport } from './routes/api/auth'
@@ -168,6 +170,7 @@ import { Route as ApiClaudeProxySplatRouteImport } from './routes/api/claude-pro
 import { Route as ApiClaudeJobsJobIdRouteImport } from './routes/api/claude-jobs.$jobId'
 import { Route as ApiChannelsWhatsappRouteImport } from './routes/api/channels.whatsapp'
 import { Route as ApiChannelsSmsRouteImport } from './routes/api/channels.sms'
+import { Route as ApiCampaignsIdRouteImport } from './routes/api/campaigns.$id'
 import { Route as ApiArtifactsArtifactIdRouteImport } from './routes/api/artifacts.$artifactId'
 import { Route as ApiSessionsSessionKeyStatusRouteImport } from './routes/api/sessions/$sessionKey.status'
 import { Route as ApiSessionsSessionKeyActiveRunRouteImport } from './routes/api/sessions/$sessionKey.active-run'
@@ -293,6 +296,11 @@ const ContactsRoute = ContactsRouteImport.update({
 const ConductorRoute = ConductorRouteImport.update({
   id: '/conductor',
   path: '/conductor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CampaignsRoute = CampaignsRouteImport.update({
+  id: '/campaigns',
+  path: '/campaigns',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AgoraRoute = AgoraRouteImport.update({
@@ -706,6 +714,11 @@ const ApiChatEventsRoute = ApiChatEventsRouteImport.update({
   path: '/api/chat-events',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiCampaignsRoute = ApiCampaignsRouteImport.update({
+  id: '/api/campaigns',
+  path: '/api/campaigns',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiBrandRoute = ApiBrandRouteImport.update({
   id: '/api/brand',
   path: '/api/brand',
@@ -972,6 +985,11 @@ const ApiChannelsSmsRoute = ApiChannelsSmsRouteImport.update({
   path: '/api/channels/sms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiCampaignsIdRoute = ApiCampaignsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ApiCampaignsRoute,
+} as any)
 const ApiArtifactsArtifactIdRoute = ApiArtifactsArtifactIdRouteImport.update({
   id: '/$artifactId',
   path: '/$artifactId',
@@ -1010,6 +1028,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/agora': typeof AgoraRoute
+  '/campaigns': typeof CampaignsRoute
   '/conductor': typeof ConductorRoute
   '/contacts': typeof ContactsRoute
   '/conversations': typeof ConversationsRoute
@@ -1038,6 +1057,7 @@ export interface FileRoutesByFullPath {
   '/api/auth': typeof ApiAuthRoute
   '/api/auth-check': typeof ApiAuthCheckRoute
   '/api/brand': typeof ApiBrandRoute
+  '/api/campaigns': typeof ApiCampaignsRouteWithChildren
   '/api/chat-events': typeof ApiChatEventsRoute
   '/api/claude-config': typeof ApiClaudeConfigRoute
   '/api/claude-jobs': typeof ApiClaudeJobsRouteWithChildren
@@ -1118,6 +1138,7 @@ export interface FileRoutesByFullPath {
   '/chat/': typeof ChatIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/api/artifacts/$artifactId': typeof ApiArtifactsArtifactIdRoute
+  '/api/campaigns/$id': typeof ApiCampaignsIdRoute
   '/api/channels/sms': typeof ApiChannelsSmsRoute
   '/api/channels/whatsapp': typeof ApiChannelsWhatsappRoute
   '/api/claude-jobs/$jobId': typeof ApiClaudeJobsJobIdRoute
@@ -1177,6 +1198,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/agora': typeof AgoraRoute
+  '/campaigns': typeof CampaignsRoute
   '/conductor': typeof ConductorRoute
   '/contacts': typeof ContactsRoute
   '/conversations': typeof ConversationsRoute
@@ -1204,6 +1226,7 @@ export interface FileRoutesByTo {
   '/api/auth': typeof ApiAuthRoute
   '/api/auth-check': typeof ApiAuthCheckRoute
   '/api/brand': typeof ApiBrandRoute
+  '/api/campaigns': typeof ApiCampaignsRouteWithChildren
   '/api/chat-events': typeof ApiChatEventsRoute
   '/api/claude-config': typeof ApiClaudeConfigRoute
   '/api/claude-jobs': typeof ApiClaudeJobsRouteWithChildren
@@ -1284,6 +1307,7 @@ export interface FileRoutesByTo {
   '/chat': typeof ChatIndexRoute
   '/settings': typeof SettingsIndexRoute
   '/api/artifacts/$artifactId': typeof ApiArtifactsArtifactIdRoute
+  '/api/campaigns/$id': typeof ApiCampaignsIdRoute
   '/api/channels/sms': typeof ApiChannelsSmsRoute
   '/api/channels/whatsapp': typeof ApiChannelsWhatsappRoute
   '/api/claude-jobs/$jobId': typeof ApiClaudeJobsJobIdRoute
@@ -1344,6 +1368,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/agora': typeof AgoraRoute
+  '/campaigns': typeof CampaignsRoute
   '/conductor': typeof ConductorRoute
   '/contacts': typeof ContactsRoute
   '/conversations': typeof ConversationsRoute
@@ -1372,6 +1397,7 @@ export interface FileRoutesById {
   '/api/auth': typeof ApiAuthRoute
   '/api/auth-check': typeof ApiAuthCheckRoute
   '/api/brand': typeof ApiBrandRoute
+  '/api/campaigns': typeof ApiCampaignsRouteWithChildren
   '/api/chat-events': typeof ApiChatEventsRoute
   '/api/claude-config': typeof ApiClaudeConfigRoute
   '/api/claude-jobs': typeof ApiClaudeJobsRouteWithChildren
@@ -1452,6 +1478,7 @@ export interface FileRoutesById {
   '/chat/': typeof ChatIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/api/artifacts/$artifactId': typeof ApiArtifactsArtifactIdRoute
+  '/api/campaigns/$id': typeof ApiCampaignsIdRoute
   '/api/channels/sms': typeof ApiChannelsSmsRoute
   '/api/channels/whatsapp': typeof ApiChannelsWhatsappRoute
   '/api/claude-jobs/$jobId': typeof ApiClaudeJobsJobIdRoute
@@ -1513,6 +1540,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/agora'
+    | '/campaigns'
     | '/conductor'
     | '/contacts'
     | '/conversations'
@@ -1541,6 +1569,7 @@ export interface FileRouteTypes {
     | '/api/auth'
     | '/api/auth-check'
     | '/api/brand'
+    | '/api/campaigns'
     | '/api/chat-events'
     | '/api/claude-config'
     | '/api/claude-jobs'
@@ -1621,6 +1650,7 @@ export interface FileRouteTypes {
     | '/chat/'
     | '/settings/'
     | '/api/artifacts/$artifactId'
+    | '/api/campaigns/$id'
     | '/api/channels/sms'
     | '/api/channels/whatsapp'
     | '/api/claude-jobs/$jobId'
@@ -1680,6 +1710,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/agora'
+    | '/campaigns'
     | '/conductor'
     | '/contacts'
     | '/conversations'
@@ -1707,6 +1738,7 @@ export interface FileRouteTypes {
     | '/api/auth'
     | '/api/auth-check'
     | '/api/brand'
+    | '/api/campaigns'
     | '/api/chat-events'
     | '/api/claude-config'
     | '/api/claude-jobs'
@@ -1787,6 +1819,7 @@ export interface FileRouteTypes {
     | '/chat'
     | '/settings'
     | '/api/artifacts/$artifactId'
+    | '/api/campaigns/$id'
     | '/api/channels/sms'
     | '/api/channels/whatsapp'
     | '/api/claude-jobs/$jobId'
@@ -1846,6 +1879,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/agora'
+    | '/campaigns'
     | '/conductor'
     | '/contacts'
     | '/conversations'
@@ -1874,6 +1908,7 @@ export interface FileRouteTypes {
     | '/api/auth'
     | '/api/auth-check'
     | '/api/brand'
+    | '/api/campaigns'
     | '/api/chat-events'
     | '/api/claude-config'
     | '/api/claude-jobs'
@@ -1954,6 +1989,7 @@ export interface FileRouteTypes {
     | '/chat/'
     | '/settings/'
     | '/api/artifacts/$artifactId'
+    | '/api/campaigns/$id'
     | '/api/channels/sms'
     | '/api/channels/whatsapp'
     | '/api/claude-jobs/$jobId'
@@ -2014,6 +2050,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
   AgoraRoute: typeof AgoraRoute
+  CampaignsRoute: typeof CampaignsRoute
   ConductorRoute: typeof ConductorRoute
   ContactsRoute: typeof ContactsRoute
   ConversationsRoute: typeof ConversationsRoute
@@ -2042,6 +2079,7 @@ export interface RootRouteChildren {
   ApiAuthRoute: typeof ApiAuthRoute
   ApiAuthCheckRoute: typeof ApiAuthCheckRoute
   ApiBrandRoute: typeof ApiBrandRoute
+  ApiCampaignsRoute: typeof ApiCampaignsRouteWithChildren
   ApiChatEventsRoute: typeof ApiChatEventsRoute
   ApiClaudeConfigRoute: typeof ApiClaudeConfigRoute
   ApiClaudeJobsRoute: typeof ApiClaudeJobsRouteWithChildren
@@ -2312,6 +2350,13 @@ declare module '@tanstack/react-router' {
       path: '/conductor'
       fullPath: '/conductor'
       preLoaderRoute: typeof ConductorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/campaigns': {
+      id: '/campaigns'
+      path: '/campaigns'
+      fullPath: '/campaigns'
+      preLoaderRoute: typeof CampaignsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/agora': {
@@ -2888,6 +2933,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatEventsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/campaigns': {
+      id: '/api/campaigns'
+      path: '/api/campaigns'
+      fullPath: '/api/campaigns'
+      preLoaderRoute: typeof ApiCampaignsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/brand': {
       id: '/api/brand'
       path: '/api/brand'
@@ -3259,6 +3311,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChannelsSmsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/campaigns/$id': {
+      id: '/api/campaigns/$id'
+      path: '/$id'
+      fullPath: '/api/campaigns/$id'
+      preLoaderRoute: typeof ApiCampaignsIdRouteImport
+      parentRoute: typeof ApiCampaignsRoute
+    }
     '/api/artifacts/$artifactId': {
       id: '/api/artifacts/$artifactId'
       path: '/$artifactId'
@@ -3339,6 +3398,18 @@ const ApiArtifactsRouteChildren: ApiArtifactsRouteChildren = {
 
 const ApiArtifactsRouteWithChildren = ApiArtifactsRoute._addFileChildren(
   ApiArtifactsRouteChildren,
+)
+
+interface ApiCampaignsRouteChildren {
+  ApiCampaignsIdRoute: typeof ApiCampaignsIdRoute
+}
+
+const ApiCampaignsRouteChildren: ApiCampaignsRouteChildren = {
+  ApiCampaignsIdRoute: ApiCampaignsIdRoute,
+}
+
+const ApiCampaignsRouteWithChildren = ApiCampaignsRoute._addFileChildren(
+  ApiCampaignsRouteChildren,
 )
 
 interface ApiClaudeJobsRouteChildren {
@@ -3565,6 +3636,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
   AgoraRoute: AgoraRoute,
+  CampaignsRoute: CampaignsRoute,
   ConductorRoute: ConductorRoute,
   ContactsRoute: ContactsRoute,
   ConversationsRoute: ConversationsRoute,
@@ -3593,6 +3665,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAuthRoute: ApiAuthRoute,
   ApiAuthCheckRoute: ApiAuthCheckRoute,
   ApiBrandRoute: ApiBrandRoute,
+  ApiCampaignsRoute: ApiCampaignsRouteWithChildren,
   ApiChatEventsRoute: ApiChatEventsRoute,
   ApiClaudeConfigRoute: ApiClaudeConfigRoute,
   ApiClaudeJobsRoute: ApiClaudeJobsRouteWithChildren,

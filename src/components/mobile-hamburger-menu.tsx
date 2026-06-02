@@ -10,6 +10,7 @@ import {
   CommandLineIcon,
   DashboardSquare01Icon,
   File01Icon,
+  Mail01Icon,
   McpServerIcon,
   Menu01Icon,
   PuzzleIcon,
@@ -57,6 +58,13 @@ export const MOBILE_HAMBURGER_NAV_ITEMS = [
     icon: Share04Icon,
     to: '/social',
     match: (p: string) => p.startsWith('/social'),
+  },
+  {
+    id: 'campaigns',
+    label: 'Campaigns',
+    icon: Mail01Icon,
+    to: '/campaigns',
+    match: (p: string) => p.startsWith('/campaigns'),
   },
   {
     id: 'dashboard',
@@ -139,8 +147,8 @@ export const MOBILE_HAMBURGER_NAV_ITEMS = [
 ]
 
 /** Nav item IDs to expose per brand — playground/swarm/conductor/ops are internal tools */
-const SC_HAMBURGER_IDS  = ['chat', 'conversations', 'contacts', 'social', 'dashboard', 'terminal', 'jobs', 'memory', 'skills', 'mcp', 'profiles']
-const HFM_HAMBURGER_IDS = ['chat', 'conversations', 'contacts', 'social', 'dashboard', 'terminal', 'memory', 'skills', 'mcp', 'profiles']
+const SC_HAMBURGER_IDS  = ['chat', 'conversations', 'contacts', 'social', 'campaigns', 'dashboard', 'terminal', 'jobs', 'memory', 'skills', 'mcp', 'profiles']
+const HFM_HAMBURGER_IDS = ['chat', 'conversations', 'contacts', 'social', 'campaigns', 'dashboard', 'terminal', 'memory', 'skills', 'mcp', 'profiles']
 
 /** Shared drawer state — used by both the trigger button and the drawer itself */
 let _setOpen: ((v: boolean) => void) | null = null

@@ -961,6 +961,13 @@ function ChatSidebarComponent({
       label: 'Social',
       active: pathname.startsWith('/social'),
     },
+    {
+      kind: 'link',
+      to: '/campaigns',
+      icon: MessageMultiple01Icon,
+      label: 'Campaigns',
+      active: pathname.startsWith('/campaigns'),
+    },
   ]
 
   const displayMainItems = isBranded
