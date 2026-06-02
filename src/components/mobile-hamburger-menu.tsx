@@ -15,6 +15,7 @@ import {
   PuzzleIcon,
   Rocket01Icon,
   Settings01Icon,
+  Share04Icon,
   UserGroupIcon,
   UserMultipleIcon,
 } from '@hugeicons/core-free-icons'
@@ -49,6 +50,13 @@ export const MOBILE_HAMBURGER_NAV_ITEMS = [
     icon: UserGroupIcon,
     to: '/contacts',
     match: (p: string) => p.startsWith('/contacts'),
+  },
+  {
+    id: 'social',
+    label: 'Social',
+    icon: Share04Icon,
+    to: '/social',
+    match: (p: string) => p.startsWith('/social'),
   },
   {
     id: 'dashboard',
@@ -131,8 +139,8 @@ export const MOBILE_HAMBURGER_NAV_ITEMS = [
 ]
 
 /** Nav item IDs to expose per brand — playground/swarm/conductor/ops are internal tools */
-const SC_HAMBURGER_IDS  = ['chat', 'conversations', 'contacts', 'dashboard', 'terminal', 'jobs', 'memory', 'skills', 'mcp', 'profiles']
-const HFM_HAMBURGER_IDS = ['chat', 'conversations', 'contacts', 'dashboard', 'terminal', 'memory', 'skills', 'mcp', 'profiles']
+const SC_HAMBURGER_IDS  = ['chat', 'conversations', 'contacts', 'social', 'dashboard', 'terminal', 'jobs', 'memory', 'skills', 'mcp', 'profiles']
+const HFM_HAMBURGER_IDS = ['chat', 'conversations', 'contacts', 'social', 'dashboard', 'terminal', 'memory', 'skills', 'mcp', 'profiles']
 
 /** Shared drawer state — used by both the trigger button and the drawer itself */
 let _setOpen: ((v: boolean) => void) | null = null

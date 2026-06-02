@@ -16,6 +16,7 @@ import { Route as TerminalRouteImport } from './routes/terminal'
 import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as Swarm2RouteImport } from './routes/swarm2'
 import { Route as SwarmRouteImport } from './routes/swarm'
+import { Route as SocialRouteImport } from './routes/social'
 import { Route as SkillsRouteImport } from './routes/skills'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ReserveRouteImport } from './routes/reserve'
@@ -71,6 +72,7 @@ import { Route as ApiSwarmChatRouteImport } from './routes/api/swarm-chat'
 import { Route as ApiSupervisorHealthRouteImport } from './routes/api/supervisor-health'
 import { Route as ApiStartClaudeRouteImport } from './routes/api/start-claude'
 import { Route as ApiStartAgentRouteImport } from './routes/api/start-agent'
+import { Route as ApiSocialRouteImport } from './routes/api/social'
 import { Route as ApiSkillsRouteImport } from './routes/api/skills'
 import { Route as ApiSessionsRouteImport } from './routes/api/sessions'
 import { Route as ApiSessionStatusRouteImport } from './routes/api/session-status'
@@ -123,6 +125,7 @@ import { Route as ApiUpdateStatusRouteImport } from './routes/api/update/status'
 import { Route as ApiUpdateAgentRouteImport } from './routes/api/update/agent'
 import { Route as ApiSwarmRuntimeResetRouteImport } from './routes/api/swarm-runtime.reset'
 import { Route as ApiSwarmMemorySearchRouteImport } from './routes/api/swarm-memory/search'
+import { Route as ApiSocialIdRouteImport } from './routes/api/social.$id'
 import { Route as ApiSkillsUninstallRouteImport } from './routes/api/skills/uninstall'
 import { Route as ApiSkillsToggleRouteImport } from './routes/api/skills/toggle'
 import { Route as ApiSkillsInstallRouteImport } from './routes/api/skills/install'
@@ -205,6 +208,11 @@ const Swarm2Route = Swarm2RouteImport.update({
 const SwarmRoute = SwarmRouteImport.update({
   id: '/swarm',
   path: '/swarm',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SocialRoute = SocialRouteImport.update({
+  id: '/social',
+  path: '/social',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SkillsRoute = SkillsRouteImport.update({
@@ -483,6 +491,11 @@ const ApiStartAgentRoute = ApiStartAgentRouteImport.update({
   path: '/api/start-agent',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiSocialRoute = ApiSocialRouteImport.update({
+  id: '/api/social',
+  path: '/api/social',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiSkillsRoute = ApiSkillsRouteImport.update({
   id: '/api/skills',
   path: '/api/skills',
@@ -742,6 +755,11 @@ const ApiSwarmMemorySearchRoute = ApiSwarmMemorySearchRouteImport.update({
   id: '/search',
   path: '/search',
   getParentRoute: () => ApiSwarmMemoryRoute,
+} as any)
+const ApiSocialIdRoute = ApiSocialIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ApiSocialRoute,
 } as any)
 const ApiSkillsUninstallRoute = ApiSkillsUninstallRouteImport.update({
   id: '/uninstall',
@@ -1008,6 +1026,7 @@ export interface FileRoutesByFullPath {
   '/reserve': typeof ReserveRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
   '/skills': typeof SkillsRoute
+  '/social': typeof SocialRoute
   '/swarm': typeof SwarmRoute
   '/swarm2': typeof Swarm2Route
   '/tasks': typeof TasksRoute
@@ -1061,6 +1080,7 @@ export interface FileRoutesByFullPath {
   '/api/session-status': typeof ApiSessionStatusRoute
   '/api/sessions': typeof ApiSessionsRouteWithChildren
   '/api/skills': typeof ApiSkillsRouteWithChildren
+  '/api/social': typeof ApiSocialRouteWithChildren
   '/api/start-agent': typeof ApiStartAgentRoute
   '/api/start-claude': typeof ApiStartClaudeRoute
   '/api/supervisor-health': typeof ApiSupervisorHealthRoute
@@ -1140,6 +1160,7 @@ export interface FileRoutesByFullPath {
   '/api/skills/install': typeof ApiSkillsInstallRoute
   '/api/skills/toggle': typeof ApiSkillsToggleRoute
   '/api/skills/uninstall': typeof ApiSkillsUninstallRoute
+  '/api/social/$id': typeof ApiSocialIdRoute
   '/api/swarm-memory/search': typeof ApiSwarmMemorySearchRoute
   '/api/swarm-runtime/reset': typeof ApiSwarmRuntimeResetRoute
   '/api/update/agent': typeof ApiUpdateAgentRoute
@@ -1171,6 +1192,7 @@ export interface FileRoutesByTo {
   '/profiles': typeof ProfilesRoute
   '/reserve': typeof ReserveRouteWithChildren
   '/skills': typeof SkillsRoute
+  '/social': typeof SocialRoute
   '/swarm': typeof SwarmRoute
   '/swarm2': typeof Swarm2Route
   '/tasks': typeof TasksRoute
@@ -1224,6 +1246,7 @@ export interface FileRoutesByTo {
   '/api/session-status': typeof ApiSessionStatusRoute
   '/api/sessions': typeof ApiSessionsRouteWithChildren
   '/api/skills': typeof ApiSkillsRouteWithChildren
+  '/api/social': typeof ApiSocialRouteWithChildren
   '/api/start-agent': typeof ApiStartAgentRoute
   '/api/start-claude': typeof ApiStartClaudeRoute
   '/api/supervisor-health': typeof ApiSupervisorHealthRoute
@@ -1303,6 +1326,7 @@ export interface FileRoutesByTo {
   '/api/skills/install': typeof ApiSkillsInstallRoute
   '/api/skills/toggle': typeof ApiSkillsToggleRoute
   '/api/skills/uninstall': typeof ApiSkillsUninstallRoute
+  '/api/social/$id': typeof ApiSocialIdRoute
   '/api/swarm-memory/search': typeof ApiSwarmMemorySearchRoute
   '/api/swarm-runtime/reset': typeof ApiSwarmRuntimeResetRoute
   '/api/update/agent': typeof ApiUpdateAgentRoute
@@ -1336,6 +1360,7 @@ export interface FileRoutesById {
   '/reserve': typeof ReserveRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
   '/skills': typeof SkillsRoute
+  '/social': typeof SocialRoute
   '/swarm': typeof SwarmRoute
   '/swarm2': typeof Swarm2Route
   '/tasks': typeof TasksRoute
@@ -1389,6 +1414,7 @@ export interface FileRoutesById {
   '/api/session-status': typeof ApiSessionStatusRoute
   '/api/sessions': typeof ApiSessionsRouteWithChildren
   '/api/skills': typeof ApiSkillsRouteWithChildren
+  '/api/social': typeof ApiSocialRouteWithChildren
   '/api/start-agent': typeof ApiStartAgentRoute
   '/api/start-claude': typeof ApiStartClaudeRoute
   '/api/supervisor-health': typeof ApiSupervisorHealthRoute
@@ -1468,6 +1494,7 @@ export interface FileRoutesById {
   '/api/skills/install': typeof ApiSkillsInstallRoute
   '/api/skills/toggle': typeof ApiSkillsToggleRoute
   '/api/skills/uninstall': typeof ApiSkillsUninstallRoute
+  '/api/social/$id': typeof ApiSocialIdRoute
   '/api/swarm-memory/search': typeof ApiSwarmMemorySearchRoute
   '/api/swarm-runtime/reset': typeof ApiSwarmRuntimeResetRoute
   '/api/update/agent': typeof ApiUpdateAgentRoute
@@ -1502,6 +1529,7 @@ export interface FileRouteTypes {
     | '/reserve'
     | '/settings'
     | '/skills'
+    | '/social'
     | '/swarm'
     | '/swarm2'
     | '/tasks'
@@ -1555,6 +1583,7 @@ export interface FileRouteTypes {
     | '/api/session-status'
     | '/api/sessions'
     | '/api/skills'
+    | '/api/social'
     | '/api/start-agent'
     | '/api/start-claude'
     | '/api/supervisor-health'
@@ -1634,6 +1663,7 @@ export interface FileRouteTypes {
     | '/api/skills/install'
     | '/api/skills/toggle'
     | '/api/skills/uninstall'
+    | '/api/social/$id'
     | '/api/swarm-memory/search'
     | '/api/swarm-runtime/reset'
     | '/api/update/agent'
@@ -1665,6 +1695,7 @@ export interface FileRouteTypes {
     | '/profiles'
     | '/reserve'
     | '/skills'
+    | '/social'
     | '/swarm'
     | '/swarm2'
     | '/tasks'
@@ -1718,6 +1749,7 @@ export interface FileRouteTypes {
     | '/api/session-status'
     | '/api/sessions'
     | '/api/skills'
+    | '/api/social'
     | '/api/start-agent'
     | '/api/start-claude'
     | '/api/supervisor-health'
@@ -1797,6 +1829,7 @@ export interface FileRouteTypes {
     | '/api/skills/install'
     | '/api/skills/toggle'
     | '/api/skills/uninstall'
+    | '/api/social/$id'
     | '/api/swarm-memory/search'
     | '/api/swarm-runtime/reset'
     | '/api/update/agent'
@@ -1829,6 +1862,7 @@ export interface FileRouteTypes {
     | '/reserve'
     | '/settings'
     | '/skills'
+    | '/social'
     | '/swarm'
     | '/swarm2'
     | '/tasks'
@@ -1882,6 +1916,7 @@ export interface FileRouteTypes {
     | '/api/session-status'
     | '/api/sessions'
     | '/api/skills'
+    | '/api/social'
     | '/api/start-agent'
     | '/api/start-claude'
     | '/api/supervisor-health'
@@ -1961,6 +1996,7 @@ export interface FileRouteTypes {
     | '/api/skills/install'
     | '/api/skills/toggle'
     | '/api/skills/uninstall'
+    | '/api/social/$id'
     | '/api/swarm-memory/search'
     | '/api/swarm-runtime/reset'
     | '/api/update/agent'
@@ -1994,6 +2030,7 @@ export interface RootRouteChildren {
   ReserveRoute: typeof ReserveRouteWithChildren
   SettingsRoute: typeof SettingsRouteWithChildren
   SkillsRoute: typeof SkillsRoute
+  SocialRoute: typeof SocialRoute
   SwarmRoute: typeof SwarmRoute
   Swarm2Route: typeof Swarm2Route
   TasksRoute: typeof TasksRoute
@@ -2047,6 +2084,7 @@ export interface RootRouteChildren {
   ApiSessionStatusRoute: typeof ApiSessionStatusRoute
   ApiSessionsRoute: typeof ApiSessionsRouteWithChildren
   ApiSkillsRoute: typeof ApiSkillsRouteWithChildren
+  ApiSocialRoute: typeof ApiSocialRouteWithChildren
   ApiStartAgentRoute: typeof ApiStartAgentRoute
   ApiStartClaudeRoute: typeof ApiStartClaudeRoute
   ApiSupervisorHealthRoute: typeof ApiSupervisorHealthRoute
@@ -2155,6 +2193,13 @@ declare module '@tanstack/react-router' {
       path: '/swarm'
       fullPath: '/swarm'
       preLoaderRoute: typeof SwarmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/social': {
+      id: '/social'
+      path: '/social'
+      fullPath: '/social'
+      preLoaderRoute: typeof SocialRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/skills': {
@@ -2542,6 +2587,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiStartAgentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/social': {
+      id: '/api/social'
+      path: '/api/social'
+      fullPath: '/api/social'
+      preLoaderRoute: typeof ApiSocialRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/skills': {
       id: '/api/skills'
       path: '/api/skills'
@@ -2905,6 +2957,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/swarm-memory/search'
       preLoaderRoute: typeof ApiSwarmMemorySearchRouteImport
       parentRoute: typeof ApiSwarmMemoryRoute
+    }
+    '/api/social/$id': {
+      id: '/api/social/$id'
+      path: '/$id'
+      fullPath: '/api/social/$id'
+      preLoaderRoute: typeof ApiSocialIdRouteImport
+      parentRoute: typeof ApiSocialRoute
     }
     '/api/skills/uninstall': {
       id: '/api/skills/uninstall'
@@ -3439,6 +3498,18 @@ const ApiSkillsRouteWithChildren = ApiSkillsRoute._addFileChildren(
   ApiSkillsRouteChildren,
 )
 
+interface ApiSocialRouteChildren {
+  ApiSocialIdRoute: typeof ApiSocialIdRoute
+}
+
+const ApiSocialRouteChildren: ApiSocialRouteChildren = {
+  ApiSocialIdRoute: ApiSocialIdRoute,
+}
+
+const ApiSocialRouteWithChildren = ApiSocialRoute._addFileChildren(
+  ApiSocialRouteChildren,
+)
+
 interface ApiSwarmMemoryRouteChildren {
   ApiSwarmMemorySearchRoute: typeof ApiSwarmMemorySearchRoute
 }
@@ -3510,6 +3581,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReserveRoute: ReserveRouteWithChildren,
   SettingsRoute: SettingsRouteWithChildren,
   SkillsRoute: SkillsRoute,
+  SocialRoute: SocialRoute,
   SwarmRoute: SwarmRoute,
   Swarm2Route: Swarm2Route,
   TasksRoute: TasksRoute,
@@ -3563,6 +3635,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiSessionStatusRoute: ApiSessionStatusRoute,
   ApiSessionsRoute: ApiSessionsRouteWithChildren,
   ApiSkillsRoute: ApiSkillsRouteWithChildren,
+  ApiSocialRoute: ApiSocialRouteWithChildren,
   ApiStartAgentRoute: ApiStartAgentRoute,
   ApiStartClaudeRoute: ApiStartClaudeRoute,
   ApiSupervisorHealthRoute: ApiSupervisorHealthRoute,

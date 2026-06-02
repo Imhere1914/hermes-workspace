@@ -21,6 +21,7 @@ import {
   Rocket01Icon,
   Search01Icon,
   Settings01Icon,
+  Share04Icon,
   Sun02Icon,
   UserGroupIcon,
   UserMultipleIcon,
@@ -952,6 +953,13 @@ function ChatSidebarComponent({
       icon: UserGroupIcon,
       label: brand.id === 'hfm' ? 'Patients' : 'Contacts',
       active: pathname.startsWith('/contacts'),
+    },
+    {
+      kind: 'link',
+      to: '/social',
+      icon: Share04Icon,
+      label: 'Social',
+      active: pathname.startsWith('/social'),
     },
   ]
 
