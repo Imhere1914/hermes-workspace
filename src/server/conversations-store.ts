@@ -130,8 +130,9 @@ function normMessage(m: Partial<ConvMessage>): ConvMessage {
 }
 
 function normConv(
-  c: Partial<ConversationRecord> &
-    Pick<ConversationRecord, 'id' | 'created_at' | 'updated_at'>,
+  c: Omit<Partial<ConversationRecord>, 'messages'> & {
+    messages?: Partial<ConvMessage>[]
+  } & Pick<ConversationRecord, 'id' | 'created_at' | 'updated_at'>,
 ): ConversationRecord {
   const messages = Array.isArray(c.messages)
     ? c.messages.map(normMessage)

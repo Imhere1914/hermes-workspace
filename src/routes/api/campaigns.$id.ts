@@ -7,7 +7,7 @@ import {
   updateCampaign,
 } from '../../server/campaigns-store'
 import { listContacts } from '../../server/contacts-store'
-import type { Contact } from '../../server/contacts-store'
+import type { ContactRecord } from '../../server/contacts-store'
 import {
   isEmailConfigured,
   renderCampaignHtml,
@@ -26,7 +26,7 @@ function resolveRecipients(audience: {
   stages: string[]
   tags: string[]
   include_unverified: boolean
-}): Contact[] {
+}): ContactRecord[] {
   return listContacts({}).filter((c) => {
     if (!c.email) return false // need an email to send
     if (c.stage === 'lost') return false // never email lost contacts
