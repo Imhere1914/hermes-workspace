@@ -1,6 +1,6 @@
 # Spec-001 — Templates module (Templates library)
 
-**Status:** todo
+**Status:** done (built locally by Opus, not the Minimax executor)
 **Executor model:** minimax (cheap) — follow this spec LITERALLY. Do not improvise.
 **Repo:** hermes-workspace · **Base branch:** phase4-platform · **Work branch:** `auto/spec-001`
 **Architect:** Opus (this spec is complete; create the files exactly as written)

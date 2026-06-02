@@ -10,6 +10,7 @@ import {
   CheckListIcon,
   Clock01Icon,
   ComputerTerminal01Icon,
+  Copy01Icon,
   DashboardSquare01Icon,
   File01Icon,
   Layout01Icon,
@@ -982,6 +983,13 @@ function ChatSidebarComponent({
       icon: Layout01Icon,
       label: 'Pages',
       active: pathname.startsWith('/pages'),
+    },
+    {
+      kind: 'link',
+      to: '/templates',
+      icon: Copy01Icon,
+      label: 'Templates',
+      active: pathname.startsWith('/templates'),
     },
   ]
 

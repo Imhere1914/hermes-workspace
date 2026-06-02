@@ -13,6 +13,7 @@ import { Route as WorldRouteImport } from './routes/world'
 import { Route as WidgetRouteImport } from './routes/widget'
 import { Route as VtCapitalRouteImport } from './routes/vt-capital'
 import { Route as TerminalRouteImport } from './routes/terminal'
+import { Route as TemplatesRouteImport } from './routes/templates'
 import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as Swarm2RouteImport } from './routes/swarm2'
 import { Route as SwarmRouteImport } from './routes/swarm'
@@ -53,6 +54,7 @@ import { Route as ApiTerminalStreamRouteImport } from './routes/api/terminal-str
 import { Route as ApiTerminalResizeRouteImport } from './routes/api/terminal-resize'
 import { Route as ApiTerminalInputRouteImport } from './routes/api/terminal-input'
 import { Route as ApiTerminalCloseRouteImport } from './routes/api/terminal-close'
+import { Route as ApiTemplatesRouteImport } from './routes/api/templates'
 import { Route as ApiSystemMetricsRouteImport } from './routes/api/system-metrics'
 import { Route as ApiSwarmTmuxStopRouteImport } from './routes/api/swarm-tmux-stop'
 import { Route as ApiSwarmTmuxStartRouteImport } from './routes/api/swarm-tmux-start'
@@ -131,6 +133,7 @@ import { Route as ApiWebchatAgentDraftRouteImport } from './routes/api/webchat.a
 import { Route as ApiUpdateWorkspaceRouteImport } from './routes/api/update/workspace'
 import { Route as ApiUpdateStatusRouteImport } from './routes/api/update/status'
 import { Route as ApiUpdateAgentRouteImport } from './routes/api/update/agent'
+import { Route as ApiTemplatesIdRouteImport } from './routes/api/templates.$id'
 import { Route as ApiSwarmRuntimeResetRouteImport } from './routes/api/swarm-runtime.reset'
 import { Route as ApiSwarmMemorySearchRouteImport } from './routes/api/swarm-memory/search'
 import { Route as ApiSocialIdRouteImport } from './routes/api/social.$id'
@@ -205,6 +208,11 @@ const VtCapitalRoute = VtCapitalRouteImport.update({
 const TerminalRoute = TerminalRouteImport.update({
   id: '/terminal',
   path: '/terminal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TemplatesRoute = TemplatesRouteImport.update({
+  id: '/templates',
+  path: '/templates',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TasksRoute = TasksRouteImport.update({
@@ -405,6 +413,11 @@ const ApiTerminalInputRoute = ApiTerminalInputRouteImport.update({
 const ApiTerminalCloseRoute = ApiTerminalCloseRouteImport.update({
   id: '/api/terminal-close',
   path: '/api/terminal-close',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTemplatesRoute = ApiTemplatesRouteImport.update({
+  id: '/api/templates',
+  path: '/api/templates',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiSystemMetricsRoute = ApiSystemMetricsRouteImport.update({
@@ -798,6 +811,11 @@ const ApiUpdateAgentRoute = ApiUpdateAgentRouteImport.update({
   path: '/api/update/agent',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiTemplatesIdRoute = ApiTemplatesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ApiTemplatesRoute,
+} as any)
 const ApiSwarmRuntimeResetRoute = ApiSwarmRuntimeResetRouteImport.update({
   id: '/reset',
   path: '/reset',
@@ -1105,6 +1123,7 @@ export interface FileRoutesByFullPath {
   '/swarm': typeof SwarmRoute
   '/swarm2': typeof Swarm2Route
   '/tasks': typeof TasksRoute
+  '/templates': typeof TemplatesRoute
   '/terminal': typeof TerminalRoute
   '/vt-capital': typeof VtCapitalRoute
   '/widget': typeof WidgetRoute
@@ -1183,6 +1202,7 @@ export interface FileRoutesByFullPath {
   '/api/swarm-tmux-start': typeof ApiSwarmTmuxStartRoute
   '/api/swarm-tmux-stop': typeof ApiSwarmTmuxStopRoute
   '/api/system-metrics': typeof ApiSystemMetricsRoute
+  '/api/templates': typeof ApiTemplatesRouteWithChildren
   '/api/terminal-close': typeof ApiTerminalCloseRoute
   '/api/terminal-input': typeof ApiTerminalInputRoute
   '/api/terminal-resize': typeof ApiTerminalResizeRoute
@@ -1246,6 +1266,7 @@ export interface FileRoutesByFullPath {
   '/api/social/$id': typeof ApiSocialIdRoute
   '/api/swarm-memory/search': typeof ApiSwarmMemorySearchRoute
   '/api/swarm-runtime/reset': typeof ApiSwarmRuntimeResetRoute
+  '/api/templates/$id': typeof ApiTemplatesIdRoute
   '/api/update/agent': typeof ApiUpdateAgentRoute
   '/api/update/status': typeof ApiUpdateStatusRoute
   '/api/update/workspace': typeof ApiUpdateWorkspaceRoute
@@ -1283,6 +1304,7 @@ export interface FileRoutesByTo {
   '/swarm': typeof SwarmRoute
   '/swarm2': typeof Swarm2Route
   '/tasks': typeof TasksRoute
+  '/templates': typeof TemplatesRoute
   '/terminal': typeof TerminalRoute
   '/vt-capital': typeof VtCapitalRoute
   '/widget': typeof WidgetRoute
@@ -1361,6 +1383,7 @@ export interface FileRoutesByTo {
   '/api/swarm-tmux-start': typeof ApiSwarmTmuxStartRoute
   '/api/swarm-tmux-stop': typeof ApiSwarmTmuxStopRoute
   '/api/system-metrics': typeof ApiSystemMetricsRoute
+  '/api/templates': typeof ApiTemplatesRouteWithChildren
   '/api/terminal-close': typeof ApiTerminalCloseRoute
   '/api/terminal-input': typeof ApiTerminalInputRoute
   '/api/terminal-resize': typeof ApiTerminalResizeRoute
@@ -1424,6 +1447,7 @@ export interface FileRoutesByTo {
   '/api/social/$id': typeof ApiSocialIdRoute
   '/api/swarm-memory/search': typeof ApiSwarmMemorySearchRoute
   '/api/swarm-runtime/reset': typeof ApiSwarmRuntimeResetRoute
+  '/api/templates/$id': typeof ApiTemplatesIdRoute
   '/api/update/agent': typeof ApiUpdateAgentRoute
   '/api/update/status': typeof ApiUpdateStatusRoute
   '/api/update/workspace': typeof ApiUpdateWorkspaceRoute
@@ -1463,6 +1487,7 @@ export interface FileRoutesById {
   '/swarm': typeof SwarmRoute
   '/swarm2': typeof Swarm2Route
   '/tasks': typeof TasksRoute
+  '/templates': typeof TemplatesRoute
   '/terminal': typeof TerminalRoute
   '/vt-capital': typeof VtCapitalRoute
   '/widget': typeof WidgetRoute
@@ -1541,6 +1566,7 @@ export interface FileRoutesById {
   '/api/swarm-tmux-start': typeof ApiSwarmTmuxStartRoute
   '/api/swarm-tmux-stop': typeof ApiSwarmTmuxStopRoute
   '/api/system-metrics': typeof ApiSystemMetricsRoute
+  '/api/templates': typeof ApiTemplatesRouteWithChildren
   '/api/terminal-close': typeof ApiTerminalCloseRoute
   '/api/terminal-input': typeof ApiTerminalInputRoute
   '/api/terminal-resize': typeof ApiTerminalResizeRoute
@@ -1604,6 +1630,7 @@ export interface FileRoutesById {
   '/api/social/$id': typeof ApiSocialIdRoute
   '/api/swarm-memory/search': typeof ApiSwarmMemorySearchRoute
   '/api/swarm-runtime/reset': typeof ApiSwarmRuntimeResetRoute
+  '/api/templates/$id': typeof ApiTemplatesIdRoute
   '/api/update/agent': typeof ApiUpdateAgentRoute
   '/api/update/status': typeof ApiUpdateStatusRoute
   '/api/update/workspace': typeof ApiUpdateWorkspaceRoute
@@ -1644,6 +1671,7 @@ export interface FileRouteTypes {
     | '/swarm'
     | '/swarm2'
     | '/tasks'
+    | '/templates'
     | '/terminal'
     | '/vt-capital'
     | '/widget'
@@ -1722,6 +1750,7 @@ export interface FileRouteTypes {
     | '/api/swarm-tmux-start'
     | '/api/swarm-tmux-stop'
     | '/api/system-metrics'
+    | '/api/templates'
     | '/api/terminal-close'
     | '/api/terminal-input'
     | '/api/terminal-resize'
@@ -1785,6 +1814,7 @@ export interface FileRouteTypes {
     | '/api/social/$id'
     | '/api/swarm-memory/search'
     | '/api/swarm-runtime/reset'
+    | '/api/templates/$id'
     | '/api/update/agent'
     | '/api/update/status'
     | '/api/update/workspace'
@@ -1822,6 +1852,7 @@ export interface FileRouteTypes {
     | '/swarm'
     | '/swarm2'
     | '/tasks'
+    | '/templates'
     | '/terminal'
     | '/vt-capital'
     | '/widget'
@@ -1900,6 +1931,7 @@ export interface FileRouteTypes {
     | '/api/swarm-tmux-start'
     | '/api/swarm-tmux-stop'
     | '/api/system-metrics'
+    | '/api/templates'
     | '/api/terminal-close'
     | '/api/terminal-input'
     | '/api/terminal-resize'
@@ -1963,6 +1995,7 @@ export interface FileRouteTypes {
     | '/api/social/$id'
     | '/api/swarm-memory/search'
     | '/api/swarm-runtime/reset'
+    | '/api/templates/$id'
     | '/api/update/agent'
     | '/api/update/status'
     | '/api/update/workspace'
@@ -2001,6 +2034,7 @@ export interface FileRouteTypes {
     | '/swarm'
     | '/swarm2'
     | '/tasks'
+    | '/templates'
     | '/terminal'
     | '/vt-capital'
     | '/widget'
@@ -2079,6 +2113,7 @@ export interface FileRouteTypes {
     | '/api/swarm-tmux-start'
     | '/api/swarm-tmux-stop'
     | '/api/system-metrics'
+    | '/api/templates'
     | '/api/terminal-close'
     | '/api/terminal-input'
     | '/api/terminal-resize'
@@ -2142,6 +2177,7 @@ export interface FileRouteTypes {
     | '/api/social/$id'
     | '/api/swarm-memory/search'
     | '/api/swarm-runtime/reset'
+    | '/api/templates/$id'
     | '/api/update/agent'
     | '/api/update/status'
     | '/api/update/workspace'
@@ -2181,6 +2217,7 @@ export interface RootRouteChildren {
   SwarmRoute: typeof SwarmRoute
   Swarm2Route: typeof Swarm2Route
   TasksRoute: typeof TasksRoute
+  TemplatesRoute: typeof TemplatesRoute
   TerminalRoute: typeof TerminalRoute
   VtCapitalRoute: typeof VtCapitalRoute
   WidgetRoute: typeof WidgetRoute
@@ -2259,6 +2296,7 @@ export interface RootRouteChildren {
   ApiSwarmTmuxStartRoute: typeof ApiSwarmTmuxStartRoute
   ApiSwarmTmuxStopRoute: typeof ApiSwarmTmuxStopRoute
   ApiSystemMetricsRoute: typeof ApiSystemMetricsRoute
+  ApiTemplatesRoute: typeof ApiTemplatesRouteWithChildren
   ApiTerminalCloseRoute: typeof ApiTerminalCloseRoute
   ApiTerminalInputRoute: typeof ApiTerminalInputRoute
   ApiTerminalResizeRoute: typeof ApiTerminalResizeRoute
@@ -2324,6 +2362,13 @@ declare module '@tanstack/react-router' {
       path: '/terminal'
       fullPath: '/terminal'
       preLoaderRoute: typeof TerminalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/templates': {
+      id: '/templates'
+      path: '/templates'
+      fullPath: '/templates'
+      preLoaderRoute: typeof TemplatesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tasks': {
@@ -2604,6 +2649,13 @@ declare module '@tanstack/react-router' {
       path: '/api/terminal-close'
       fullPath: '/api/terminal-close'
       preLoaderRoute: typeof ApiTerminalCloseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/templates': {
+      id: '/api/templates'
+      path: '/api/templates'
+      fullPath: '/api/templates'
+      preLoaderRoute: typeof ApiTemplatesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/system-metrics': {
@@ -3151,6 +3203,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/update/agent'
       preLoaderRoute: typeof ApiUpdateAgentRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/api/templates/$id': {
+      id: '/api/templates/$id'
+      path: '/$id'
+      fullPath: '/api/templates/$id'
+      preLoaderRoute: typeof ApiTemplatesIdRouteImport
+      parentRoute: typeof ApiTemplatesRoute
     }
     '/api/swarm-runtime/reset': {
       id: '/api/swarm-runtime/reset'
@@ -3808,6 +3867,18 @@ const ApiSwarmRuntimeRouteWithChildren = ApiSwarmRuntimeRoute._addFileChildren(
   ApiSwarmRuntimeRouteChildren,
 )
 
+interface ApiTemplatesRouteChildren {
+  ApiTemplatesIdRoute: typeof ApiTemplatesIdRoute
+}
+
+const ApiTemplatesRouteChildren: ApiTemplatesRouteChildren = {
+  ApiTemplatesIdRoute: ApiTemplatesIdRoute,
+}
+
+const ApiTemplatesRouteWithChildren = ApiTemplatesRoute._addFileChildren(
+  ApiTemplatesRouteChildren,
+)
+
 interface ApiWebchatRouteChildren {
   ApiWebchatAgentDraftRoute: typeof ApiWebchatAgentDraftRoute
 }
@@ -3862,6 +3933,7 @@ const rootRouteChildren: RootRouteChildren = {
   SwarmRoute: SwarmRoute,
   Swarm2Route: Swarm2Route,
   TasksRoute: TasksRoute,
+  TemplatesRoute: TemplatesRoute,
   TerminalRoute: TerminalRoute,
   VtCapitalRoute: VtCapitalRoute,
   WidgetRoute: WidgetRoute,
@@ -3940,6 +4012,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiSwarmTmuxStartRoute: ApiSwarmTmuxStartRoute,
   ApiSwarmTmuxStopRoute: ApiSwarmTmuxStopRoute,
   ApiSystemMetricsRoute: ApiSystemMetricsRoute,
+  ApiTemplatesRoute: ApiTemplatesRouteWithChildren,
   ApiTerminalCloseRoute: ApiTerminalCloseRoute,
   ApiTerminalInputRoute: ApiTerminalInputRoute,
   ApiTerminalResizeRoute: ApiTerminalResizeRoute,
