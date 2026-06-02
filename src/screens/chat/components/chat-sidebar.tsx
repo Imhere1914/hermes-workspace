@@ -968,6 +968,13 @@ function ChatSidebarComponent({
       label: 'Campaigns',
       active: pathname.startsWith('/campaigns'),
     },
+    {
+      kind: 'link',
+      to: '/projects',
+      icon: CheckListIcon,
+      label: brand.id === 'hfm' ? 'Programs' : 'Projects',
+      active: pathname.startsWith('/projects'),
+    },
   ]
 
   const displayMainItems = isBranded
