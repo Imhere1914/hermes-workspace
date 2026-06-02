@@ -20,6 +20,7 @@ import {
   Moon02Icon,
   PaintBoardIcon,
   PencilEdit02Icon,
+  PlugSocketIcon,
   PuzzleIcon,
   Rocket01Icon,
   Search01Icon,
@@ -1006,6 +1007,13 @@ function ChatSidebarComponent({
       icon: UserCircleIcon,
       label: 'Avatars',
       active: pathname.startsWith('/avatars'),
+    },
+    {
+      kind: 'link',
+      to: '/plugins',
+      icon: PlugSocketIcon,
+      label: 'Plugins',
+      active: pathname.startsWith('/plugins'),
     },
   ]
 

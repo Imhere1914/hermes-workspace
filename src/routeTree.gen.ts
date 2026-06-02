@@ -23,6 +23,7 @@ import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ReserveRouteImport } from './routes/reserve'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as ProfilesRouteImport } from './routes/profiles'
+import { Route as PluginsRouteImport } from './routes/plugins'
 import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as PagesRouteImport } from './routes/pages'
 import { Route as OperationsRouteImport } from './routes/operations'
@@ -91,6 +92,7 @@ import { Route as ApiSendRouteImport } from './routes/api/send'
 import { Route as ApiProviderUsageRouteImport } from './routes/api/provider-usage'
 import { Route as ApiProjectsRouteImport } from './routes/api/projects'
 import { Route as ApiPreviewFileRouteImport } from './routes/api/preview-file'
+import { Route as ApiPluginsCatalogRouteImport } from './routes/api/plugins-catalog'
 import { Route as ApiPluginsRouteImport } from './routes/api/plugins'
 import { Route as ApiPlaygroundNpcRouteImport } from './routes/api/playground-npc'
 import { Route as ApiPlaygroundAdminRouteImport } from './routes/api/playground-admin'
@@ -264,6 +266,11 @@ const ProjectsRoute = ProjectsRouteImport.update({
 const ProfilesRoute = ProfilesRouteImport.update({
   id: '/profiles',
   path: '/profiles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PluginsRoute = PluginsRouteImport.update({
+  id: '/plugins',
+  path: '/plugins',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlaygroundRoute = PlaygroundRouteImport.update({
@@ -605,6 +612,11 @@ const ApiProjectsRoute = ApiProjectsRouteImport.update({
 const ApiPreviewFileRoute = ApiPreviewFileRouteImport.update({
   id: '/api/preview-file',
   path: '/api/preview-file',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPluginsCatalogRoute = ApiPluginsCatalogRouteImport.update({
+  id: '/api/plugins-catalog',
+  path: '/api/plugins-catalog',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPluginsRoute = ApiPluginsRouteImport.update({
@@ -1152,6 +1164,7 @@ export interface FileRoutesByFullPath {
   '/operations': typeof OperationsRoute
   '/pages': typeof PagesRoute
   '/playground': typeof PlaygroundRoute
+  '/plugins': typeof PluginsRoute
   '/profiles': typeof ProfilesRoute
   '/projects': typeof ProjectsRoute
   '/reserve': typeof ReserveRouteWithChildren
@@ -1208,6 +1221,7 @@ export interface FileRoutesByFullPath {
   '/api/playground-admin': typeof ApiPlaygroundAdminRoute
   '/api/playground-npc': typeof ApiPlaygroundNpcRoute
   '/api/plugins': typeof ApiPluginsRoute
+  '/api/plugins-catalog': typeof ApiPluginsCatalogRoute
   '/api/preview-file': typeof ApiPreviewFileRoute
   '/api/projects': typeof ApiProjectsRouteWithChildren
   '/api/provider-usage': typeof ApiProviderUsageRoute
@@ -1340,6 +1354,7 @@ export interface FileRoutesByTo {
   '/operations': typeof OperationsRoute
   '/pages': typeof PagesRoute
   '/playground': typeof PlaygroundRoute
+  '/plugins': typeof PluginsRoute
   '/profiles': typeof ProfilesRoute
   '/projects': typeof ProjectsRoute
   '/reserve': typeof ReserveRouteWithChildren
@@ -1395,6 +1410,7 @@ export interface FileRoutesByTo {
   '/api/playground-admin': typeof ApiPlaygroundAdminRoute
   '/api/playground-npc': typeof ApiPlaygroundNpcRoute
   '/api/plugins': typeof ApiPluginsRoute
+  '/api/plugins-catalog': typeof ApiPluginsCatalogRoute
   '/api/preview-file': typeof ApiPreviewFileRoute
   '/api/projects': typeof ApiProjectsRouteWithChildren
   '/api/provider-usage': typeof ApiProviderUsageRoute
@@ -1528,6 +1544,7 @@ export interface FileRoutesById {
   '/operations': typeof OperationsRoute
   '/pages': typeof PagesRoute
   '/playground': typeof PlaygroundRoute
+  '/plugins': typeof PluginsRoute
   '/profiles': typeof ProfilesRoute
   '/projects': typeof ProjectsRoute
   '/reserve': typeof ReserveRouteWithChildren
@@ -1584,6 +1601,7 @@ export interface FileRoutesById {
   '/api/playground-admin': typeof ApiPlaygroundAdminRoute
   '/api/playground-npc': typeof ApiPlaygroundNpcRoute
   '/api/plugins': typeof ApiPluginsRoute
+  '/api/plugins-catalog': typeof ApiPluginsCatalogRoute
   '/api/preview-file': typeof ApiPreviewFileRoute
   '/api/projects': typeof ApiProjectsRouteWithChildren
   '/api/provider-usage': typeof ApiProviderUsageRoute
@@ -1718,6 +1736,7 @@ export interface FileRouteTypes {
     | '/operations'
     | '/pages'
     | '/playground'
+    | '/plugins'
     | '/profiles'
     | '/projects'
     | '/reserve'
@@ -1774,6 +1793,7 @@ export interface FileRouteTypes {
     | '/api/playground-admin'
     | '/api/playground-npc'
     | '/api/plugins'
+    | '/api/plugins-catalog'
     | '/api/preview-file'
     | '/api/projects'
     | '/api/provider-usage'
@@ -1906,6 +1926,7 @@ export interface FileRouteTypes {
     | '/operations'
     | '/pages'
     | '/playground'
+    | '/plugins'
     | '/profiles'
     | '/projects'
     | '/reserve'
@@ -1961,6 +1982,7 @@ export interface FileRouteTypes {
     | '/api/playground-admin'
     | '/api/playground-npc'
     | '/api/plugins'
+    | '/api/plugins-catalog'
     | '/api/preview-file'
     | '/api/projects'
     | '/api/provider-usage'
@@ -2093,6 +2115,7 @@ export interface FileRouteTypes {
     | '/operations'
     | '/pages'
     | '/playground'
+    | '/plugins'
     | '/profiles'
     | '/projects'
     | '/reserve'
@@ -2149,6 +2172,7 @@ export interface FileRouteTypes {
     | '/api/playground-admin'
     | '/api/playground-npc'
     | '/api/plugins'
+    | '/api/plugins-catalog'
     | '/api/preview-file'
     | '/api/projects'
     | '/api/provider-usage'
@@ -2282,6 +2306,7 @@ export interface RootRouteChildren {
   OperationsRoute: typeof OperationsRoute
   PagesRoute: typeof PagesRoute
   PlaygroundRoute: typeof PlaygroundRoute
+  PluginsRoute: typeof PluginsRoute
   ProfilesRoute: typeof ProfilesRoute
   ProjectsRoute: typeof ProjectsRoute
   ReserveRoute: typeof ReserveRouteWithChildren
@@ -2338,6 +2363,7 @@ export interface RootRouteChildren {
   ApiPlaygroundAdminRoute: typeof ApiPlaygroundAdminRoute
   ApiPlaygroundNpcRoute: typeof ApiPlaygroundNpcRoute
   ApiPluginsRoute: typeof ApiPluginsRoute
+  ApiPluginsCatalogRoute: typeof ApiPluginsCatalogRoute
   ApiPreviewFileRoute: typeof ApiPreviewFileRoute
   ApiProjectsRoute: typeof ApiProjectsRouteWithChildren
   ApiProviderUsageRoute: typeof ApiProviderUsageRoute
@@ -2508,6 +2534,13 @@ declare module '@tanstack/react-router' {
       path: '/profiles'
       fullPath: '/profiles'
       preLoaderRoute: typeof ProfilesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/plugins': {
+      id: '/plugins'
+      path: '/plugins'
+      fullPath: '/plugins'
+      preLoaderRoute: typeof PluginsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/playground': {
@@ -2984,6 +3017,13 @@ declare module '@tanstack/react-router' {
       path: '/api/preview-file'
       fullPath: '/api/preview-file'
       preLoaderRoute: typeof ApiPreviewFileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/plugins-catalog': {
+      id: '/api/plugins-catalog'
+      path: '/api/plugins-catalog'
+      fullPath: '/api/plugins-catalog'
+      preLoaderRoute: typeof ApiPluginsCatalogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/plugins': {
@@ -4068,6 +4108,7 @@ const rootRouteChildren: RootRouteChildren = {
   OperationsRoute: OperationsRoute,
   PagesRoute: PagesRoute,
   PlaygroundRoute: PlaygroundRoute,
+  PluginsRoute: PluginsRoute,
   ProfilesRoute: ProfilesRoute,
   ProjectsRoute: ProjectsRoute,
   ReserveRoute: ReserveRouteWithChildren,
@@ -4124,6 +4165,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPlaygroundAdminRoute: ApiPlaygroundAdminRoute,
   ApiPlaygroundNpcRoute: ApiPlaygroundNpcRoute,
   ApiPluginsRoute: ApiPluginsRoute,
+  ApiPluginsCatalogRoute: ApiPluginsCatalogRoute,
   ApiPreviewFileRoute: ApiPreviewFileRoute,
   ApiProjectsRoute: ApiProjectsRouteWithChildren,
   ApiProviderUsageRoute: ApiProviderUsageRoute,
