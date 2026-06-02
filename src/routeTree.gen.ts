@@ -37,6 +37,7 @@ import { Route as ConversationsRouteImport } from './routes/conversations'
 import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as ConductorRouteImport } from './routes/conductor'
 import { Route as CampaignsRouteImport } from './routes/campaigns'
+import { Route as AppointmentsRouteImport } from './routes/appointments'
 import { Route as AgoraRouteImport } from './routes/agora'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
@@ -129,6 +130,7 @@ import { Route as ApiBrandRouteImport } from './routes/api/brand'
 import { Route as ApiAuthCheckRouteImport } from './routes/api/auth-check'
 import { Route as ApiAuthRouteImport } from './routes/api/auth'
 import { Route as ApiArtifactsRouteImport } from './routes/api/artifacts'
+import { Route as ApiAppointmentsRouteImport } from './routes/api/appointments'
 import { Route as ApiWebchatAgentDraftRouteImport } from './routes/api/webchat.agent-draft'
 import { Route as ApiUpdateWorkspaceRouteImport } from './routes/api/update/workspace'
 import { Route as ApiUpdateStatusRouteImport } from './routes/api/update/status'
@@ -183,6 +185,7 @@ import { Route as ApiChannelsWhatsappRouteImport } from './routes/api/channels.w
 import { Route as ApiChannelsSmsRouteImport } from './routes/api/channels.sms'
 import { Route as ApiCampaignsIdRouteImport } from './routes/api/campaigns.$id'
 import { Route as ApiArtifactsArtifactIdRouteImport } from './routes/api/artifacts.$artifactId'
+import { Route as ApiAppointmentsIdRouteImport } from './routes/api/appointments.$id'
 import { Route as ApiSessionsSessionKeyStatusRouteImport } from './routes/api/sessions/$sessionKey.status'
 import { Route as ApiSessionsSessionKeyActiveRunRouteImport } from './routes/api/sessions/$sessionKey.active-run'
 import { Route as ApiPagesPublicSlugRouteImport } from './routes/api/pages.public.$slug'
@@ -328,6 +331,11 @@ const ConductorRoute = ConductorRouteImport.update({
 const CampaignsRoute = CampaignsRouteImport.update({
   id: '/campaigns',
   path: '/campaigns',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppointmentsRoute = AppointmentsRouteImport.update({
+  id: '/appointments',
+  path: '/appointments',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AgoraRoute = AgoraRouteImport.update({
@@ -791,6 +799,11 @@ const ApiArtifactsRoute = ApiArtifactsRouteImport.update({
   path: '/api/artifacts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAppointmentsRoute = ApiAppointmentsRouteImport.update({
+  id: '/api/appointments',
+  path: '/api/appointments',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiWebchatAgentDraftRoute = ApiWebchatAgentDraftRouteImport.update({
   id: '/agent-draft',
   path: '/agent-draft',
@@ -1062,6 +1075,11 @@ const ApiArtifactsArtifactIdRoute = ApiArtifactsArtifactIdRouteImport.update({
   path: '/$artifactId',
   getParentRoute: () => ApiArtifactsRoute,
 } as any)
+const ApiAppointmentsIdRoute = ApiAppointmentsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ApiAppointmentsRoute,
+} as any)
 const ApiSessionsSessionKeyStatusRoute =
   ApiSessionsSessionKeyStatusRouteImport.update({
     id: '/$sessionKey/status',
@@ -1100,6 +1118,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/agora': typeof AgoraRoute
+  '/appointments': typeof AppointmentsRoute
   '/campaigns': typeof CampaignsRoute
   '/conductor': typeof ConductorRoute
   '/contacts': typeof ContactsRoute
@@ -1128,6 +1147,7 @@ export interface FileRoutesByFullPath {
   '/vt-capital': typeof VtCapitalRoute
   '/widget': typeof WidgetRoute
   '/world': typeof WorldRoute
+  '/api/appointments': typeof ApiAppointmentsRouteWithChildren
   '/api/artifacts': typeof ApiArtifactsRouteWithChildren
   '/api/auth': typeof ApiAuthRoute
   '/api/auth-check': typeof ApiAuthCheckRoute
@@ -1217,6 +1237,7 @@ export interface FileRoutesByFullPath {
   '/settings/providers': typeof SettingsProvidersRoute
   '/chat/': typeof ChatIndexRoute
   '/settings/': typeof SettingsIndexRoute
+  '/api/appointments/$id': typeof ApiAppointmentsIdRoute
   '/api/artifacts/$artifactId': typeof ApiArtifactsArtifactIdRoute
   '/api/campaigns/$id': typeof ApiCampaignsIdRoute
   '/api/channels/sms': typeof ApiChannelsSmsRoute
@@ -1282,6 +1303,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/agora': typeof AgoraRoute
+  '/appointments': typeof AppointmentsRoute
   '/campaigns': typeof CampaignsRoute
   '/conductor': typeof ConductorRoute
   '/contacts': typeof ContactsRoute
@@ -1309,6 +1331,7 @@ export interface FileRoutesByTo {
   '/vt-capital': typeof VtCapitalRoute
   '/widget': typeof WidgetRoute
   '/world': typeof WorldRoute
+  '/api/appointments': typeof ApiAppointmentsRouteWithChildren
   '/api/artifacts': typeof ApiArtifactsRouteWithChildren
   '/api/auth': typeof ApiAuthRoute
   '/api/auth-check': typeof ApiAuthCheckRoute
@@ -1398,6 +1421,7 @@ export interface FileRoutesByTo {
   '/settings/providers': typeof SettingsProvidersRoute
   '/chat': typeof ChatIndexRoute
   '/settings': typeof SettingsIndexRoute
+  '/api/appointments/$id': typeof ApiAppointmentsIdRoute
   '/api/artifacts/$artifactId': typeof ApiArtifactsArtifactIdRoute
   '/api/campaigns/$id': typeof ApiCampaignsIdRoute
   '/api/channels/sms': typeof ApiChannelsSmsRoute
@@ -1464,6 +1488,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/agora': typeof AgoraRoute
+  '/appointments': typeof AppointmentsRoute
   '/campaigns': typeof CampaignsRoute
   '/conductor': typeof ConductorRoute
   '/contacts': typeof ContactsRoute
@@ -1492,6 +1517,7 @@ export interface FileRoutesById {
   '/vt-capital': typeof VtCapitalRoute
   '/widget': typeof WidgetRoute
   '/world': typeof WorldRoute
+  '/api/appointments': typeof ApiAppointmentsRouteWithChildren
   '/api/artifacts': typeof ApiArtifactsRouteWithChildren
   '/api/auth': typeof ApiAuthRoute
   '/api/auth-check': typeof ApiAuthCheckRoute
@@ -1581,6 +1607,7 @@ export interface FileRoutesById {
   '/settings/providers': typeof SettingsProvidersRoute
   '/chat/': typeof ChatIndexRoute
   '/settings/': typeof SettingsIndexRoute
+  '/api/appointments/$id': typeof ApiAppointmentsIdRoute
   '/api/artifacts/$artifactId': typeof ApiArtifactsArtifactIdRoute
   '/api/campaigns/$id': typeof ApiCampaignsIdRoute
   '/api/channels/sms': typeof ApiChannelsSmsRoute
@@ -1648,6 +1675,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/agora'
+    | '/appointments'
     | '/campaigns'
     | '/conductor'
     | '/contacts'
@@ -1676,6 +1704,7 @@ export interface FileRouteTypes {
     | '/vt-capital'
     | '/widget'
     | '/world'
+    | '/api/appointments'
     | '/api/artifacts'
     | '/api/auth'
     | '/api/auth-check'
@@ -1765,6 +1794,7 @@ export interface FileRouteTypes {
     | '/settings/providers'
     | '/chat/'
     | '/settings/'
+    | '/api/appointments/$id'
     | '/api/artifacts/$artifactId'
     | '/api/campaigns/$id'
     | '/api/channels/sms'
@@ -1830,6 +1860,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/agora'
+    | '/appointments'
     | '/campaigns'
     | '/conductor'
     | '/contacts'
@@ -1857,6 +1888,7 @@ export interface FileRouteTypes {
     | '/vt-capital'
     | '/widget'
     | '/world'
+    | '/api/appointments'
     | '/api/artifacts'
     | '/api/auth'
     | '/api/auth-check'
@@ -1946,6 +1978,7 @@ export interface FileRouteTypes {
     | '/settings/providers'
     | '/chat'
     | '/settings'
+    | '/api/appointments/$id'
     | '/api/artifacts/$artifactId'
     | '/api/campaigns/$id'
     | '/api/channels/sms'
@@ -2011,6 +2044,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/agora'
+    | '/appointments'
     | '/campaigns'
     | '/conductor'
     | '/contacts'
@@ -2039,6 +2073,7 @@ export interface FileRouteTypes {
     | '/vt-capital'
     | '/widget'
     | '/world'
+    | '/api/appointments'
     | '/api/artifacts'
     | '/api/auth'
     | '/api/auth-check'
@@ -2128,6 +2163,7 @@ export interface FileRouteTypes {
     | '/settings/providers'
     | '/chat/'
     | '/settings/'
+    | '/api/appointments/$id'
     | '/api/artifacts/$artifactId'
     | '/api/campaigns/$id'
     | '/api/channels/sms'
@@ -2194,6 +2230,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
   AgoraRoute: typeof AgoraRoute
+  AppointmentsRoute: typeof AppointmentsRoute
   CampaignsRoute: typeof CampaignsRoute
   ConductorRoute: typeof ConductorRoute
   ContactsRoute: typeof ContactsRoute
@@ -2222,6 +2259,7 @@ export interface RootRouteChildren {
   VtCapitalRoute: typeof VtCapitalRoute
   WidgetRoute: typeof WidgetRoute
   WorldRoute: typeof WorldRoute
+  ApiAppointmentsRoute: typeof ApiAppointmentsRouteWithChildren
   ApiArtifactsRoute: typeof ApiArtifactsRouteWithChildren
   ApiAuthRoute: typeof ApiAuthRoute
   ApiAuthCheckRoute: typeof ApiAuthCheckRoute
@@ -2530,6 +2568,13 @@ declare module '@tanstack/react-router' {
       path: '/campaigns'
       fullPath: '/campaigns'
       preLoaderRoute: typeof CampaignsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/appointments': {
+      id: '/appointments'
+      path: '/appointments'
+      fullPath: '/appointments'
+      preLoaderRoute: typeof AppointmentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/agora': {
@@ -3176,6 +3221,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiArtifactsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/appointments': {
+      id: '/api/appointments'
+      path: '/api/appointments'
+      fullPath: '/api/appointments'
+      preLoaderRoute: typeof ApiAppointmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/webchat/agent-draft': {
       id: '/api/webchat/agent-draft'
       path: '/agent-draft'
@@ -3554,6 +3606,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiArtifactsArtifactIdRouteImport
       parentRoute: typeof ApiArtifactsRoute
     }
+    '/api/appointments/$id': {
+      id: '/api/appointments/$id'
+      path: '/$id'
+      fullPath: '/api/appointments/$id'
+      preLoaderRoute: typeof ApiAppointmentsIdRouteImport
+      parentRoute: typeof ApiAppointmentsRoute
+    }
     '/api/sessions/$sessionKey/status': {
       id: '/api/sessions/$sessionKey/status'
       path: '/$sessionKey/status'
@@ -3622,6 +3681,18 @@ const SettingsRouteChildren: SettingsRouteChildren = {
 
 const SettingsRouteWithChildren = SettingsRoute._addFileChildren(
   SettingsRouteChildren,
+)
+
+interface ApiAppointmentsRouteChildren {
+  ApiAppointmentsIdRoute: typeof ApiAppointmentsIdRoute
+}
+
+const ApiAppointmentsRouteChildren: ApiAppointmentsRouteChildren = {
+  ApiAppointmentsIdRoute: ApiAppointmentsIdRoute,
+}
+
+const ApiAppointmentsRouteWithChildren = ApiAppointmentsRoute._addFileChildren(
+  ApiAppointmentsRouteChildren,
 )
 
 interface ApiArtifactsRouteChildren {
@@ -3910,6 +3981,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
   AgoraRoute: AgoraRoute,
+  AppointmentsRoute: AppointmentsRoute,
   CampaignsRoute: CampaignsRoute,
   ConductorRoute: ConductorRoute,
   ContactsRoute: ContactsRoute,
@@ -3938,6 +4010,7 @@ const rootRouteChildren: RootRouteChildren = {
   VtCapitalRoute: VtCapitalRoute,
   WidgetRoute: WidgetRoute,
   WorldRoute: WorldRoute,
+  ApiAppointmentsRoute: ApiAppointmentsRouteWithChildren,
   ApiArtifactsRoute: ApiArtifactsRouteWithChildren,
   ApiAuthRoute: ApiAuthRoute,
   ApiAuthCheckRoute: ApiAuthCheckRoute,

@@ -4,6 +4,7 @@ import {
   BrainIcon,
   Briefcase01Icon,
   Building01Icon,
+  Calendar01Icon,
   Cancel01Icon,
   Castle02Icon,
   Chat01Icon,
@@ -91,6 +92,13 @@ export const MOBILE_HAMBURGER_NAV_ITEMS = [
     match: (p: string) => p.startsWith('/templates'),
   },
   {
+    id: 'appointments',
+    label: 'Appointments',
+    icon: Calendar01Icon,
+    to: '/appointments',
+    match: (p: string) => p.startsWith('/appointments'),
+  },
+  {
     id: 'dashboard',
     label: 'Dashboard',
     icon: DashboardSquare01Icon,
@@ -171,8 +179,8 @@ export const MOBILE_HAMBURGER_NAV_ITEMS = [
 ]
 
 /** Nav item IDs to expose per brand — playground/swarm/conductor/ops are internal tools */
-const SC_HAMBURGER_IDS  = ['chat', 'conversations', 'contacts', 'social', 'campaigns', 'projects', 'pages', 'templates', 'dashboard', 'terminal', 'jobs', 'memory', 'skills', 'mcp', 'profiles']
-const HFM_HAMBURGER_IDS = ['chat', 'conversations', 'contacts', 'social', 'campaigns', 'projects', 'pages', 'templates', 'dashboard', 'terminal', 'memory', 'skills', 'mcp', 'profiles']
+const SC_HAMBURGER_IDS  = ['chat', 'conversations', 'contacts', 'appointments', 'social', 'campaigns', 'projects', 'pages', 'templates', 'dashboard', 'terminal', 'jobs', 'memory', 'skills', 'mcp', 'profiles']
+const HFM_HAMBURGER_IDS = ['chat', 'conversations', 'contacts', 'appointments', 'social', 'campaigns', 'projects', 'pages', 'templates', 'dashboard', 'terminal', 'memory', 'skills', 'mcp', 'profiles']
 
 /** Shared drawer state — used by both the trigger button and the drawer itself */
 let _setOpen: ((v: boolean) => void) | null = null

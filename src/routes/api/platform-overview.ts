@@ -6,6 +6,7 @@ import { listPosts } from '../../server/social-store'
 import { listCampaigns } from '../../server/campaigns-store'
 import { listProjects } from '../../server/projects-store'
 import { listPages } from '../../server/pages-store'
+import { listAppointments } from '../../server/appointments-store'
 
 function json(data: unknown, status = 200) {
   return new Response(JSON.stringify(data), {
@@ -32,6 +33,10 @@ export const Route = createFileRoute('/api/platform-overview')({
         const campaigns = listCampaigns(brand ? { brand } : {})
         const projects = listProjects(brand ? { brand } : {})
         const pages = listPages(brand ? { brand } : {})
+        const upcomingAppts = listAppointments({
+          brand: brand ?? null,
+          when: 'upcoming',
+        })
 
         const overview = {
           contacts: {
@@ -62,6 +67,10 @@ export const Route = createFileRoute('/api/platform-overview')({
           pages: {
             total: pages.length,
             published: pages.filter((p) => p.status === 'published').length,
+          },
+          appointments: {
+            upcoming: upcomingAppts.length,
+            confirmed: upcomingAppts.filter((a) => a.status === 'confirmed').length,
           },
         }
 

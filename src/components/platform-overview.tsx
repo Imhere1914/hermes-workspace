@@ -5,6 +5,7 @@ import { Link } from '@tanstack/react-router'
 import { HugeiconsIcon } from '@hugeicons/react'
 import {
   Briefcase01Icon,
+  Calendar01Icon,
   Chat01Icon,
   Layout01Icon,
   Mail01Icon,
@@ -26,6 +27,7 @@ type Overview = {
   campaigns: { total: number; sent: number; draft: number }
   projects: { total: number; active: number }
   pages: { total: number; published: number }
+  appointments: { upcoming: number; confirmed: number }
 }
 
 function StatCard({
@@ -102,6 +104,13 @@ export function PlatformOverview() {
           label="Inbox"
           value={o.conversations.open}
           sub={`${o.conversations.unread} unread · ${o.conversations.total} total`}
+        />
+        <StatCard
+          to="/appointments"
+          icon={Calendar01Icon}
+          label="Upcoming"
+          value={o.appointments?.upcoming ?? 0}
+          sub={`${o.appointments?.confirmed ?? 0} confirmed`}
         />
         <StatCard
           to="/social"

@@ -5,6 +5,7 @@ import {
   ArrowRight01Icon,
   BrainIcon,
   Building01Icon,
+  Calendar01Icon,
   Castle02Icon,
   Chat01Icon,
   CheckListIcon,
@@ -990,6 +991,13 @@ function ChatSidebarComponent({
       icon: Copy01Icon,
       label: 'Templates',
       active: pathname.startsWith('/templates'),
+    },
+    {
+      kind: 'link',
+      to: '/appointments',
+      icon: Calendar01Icon,
+      label: 'Appointments',
+      active: pathname.startsWith('/appointments'),
     },
   ]
 
